@@ -18,12 +18,13 @@ void waitFor(int ms) {
 	// Why is ms << 1 + ms =/= 3*ms ??
 
 	//TIMER A
-	TA0CTL |= TACLR;			//Clear register TARCLR
+	TA0CTL |= TACLR;			//Timer_A clear. Setting this bit resets TAR, the clock divider, and the count direction. The TACLR bit is
+								//automatically reset and is always read as zero.
 	TA0CTL |= TASSEL_1 | ID_2;	// Use the ACLK and count UP
 
-	TA0CCTL0 = CCIE;			// Enable timer interruption for TimerA 1
-	TA0CCR0 = 3*ms;	// On 16bits. Set the counter. Stop the counter if the value is 0
-	TA0CTL |= MC_1;	// Run the timer
+	TA0CCTL1 = CCIE;			// Enable timer interruption for TimerA CCR1
+	TA0CCR1 = 3*ms;	// On 16bits. Set the counter. Stop the counter if the value is 0
+	TA0CTL |= MC_2;	// Run the timer in continuous mode (o/w stopped at CCR0 in up mode)
 
 	waiting = 0x1;
 	while (waiting)
@@ -46,21 +47,24 @@ void main(void) {
 	TA0CTL |= TACLR;			//Clear register TARCLR
 	TA0CTL |= TASSEL_1 | ID_2;	// Use the ACLK and count UP
 
-	TA0CCTL0 = CCIE;			// Enable timer interruption for TimerA 1
+	TA0CCTL1 = CCIE;			// Enable timer interruption for TimerA CCR1
 	_BIS_SR(GIE);
 	// interrupts enabled
 
 	while (1) {
 		P1OUT = BIT6;
-		waitFor(10);
+		waitFor(1000);
 		P1OUT = 0;
-		waitFor(10);
+		waitFor(1000);
 	}
 	//Light the greed LED
 
 }
 // Define the interupt routine
-#pragma vector=TIMER0_A0_VECTOR
-__interrupt void Timer0_A0(void) {
+// TIMER0_A1_VECTOR is for CCR1 and CCR2
+// You have to clear CCIFG yourself for this case
+#pragma vector=TIMER0_A1_VECTOR
+__interrupt void Timer0_A1(void) {
 	waiting = 0x0;
+	TA0CCTL1 &= ~CCIFG;
 }

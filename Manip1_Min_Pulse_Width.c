@@ -5,6 +5,11 @@
 #define LED2_ON 0x40
 #define LED2_OFF ~LED2_ON
 
+/**
+ * Look in page 29-30 of datasheet
+ * for DCO frequencies
+ */
+
 /*
  * Lab1 Embedded Systems
  * Manipulation 1 GPIO
@@ -37,14 +42,6 @@ int main(void) {
     BCSCTL1 = CALBC1_16MHZ;
     DCOCTL = CALDCO_16MHZ;
 
-    // Set MCLK to VLO
-    BCSCTL3 |= LFXT1S_2;
-    // Clear Fault flag to check later
-    IFG1 &= ~OFIFG;
-    // Wait 50us by stopping DCO
-    // _bis_SR_register(SCG1+SCG0);
-
-    // Use Divide by eight
     BCSCTL2 |= SELM_0 + DIVM_0;
 
     P1DIR = 0x41;
@@ -52,6 +49,5 @@ int main(void) {
 
     while(1) {
     	P1OUT ^= 0x40;
-    	P1OUT ^= 0x01;
     }
 }

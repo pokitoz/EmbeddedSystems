@@ -1,8 +1,11 @@
 #include <msp430.h>
 
 volatile long temperature;
+volatile double dutyCycle;
 
 void fault_routine(void);
+void configTimerA0ForPWM(double period, double dutyCycle);
+void changeTimerA0ForPWM(double period, double dutyCycle);
 
 int main(void) {
 
@@ -12,6 +15,9 @@ int main(void) {
 	// Leds outputs
 	P1DIR = 0x41;
 	P1OUT = 0;
+
+	// Config PWM
+	configTimerA0ForPWM(10000, 0.5);
 
 	// If flash calibration data was erased, fault
 	if(CALBC1_1MHZ == 0xFF || CALDCO_1MHZ == 0xFF) {
@@ -28,7 +34,7 @@ int main(void) {
 	IFG1 &= ~OFIFG;
 
 	// Divide MCLK and SMCLK by eight
-	BCSCTL2 |= SELM_0 + DIVM_3 + DIVS_3;
+	BCSCTL2 |= SELM_0 + DIVM_3 + DIVS_1;
 
 	while(1) {
 		// Select temperature sensor
@@ -40,16 +46,45 @@ int main(void) {
 		ADC10CTL0 |= ENC + ADC10SC;
 
 		// Wait for conversion to finish
-		P1OUT = 0x40;
+		//P1OUT = 0x40;
 		_delay_cycles(100);
 
 		// Disable converter
 		ADC10CTL0 &= ~ENC;
 		ADC10CTL0 &= ~(REFON + ADC10ON);
 		temperature = ADC10MEM;
+		switch(temperature) {
+		case 734:
+		case 375:
+		case 736:
+			dutyCycle = 0.01;
+			break;
+		case 737:
+			dutyCycle = 0.01;
+			break;
+		case 738:
+			dutyCycle = 0.01;
+			break;
+		case 739:
+			dutyCycle = 0.3;
+			break;
+		case 740:
+			dutyCycle = 0.5;
+			break;
+		case 741:
+			dutyCycle = 0.7;
+			break;
+		case 742:
+			dutyCycle = 1.0;
+			break;
+		default:
+			dutyCycle = 0;
+			break;
+		}
+		changeTimerA0ForPWM(10000, dutyCycle);
 
-		P1OUT = 0;
-		_delay_cycles(125000);
+		//P1OUT = 0;
+		_delay_cycles(1000000);
 	}
 
 }
@@ -57,4 +92,26 @@ int main(void) {
 void fault_routine(void) {
 	P1OUT |= 0x01;
 	while(1);
+}
+
+void configTimerA0ForPWM(double period, double dutyCycle) {
+	// Use the SMCLK at 1MHz
+	TA0CTL |= TASSEL_2;
+	// Output OUT1 (Timer0_A1 Output) on P1.6
+	P1DIR |= BIT6;
+	P1SEL |= BIT6;
+	changeTimerA0ForPWM(period, dutyCycle);
+}
+
+void changeTimerA0ForPWM(double period, double dutyCycle) {
+	//Clear register TAR
+	TA0CTL |= TACLR;
+	// duty cycle
+	TA0CCR1 = (int) (dutyCycle * period);
+	// Period
+	TA0CCR0 = (int) (period);
+	// Safe output mode 7 => reset(CCR1)/set(CCR0)
+	TACCTL1 |= OUTMOD_7;
+	// Run the timer in up mode
+	TA0CTL |= MC_1;
 }

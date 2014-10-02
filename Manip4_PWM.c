@@ -3,7 +3,7 @@
 int main(void) {
 
 	// duty cycle (b/w 0 and 1)
-	double dutyCycle = 0.001;
+	double dutyCycle = 0.01;
 	// period of 10ms (SMCLK 1MHz)
 	double period = 10000;
 

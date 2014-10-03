@@ -1,6 +1,6 @@
 #include <msp430.h>
 #define PERIOD 20000
-volatile long potentiometer;
+volatile int potentiometer;
 volatile int dutyCycle;
 
 void fault_routine(void);
@@ -111,7 +111,7 @@ __interrupt void ADC10 (void){
 
 	potentiometer = ADC10MEM;
 
-	dutyCycle = (int) ((potentiometer / 1024.0) * 100);
+	dutyCycle = (potentiometer*100)>>10;
 	changeTimerA0ForPWM(PERIOD, dutyCycle);
 
 }

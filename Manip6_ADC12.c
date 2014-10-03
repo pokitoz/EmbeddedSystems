@@ -46,32 +46,21 @@ int main(void) {
 	// Select analog input
 	ADC10CTL1 = INCH_1 + ADC10DIV_0;
 
+
+	int ms = 10;
+	//Set Timer 1
+	TA1CTL |= TACLR;			//Timer_A clear. Setting this bit resets TAR, the clock divider, and the count direction. The TACLR bit is
+									//automatically reset and is always read as zero.
+	TA1CTL |= TASSEL_1 | ID_2;	// Use the ACLK
+
+	TA1CCTL0 = CCIE;			// Enable timer interruption for TimerA CCR1
+	TA1CCR0 = 3*ms;	// On 16bits. Set the counter. Stop the counter if the value is 0
+	TA1CTL |= MC_1;	// Run the timer in up mode
+
 	dutyCycle = 0;
+
+	_BIS_SR(GIE);
 	while(1) {
-		// Start timer
-		ADC10CTL0 = SREF_0 + ADC10SHT_3 + REFON + ADC10ON;
-		// Wait at least 30us
-		_delay_cycles(600);
-		ADC10CTL0 |= ENC + ADC10SC;
-
-		// Wait for conversion to finish
-		//P1OUT = 0x40;
-		_delay_cycles(500000);
-
-		// Disable converter
-		ADC10CTL0 &= ~ENC;
-		ADC10CTL0 &= ~(REFON + ADC10ON);
-		potentiometer = ADC10MEM;
-
-		dutyCycle = (int) ((potentiometer / 1024.0) * 100);
-		changeTimerA0ForPWM(PERIOD, dutyCycle);
-
-		//P1OUT = 0;
-		//_delay_cycles(100000);
-
-		//dutyCycle += 0.1;
-		//_delay_cycles(32000000);
-		//changeTimerA0ForPWM(20000, dutyCycle);
 	}
 
 }
@@ -92,7 +81,7 @@ void configTimerA0ForPWM(int period, int dutyCycle) {
 
 void changeTimerA0ForPWM(int period, int dutyCycle) {
 	//Clear register TAR
-	TA0CTL |= TACLR;
+	//TA0CTL |= TACLR;
 	// duty cycle
 	TA0CCR1 = (int) (dutyCycle/100.0 * period);
 	// Period
@@ -103,4 +92,26 @@ void changeTimerA0ForPWM(int period, int dutyCycle) {
 	TA0CTL |= MC_1;
 }
 
+#pragma vector=TIMER1_A0_VECTOR
+__interrupt void Timer1A0(void){
 
+	// Start timer
+	ADC10CTL0 = SREF_0 + ADC10SHT_3 + REFON + ADC10ON + ADC10IE;
+	// Wait at least 30us
+	_delay_cycles(600);
+	ADC10CTL0 |= ENC + ADC10SC;
+
+}
+
+#pragma vector=ADC10_VECTOR
+__interrupt void ADC10 (void){
+	ADC10CTL0 &= ~ADC10IFG; // clear interrupt flag
+	ADC10CTL0 &= ~ENC; // Disable ADC conversion
+	ADC10CTL0 &= ~(REFON + ADC10ON); // Ref and ADC10 off
+
+	potentiometer = ADC10MEM;
+
+	dutyCycle = (int) ((potentiometer / 1024.0) * 100);
+	changeTimerA0ForPWM(PERIOD, dutyCycle);
+
+}

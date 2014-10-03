@@ -1,11 +1,11 @@
 #include <msp430.h>
-
-volatile long temperature;
-volatile double dutyCycle;
+#define PERIOD 20000
+volatile long potentiometer;
+volatile int dutyCycle;
 
 void fault_routine(void);
-void configTimerA0ForPWM(double period, double dutyCycle);
-void changeTimerA0ForPWM(double period, double dutyCycle);
+void configTimerA0ForPWM(int period, int dutyCycle);
+void changeTimerA0ForPWM(int period, int dutyCycle);
 
 int main(void) {
 
@@ -17,16 +17,16 @@ int main(void) {
 	P1OUT = 0;
 
 	// Config PWM
-	configTimerA0ForPWM(10000, 0.5);
+	configTimerA0ForPWM(PERIOD, 0.01);
 
 	// If flash calibration data was erased, fault
-	if(CALBC1_1MHZ == 0xFF || CALDCO_1MHZ == 0xFF) {
+	if(CALBC1_16MHZ == 0xFF || CALDCO_16MHZ == 0xFF) {
 		fault_routine();
 	}
 
 	// Set MCLCK to 1MHz DCO
-	BCSCTL1 = CALBC1_1MHZ;
-	DCOCTL = CALDCO_1MHZ;
+	BCSCTL1 = CALBC1_16MHZ;
+	DCOCTL = CALDCO_16MHZ;
 
 	// Set ACLK to VLO 12KHz
 	BCSCTL3 |= LFXT1S_2;
@@ -34,57 +34,44 @@ int main(void) {
 	IFG1 &= ~OFIFG;
 
 	// Divide MCLK and SMCLK by eight
-	BCSCTL2 |= SELM_0 + DIVM_3 + DIVS_1;
+	BCSCTL2 |= SELM_0 + DIVM_0 + DIVS_3;
 
+	// Set P1.1 to Analog Input A1
+	ADC10AE0 |= BIT1;
+
+	// Set P1.3 to output '0'
+	P1DIR |= BIT3;
+	P1OUT = 0;
+
+	// Select analog input
+	ADC10CTL1 = INCH_1 + ADC10DIV_0;
+
+	dutyCycle = 0;
 	while(1) {
-		// Select temperature sensor
-		ADC10CTL1 = INCH_10 + ADC10DIV_0;
 		// Start timer
-		ADC10CTL0 = SREF_1 + ADC10SHT_3 + REFON + ADC10ON;
+		ADC10CTL0 = SREF_0 + ADC10SHT_3 + REFON + ADC10ON;
 		// Wait at least 30us
-		_delay_cycles(5);
+		_delay_cycles(600);
 		ADC10CTL0 |= ENC + ADC10SC;
 
 		// Wait for conversion to finish
 		//P1OUT = 0x40;
-		_delay_cycles(100);
+		_delay_cycles(500000);
 
 		// Disable converter
 		ADC10CTL0 &= ~ENC;
 		ADC10CTL0 &= ~(REFON + ADC10ON);
-		temperature = ADC10MEM;
-		switch(temperature) {
-		case 734:
-		case 375:
-		case 736:
-			dutyCycle = 0.01;
-			break;
-		case 737:
-			dutyCycle = 0.01;
-			break;
-		case 738:
-			dutyCycle = 0.01;
-			break;
-		case 739:
-			dutyCycle = 0.3;
-			break;
-		case 740:
-			dutyCycle = 0.5;
-			break;
-		case 741:
-			dutyCycle = 0.7;
-			break;
-		case 742:
-			dutyCycle = 1.0;
-			break;
-		default:
-			dutyCycle = 0;
-			break;
-		}
-		changeTimerA0ForPWM(10000, dutyCycle);
+		potentiometer = ADC10MEM;
+
+		dutyCycle = (int) ((potentiometer / 1024.0) * 100);
+		changeTimerA0ForPWM(PERIOD, dutyCycle);
 
 		//P1OUT = 0;
-		_delay_cycles(1000000);
+		//_delay_cycles(100000);
+
+		//dutyCycle += 0.1;
+		//_delay_cycles(32000000);
+		//changeTimerA0ForPWM(20000, dutyCycle);
 	}
 
 }
@@ -94,8 +81,8 @@ void fault_routine(void) {
 	while(1);
 }
 
-void configTimerA0ForPWM(double period, double dutyCycle) {
-	// Use the SMCLK at 1MHz
+void configTimerA0ForPWM(int period, int dutyCycle) {
+	// Use the SMCLK at 2MHz
 	TA0CTL |= TASSEL_2;
 	// Output OUT1 (Timer0_A1 Output) on P1.6
 	P1DIR |= BIT6;
@@ -103,15 +90,17 @@ void configTimerA0ForPWM(double period, double dutyCycle) {
 	changeTimerA0ForPWM(period, dutyCycle);
 }
 
-void changeTimerA0ForPWM(double period, double dutyCycle) {
+void changeTimerA0ForPWM(int period, int dutyCycle) {
 	//Clear register TAR
 	TA0CTL |= TACLR;
 	// duty cycle
-	TA0CCR1 = (int) (dutyCycle * period);
+	TA0CCR1 = (int) (dutyCycle/100.0 * period);
 	// Period
-	TA0CCR0 = (int) (period);
+	TA0CCR0 = period;
 	// Safe output mode 7 => reset(CCR1)/set(CCR0)
 	TACCTL1 |= OUTMOD_7;
 	// Run the timer in up mode
 	TA0CTL |= MC_1;
 }
+
+

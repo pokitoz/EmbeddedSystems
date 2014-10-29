@@ -10,7 +10,7 @@ entity UART_Clock is
 end UART_Clock;
 
 architecture RTL of UART_Clock is
-	constant MAX9600      : unsigned(15 downto 0) := X"1458";
+	constant MAX9600      : unsigned(15 downto 0) := X"0A2C";
 	signal counter        : unsigned(15 downto 0);
 	signal clk_9600Hz_reg : std_logic;
 begin

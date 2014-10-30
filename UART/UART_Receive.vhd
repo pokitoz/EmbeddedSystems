@@ -17,6 +17,7 @@ end entity UART_Receive;
 architecture RTL of UART_Receive is
 	
 begin
-	
+	dataToRead <= (others => '0');
+	newDataReady <= '0';
 end architecture RTL;
 

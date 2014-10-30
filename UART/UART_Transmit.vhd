@@ -20,6 +20,7 @@ architecture RTL of UART_Transmit is
 	type state_type is (IDLE, TRANSMIT);
 	signal state_reg, state_next : state_type;
 	signal shift_reg, shift_next : std_logic_vector(7 downto 0);
+	signal reset_slow : std_logic;
 begin
 	state_machine : process(state_reg, buffer_reg, newDataToWrite, counter_reg, shift_reg, dataToWrite) is
 	begin
@@ -29,9 +30,11 @@ begin
 		buffer_next  <= buffer_reg;
 		readyToWrite <= '0';
 		Tx           <= '1';
+		reset_slow <= '0';
 
 		case state_reg is
 			when IDLE =>
+				reset_slow <= '1';
 				readyToWrite <= '1';
 				if (newDataToWrite = '1') then
 					state_next  <= TRANSMIT;
@@ -64,9 +67,9 @@ begin
 		end if;
 	end process reg_process;
 
-	reg_slow_process : process(clk_9600Hz, reset_n) is
+	reg_slow_process : process(clk_9600Hz, reset_n, reset_slow) is
 	begin
-		if reset_n = '0' then
+		if reset_n = '0' or reset_slow = '1' then
 			counter_reg <= (others => '0');
 			shift_reg   <= (others => '0');
 		elsif rising_edge(clk_9600Hz) then

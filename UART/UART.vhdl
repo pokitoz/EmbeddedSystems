@@ -105,12 +105,15 @@ begin
 	begin
 		if reset_n = '0' then
 			ReadData_reg <= (others => '0');
+			ackNewData   <= '0';
 		elsif rising_edge(clk) then
 			ReadData_reg <= X"00";
+			ackNewData   <= '0';
 			if (ChipSelect = '1' and Read = '1') then
 				case Address is
 					when "00"   => ReadData_reg <= "000000" & newDataReady & readyToWrite;
-					when "01"   => ReadData_reg <= X"FF";
+					when "10"   => ReadData_reg <= dataToRead;
+							ackNewData <= '1';
 					when others => null;
 				end case;
 			end if;

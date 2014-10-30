@@ -3,21 +3,63 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity UART_Receive is
-	port (
-		clk : in std_logic;
-		clk_9600Hz : std_logic;
-		reset_n : in std_logic;
-		ackNewData: in std_logic;
+	port(
+		clk          : in  std_logic;
+		clk_9600Hz   : std_logic;
+		reset_n      : in  std_logic;
+		ackNewData   : in  std_logic;
 		newDataReady : out std_logic;
-		dataToRead : out std_logic_vector(7 downto 0);
-		Rx : in std_logic
+		dataToRead   : out std_logic_vector(7 downto 0);
+		Rx           : in  std_logic
 	);
 end entity UART_Receive;
 
 architecture RTL of UART_Receive is
-	
+	signal counter     : unsigned(3 downto 0);
+	signal buffer_read : std_logic_vector(7 downto 0);
+	signal lastData : std_logic_vector(7 downto 0);
+	signal reset_slow : std_logic;
+
 begin
-	dataToRead <= (others => '0');
-	newDataReady <= '0';
+	dataToRead <= lastData;
+
+	reg_process : process(clk, reset_n) is
+	begin
+		if reset_n = '0' then
+			reset_slow <= '0';
+		elsif rising_edge(clk) then
+			reset_slow <= '0';
+			if ackNewData = '1' then
+				reset_slow <= '1';
+			end if;
+		end if;
+	end process reg_process;
+
+	reg_slow_process : process(clk_9600Hz, reset_n, reset_slow) is
+	begin
+		if reset_n = '0' then
+			newDataReady <= '0';
+			lastData <= (others => '0');
+			counter     <= (others => '0');
+			buffer_read <= (others => '0');
+		elsif reset_slow = '1' then
+			newDataReady <= '0';
+		elsif rising_edge(clk_9600Hz) then
+			if counter = 0 and Rx = '0' then
+				counter <= counter + 1;
+			elsif counter = 9 then
+				counter <= (others => '0');
+				newDataReady <= '1';
+				lastData <= buffer_read;
+			elsif counter /= 0 then
+				buffer_read <= Rx & buffer_read(7 downto 1);
+				counter <= counter + 1;
+			end if;
+
+		end if;
+	end process reg_slow_process;
+
 end architecture RTL;
+
+
 

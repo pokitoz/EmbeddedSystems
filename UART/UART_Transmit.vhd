@@ -49,8 +49,8 @@ begin
 					when "1011" => Tx <= '1';
 					when "1100" => state_next <= IDLE;
 					when others =>
-						shift_next <= shift_reg(6 downto 0) & '0';
-						Tx         <= shift_reg(7);
+						shift_next <= '0' & shift_reg(7 downto 1);
+						Tx         <= shift_reg(0);
 				end case;
 
 		end case;

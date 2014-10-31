@@ -82,45 +82,50 @@
 #include "io.h"
 #include "system.h"
 
+void sendChar(const char c) {
+	while ((IORD_8DIRECT(UART_COMP_0_BASE, 0) & 1) != 1)
+		;
+	IOWR_8DIRECT(UART_COMP_0_BASE, 1, c);
+
+}
+
+void sendString(const char* string) {
+
+	if (string == 0) {
+		return;
+	}
+
+	int count = 0;
+
+	while (string[count] != '\0') {
+		sendChar(string[count]);
+		count++;
+	}
+
+}
+
+
 int main() {
 	alt_putstr("Hello from Nios II with UART!\n");
 
 	/* Event loop never exits. */
 	while (1) {
 
-		// H 0x48 0100 1000
-		IOWR_8DIRECT(UART_COMP_0_BASE, 1, 0x12);
-		while ((IORD_8DIRECT(UART_COMP_0_BASE, 0) & 1) != 1)
-			;
-		// e 0x65 0110 0101
-		IOWR_8DIRECT(UART_COMP_0_BASE, 1, 0xA6);
-		while ((IORD_8DIRECT(UART_COMP_0_BASE, 0) & 1) != 1)
-			;
-		// l 0x6C 0110 1100
-		IOWR_8DIRECT(UART_COMP_0_BASE, 1, 0x36);
-		while ((IORD_8DIRECT(UART_COMP_0_BASE, 0) & 1) != 1)
-			;
-		// l 0x6C 0110 1100
-		IOWR_8DIRECT(UART_COMP_0_BASE, 1, 0x36);
-		while ((IORD_8DIRECT(UART_COMP_0_BASE, 0) & 1) != 1)
-			;
-		// o 0x6F 0110 1111
-		IOWR_8DIRECT(UART_COMP_0_BASE, 1, 0xF6);
-		while ((IORD_8DIRECT(UART_COMP_0_BASE, 0) & 1) != 1)
-			;
-		// \n 0x0A 0000 1010
-		IOWR_8DIRECT(UART_COMP_0_BASE, 1, 0x50);
-		while ((IORD_8DIRECT(UART_COMP_0_BASE, 0) & 1) != 1)
-			;
+		//sendString("Hello World!\n");
 
-		int cnt = 0;
-		while (cnt < 10000000) {
-			asm("nop");
-			cnt++;
-		}
+		while((IORD_8DIRECT(UART_COMP_0_BASE, 0) & 0x2) != 2);
+		char input = IORD_8DIRECT(UART_COMP_0_BASE, 0x2);
+		sendChar(input);
 
-		int status = IORD_8DIRECT(UART_COMP_0_BASE, 0);
-		alt_printf("0x%x\n", status);
+
+//		int cnt = 0;
+//		while (cnt < 10000000) {
+//			asm("nop");
+//			cnt++;
+//		}
+
+		//int status = IORD_8DIRECT(UART_COMP_0_BASE, 0);
+		//alt_printf("0x%x\n", status);
 	}
 
 	return 0;

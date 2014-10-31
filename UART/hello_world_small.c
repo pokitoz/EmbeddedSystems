@@ -107,15 +107,22 @@ void sendString(const char* string) {
 
 int main() {
 	alt_putstr("Hello from Nios II with UART!\n");
-
+	char c = 0;
 	/* Event loop never exits. */
 	while (1) {
 
 		//sendString("Hello World!\n");
 
-		while((IORD_8DIRECT(UART_COMP_0_BASE, 0) & 0x2) != 2);
+		//alt_printf("status before: 0x%x", (IORD_8DIRECT(UART_COMP_0_BASE, 0)));
+		//while((IORD_8DIRECT(UART_COMP_0_BASE, 0) & 0x2) != 0x2);
 		char input = IORD_8DIRECT(UART_COMP_0_BASE, 0x2);
-		sendChar(input);
+		//alt_printf("status after: 0x%x", (IORD_8DIRECT(UART_COMP_0_BASE, 0)));
+		//sendChar(input);
+		if (input != c) {
+			sendChar(input);
+			alt_putchar(input);
+			c = input;
+		}
 
 
 //		int cnt = 0;

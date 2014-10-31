@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 entity UART_Transmit is
 	port(
 		clk            : in  std_logic;
-		clk_9600Hz     : std_logic;
+		clk_9600Hz     : in std_logic;
 		reset_n        : in  std_logic;
 		newDataToWrite : in  std_logic;
 		readyToWrite   : out std_logic;

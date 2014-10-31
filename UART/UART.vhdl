@@ -23,7 +23,7 @@ end entity UART;
 architecture RTL of UART is
 	component UART_Transmit
 		port(clk            : in  std_logic;
-			 clk_9600Hz     : std_logic;
+			 clk_9600Hz     : in std_logic;
 			 reset_n        : in  std_logic;
 			 newDataToWrite : in  std_logic;
 			 readyToWrite   : out std_logic;
@@ -37,7 +37,7 @@ architecture RTL of UART is
 
 	component UART_Receive
 		port(clk          : in  std_logic;
-			 clk_9600Hz   : std_logic;
+			 clk_9600Hz   : in std_logic;
 			 reset_n      : in  std_logic;
 			 ackNewData   : in  std_logic;
 			 newDataReady : out std_logic;
@@ -104,22 +104,19 @@ begin
 	read_from_reg : process(clk, reset_n) is
 	begin
 		if reset_n = '0' then
-			ReadData_reg <= (others => '0');
-			ackNewData   <= '0';
+			ReadData <= (others => '0');
 		elsif rising_edge(clk) then
-			ReadData_reg <= X"00";
-			ackNewData   <= '0';
+			ReadData <= X"00";
 			if (ChipSelect = '1' and Read = '1') then
 				case Address is
-					when "00"   => ReadData_reg <= "000000" & newDataReady & readyToWrite;
-					when "10"   => ReadData_reg <= dataToRead;
-							ackNewData <= '1';
+					when "00"   => ReadData <= "000000" & newDataReady & readyToWrite;
+					when "10"   => ReadData <= dataToRead;
 					when others => null;
 				end case;
 			end if;
 		end if;
 	end process read_from_reg;
 	
-	ReadData <= ReadData_reg;
+	ackNewData <= '1' when ChipSelect = '1' and Read = '1' and Address = "10" else '0';
 
 end architecture RTL;

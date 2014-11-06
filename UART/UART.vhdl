@@ -7,7 +7,7 @@ entity UART is
 		clk        : IN  std_logic;
 		reset_n    : IN  std_logic;
 
-		Address    : IN  std_logic_vector(1 DOWNTO 0);
+		Address    : IN  std_logic_vector(3 DOWNTO 0);
 		ChipSelect : IN  std_logic;
 
 		Read       : IN  std_logic;
@@ -36,8 +36,7 @@ architecture RTL of UART is
 	signal dataToWrite    : std_logic_vector(7 downto 0);
 
 	component UART_Receive
-		port(clk          : in  std_logic;
-			 clk_9600Hz   : in std_logic;
+		port(clk_4X9600Hz   : in std_logic;
 			 reset_n      : in  std_logic;
 			 ackNewData   : in  std_logic;
 			 newDataReady : out std_logic;
@@ -53,9 +52,11 @@ architecture RTL of UART is
 	component UART_Clock
 		port(clk_50Mhz  : in  std_logic;
 			 reset_n    : in  std_logic;
+     		clk_4X9600Hz : out std_logic;
 			 clk_9600Hz : out std_logic);
 	end component UART_Clock;
 
+	signal clk_4X9600Hz : std_logic;
 	signal clk_9600Hz : std_logic;
 
 begin
@@ -67,10 +68,10 @@ begin
 			     readyToWrite   => readyToWrite,
 			     dataToWrite    => dataToWrite,
 			     Tx => Tx);
+				 
 
 	UART_Receive_inst : component UART_Receive
-		port map(clk          => clk,
-			     clk_9600Hz   => clk_9600Hz,
+		port map(clk_4X9600Hz => clk_4X9600Hz,
 			     reset_n      => reset_n,
 			     ackNewData   => ackNewData,
 			     newDataReady => newDataReady,
@@ -80,6 +81,7 @@ begin
 	UART_Clock_inst : component UART_Clock
 		port map(clk_50Mhz  => clk,
 			     reset_n    => reset_n,
+				  clk_4X9600Hz => clk_4X9600Hz,
 			     clk_9600Hz => clk_9600Hz);
 
 	write_to_reg : process(clk, reset_n) is
@@ -92,7 +94,7 @@ begin
 			dataToWrite    <= (others => '0');
 			if (ChipSelect = '1' and Write = '1') then
 				case Address is
-					when "01" =>
+					when "0001" =>
 						newDataToWrite <= '1';
 						dataToWrite    <= WriteData;
 					when others => null;
@@ -100,23 +102,24 @@ begin
 			end if;
 		end if;
 	end process write_to_reg;
-
+	
 	read_from_reg : process(clk, reset_n) is
 	begin
 		if reset_n = '0' then
 			ReadData <= (others => '0');
 		elsif rising_edge(clk) then
 			ReadData <= X"00";
+			ackNewData <= '0';
 			if (ChipSelect = '1' and Read = '1') then
 				case Address is
-					when "00"   => ReadData <= "000000" & newDataReady & readyToWrite;
-					when "10"   => ReadData <= dataToRead;
+					when "0000"   => ReadData <= "000000" & newDataReady & readyToWrite;
+					when "1000"   => ReadData <= dataToRead;
+						ackNewData <= '1';
 					when others => null;
 				end case;
 			end if;
 		end if;
 	end process read_from_reg;
-	
-	ackNewData <= '1' when ChipSelect = '1' and Read = '1' and Address = "10" else '0';
 
 end architecture RTL;
+

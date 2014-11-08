@@ -7,7 +7,7 @@ entity UART is
 		clk        : IN  std_logic;
 		reset_n    : IN  std_logic;
 
-		Address    : IN  std_logic_vector(3 DOWNTO 0);
+		Address    : IN  std_logic_vector(2 DOWNTO 0);
 		ChipSelect : IN  std_logic;
 
 		Read       : IN  std_logic;
@@ -22,8 +22,7 @@ end entity UART;
 
 architecture RTL of UART is
 	component UART_Transmit
-		port(clk            : in  std_logic;
-			 clk_9600Hz     : in std_logic;
+		port(clk_9600Hz     : in std_logic;
 			 reset_n        : in  std_logic;
 			 newDataToWrite : in  std_logic;
 			 readyToWrite   : out std_logic;
@@ -61,8 +60,7 @@ architecture RTL of UART is
 
 begin
 	UART_Transmit_inst : component UART_Transmit
-		port map(clk            => clk,
-			     clk_9600Hz     => clk_9600Hz,
+		port map(clk_9600Hz     => clk_9600Hz,
 			     reset_n        => reset_n,
 			     newDataToWrite => newDataToWrite,
 			     readyToWrite   => readyToWrite,
@@ -94,7 +92,7 @@ begin
 			dataToWrite    <= (others => '0');
 			if (ChipSelect = '1' and Write = '1') then
 				case Address is
-					when "0001" =>
+					when "001" =>
 						newDataToWrite <= '1';
 						dataToWrite    <= WriteData;
 					when others => null;
@@ -112,8 +110,8 @@ begin
 			ackNewData <= '0';
 			if (ChipSelect = '1' and Read = '1') then
 				case Address is
-					when "0000"   => ReadData <= "000000" & newDataReady & readyToWrite;
-					when "1000"   => ReadData <= dataToRead;
+					when "000"   => ReadData <= "000000" & newDataReady & readyToWrite;
+					when "100"   => ReadData <= dataToRead;
 						ackNewData <= '1';
 					when others => null;
 				end case;

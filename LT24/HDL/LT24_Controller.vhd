@@ -71,6 +71,7 @@ begin
 			translator_cmd   <= '0';
 			translator_data  <= (others => '0');
 			lcd_on           <= '0';
+			lcd_reset_n      <= '1';
 		elsif rising_edge(clk) then
 			translator_start <= '0';
 			translator_cmd   <= '0';
@@ -89,6 +90,7 @@ begin
 					when "11" =>
 						lcd_on      <= write_data(0);
 						lcd_reset_n <= write_data(1);
+					when others => null;
 				end case;
 			end if;
 		end if;

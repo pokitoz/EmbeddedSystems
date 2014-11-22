@@ -37,7 +37,7 @@ begin
 	begin
 		state_next   <= state_reg;
 		counter_next <= counter_reg;
-		busy         <= busy_reg;
+		busy_next    <= busy_reg;
 		csx_next     <= csx_reg;
 		dcx_next     <= dcx_reg;
 		wrx_next     <= wrx_reg;
@@ -46,9 +46,9 @@ begin
 
 		case state_reg is
 			when IDLE =>
-				busy_next <= '0';
 				if start = '1' then
 					data_next <= data_in;
+					busy_next <= '1';
 					if cmd = '1' then
 						state_next <= WRITE_CMD;
 					else
@@ -56,7 +56,6 @@ begin
 					end if;
 				end if;
 			when WRITE_CMD =>
-				busy         <= '1';
 				counter_next <= counter_reg + 1;
 				case counter_reg is
 					when 0 => dcx_next <= '0';
@@ -65,12 +64,14 @@ begin
 					when 3 => wrx_next <= '1';
 					when 4 => csx_next <= '1';
 					when 5 =>
-						dcx          <= '1';
+						dcx_next     <= '1';
 						state_next   <= IDLE;
 						counter_next <= 0;
+						busy_next    <= '0';
+						data_next    <= (others => '0');
+					when others => null;
 				end case;
 			when WRITE_DATA =>
-				busy         <= '1';
 				counter_next <= counter_reg + 1;
 				case counter_reg is
 					when 0 => dcx_next <= '1';
@@ -79,9 +80,12 @@ begin
 					when 3 => wrx_next <= '1';
 					when 4 => csx_next <= '1';
 					when 5 =>
-						dcx          <= '1';
+						dcx_next     <= '1';
 						state_next   <= IDLE;
 						counter_next <= 0;
+						busy_next    <= '0';
+						data_next    <= (others => '0');
+					when others => null;
 				end case;
 		end case;
 	end process state_machine;

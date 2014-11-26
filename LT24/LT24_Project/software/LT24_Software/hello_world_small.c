@@ -262,7 +262,7 @@ int main() {
 
 	while (1) {
 
-		wait_ms(1000);
+		//wait_ms(1000);
 		LCD_SetCursor(0, 0);
 		LCD_WR_REG(0x2C);
 		for (row = 0; row < 240; ++row) {
@@ -271,7 +271,7 @@ int main() {
 			}
 		}
 
-		wait_ms(1000);
+		//wait_ms(1000);
 		LCD_SetCursor(0, 0);
 		LCD_WR_REG(0x2C);
 		for (row = 0; row < 240; ++row) {
@@ -280,7 +280,7 @@ int main() {
 			}
 		}
 
-		wait_ms(1000);
+		//wait_ms(1000);
 		LCD_SetCursor(0, 0);
 		LCD_WR_REG(0x2C);
 		for (row = 0; row < 240; ++row) {

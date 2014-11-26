@@ -74,13 +74,11 @@ begin
 			when WRITE_DATA =>
 				counter_next <= counter_reg + 1;
 				case counter_reg is
-					when 0 => dcx_next <= '1';
-					when 1 => csx_next <= '0';
-					when 2 => wrx_next <= '0';
-					when 3 => wrx_next <= '1';
-					when 4 => csx_next <= '1';
-					when 5 =>
-						dcx_next     <= '1';
+					when 0 => csx_next <= '0';
+								 wrx_next <= '0';
+					when 1 => wrx_next <= '1';
+					when 2 =>
+						csx_next     <= '1';
 						state_next   <= IDLE;
 						counter_next <= 0;
 						busy_next    <= '0';

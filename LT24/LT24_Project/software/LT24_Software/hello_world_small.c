@@ -282,16 +282,12 @@ int main()
 			}
 		}
 
-
-
 		for (row = 0; row < 240; ++row) {
 			for (col = 0; col < 320; ++col) {
 				LCD_DrawPoint(row,col, 0x0000);
 
 			}
 		}
-
-
 
 		for (row = 0; row < 240; ++row) {
 			for (col = 0; col < 320; ++col) {

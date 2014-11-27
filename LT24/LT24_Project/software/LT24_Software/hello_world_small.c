@@ -88,17 +88,17 @@
 void LT24_write_cmd(int cmd) {
 
 	while (IORD_32DIRECT(LT24_COMP_0_BASE, 2*4)) {
-		alt_putstr("Wait CMD - ");
+		//alt_putstr("Wait CMD - ");
 	}
 
 	IOWR_32DIRECT(LT24_COMP_0_BASE, 0*4, cmd);
 
 }
 
-void LT24_write_data(int data) {
+inline void LT24_write_data(int data) {
 
 	while (IORD_32DIRECT(LT24_COMP_0_BASE, 2*4)) {
-		alt_putstr("Wait DATA - ");
+		//alt_putstr("Wait DATA - ");
 	}
 
 	IOWR_32DIRECT(LT24_COMP_0_BASE, 1*4, data);
@@ -127,6 +127,13 @@ void LCD_DrawPoint(alt_u16 x, alt_u16 y, alt_u16 color) {
 void wait_ms(alt_u32 ms) {
 	int i = 0;
 	for (i = 0; i < ms*25000; ++i) {
+		asm("nop");
+	}
+}
+
+void wait_20ns(alt_u32 ns20) {
+	int i = 0;
+	for (i = 0; i < ns20; ++i) {
 		asm("nop");
 	}
 }
@@ -258,35 +265,41 @@ int main() {
 	LCD_WR_REG(0x002c); // 0x2C
 
 	int row = 0;
-	int col = 0;
+
+	/*
+	 * 900ns delay
+	 * - 400ns won by commenting printf
+	 * - 140ns won by inlining manually functions
+	 * - 200ns won by replacing busy check by nop
+	 */
 
 	while (1) {
 
-		//wait_ms(1000);
+		wait_ms(1000);
 		LCD_SetCursor(0, 0);
 		LCD_WR_REG(0x2C);
-		for (row = 0; row < 240; ++row) {
-			for (col = 0; col < 320; ++col) {
-				LCD_WR_DATA(0x001F);
-			}
+		for (row = 0; row < 240*320; ++row) {
+			asm("nop");
+			//while (IORD_32DIRECT(LT24_COMP_0_BASE, 2*4));
+			IOWR_32DIRECT(LT24_COMP_0_BASE, 1*4, 0x1F);
 		}
 
-		//wait_ms(1000);
+		wait_ms(1000);
 		LCD_SetCursor(0, 0);
 		LCD_WR_REG(0x2C);
-		for (row = 0; row < 240; ++row) {
-			for (col = 0; col < 320; ++col) {
-				LCD_WR_DATA(0xFFFF);
-			}
+		for (row = 0; row < 240*320; ++row) {
+			asm("nop");
+			//while (IORD_32DIRECT(LT24_COMP_0_BASE, 2*4));
+			IOWR_32DIRECT(LT24_COMP_0_BASE, 1*4, 0xFFFF);
 		}
 
-		//wait_ms(1000);
+		wait_ms(1000);
 		LCD_SetCursor(0, 0);
 		LCD_WR_REG(0x2C);
-		for (row = 0; row < 240; ++row) {
-			for (col = 0; col < 320; ++col) {
-				LCD_WR_DATA(0xF800);
-			}
+		for (row = 0; row < 240*320; ++row) {
+			asm("nop");
+			//while (IORD_32DIRECT(LT24_COMP_0_BASE, 2*4));
+			IOWR_32DIRECT(LT24_COMP_0_BASE, 1*4, 0xF800);
 		}
 
 	}

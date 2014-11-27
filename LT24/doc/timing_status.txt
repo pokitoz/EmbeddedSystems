@@ -1,0 +1,10 @@
+{signal: [
+  {name: 'clk',                wave: 'p........'},
+  {name: 'address[2..0]',      wave: 'xx3xxxxxx', data: ['0x2']},
+  {name: 'read',              wave: '0.10.....'},
+  {name: 'chip_select',        wave: '0.10.....'},
+  {name: 'read_data[0]',  wave: 'xxx3xxxxxx', data: ['busy']},
+  ], head:{
+   tick:0,
+ }
+}

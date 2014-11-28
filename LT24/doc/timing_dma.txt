@@ -1,0 +1,16 @@
+{signal: [
+  {name: 'clk',               wave: 'p......|..|.'},
+  {name: 'address[2..0]',     wave: 'xx3xxxx|..|.', data: ['0x5']},
+  {name: 'write',             wave: '0.10...|..|.'},
+  {name: 'chip_select',       wave: '0.10...|..|.'},
+  {name: 'write_data[31..0]', wave: 'xx3xxxx|..|.', data: ['len']},
+  {name: 'start_dma',         wave: '0..10..|..|.'},
+  {name: 'address_dma',       wave: 'xxx3xxx|..|.', data: ['addr']},
+  {name: 'len_dma',           wave: 'xxx3xxx|..|.', data: ['len']},
+  {name: 'running',           wave: '0..1...|.0|.'},
+  {name: 'fifo_empty',        wave: '1....xx|1.|0'},
+  {name: 'busy',              wave: '0..1...|..|0'}
+  ], head:{
+   tick:0,
+ }
+}

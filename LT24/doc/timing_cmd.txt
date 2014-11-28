@@ -1,0 +1,15 @@
+{signal: [
+  {name: 'clk',                wave: 'p...........'},
+  {name: 'address[2..0]',      wave: 'xx3xxxxxxxxx', data: ['0x0']},
+  {name: 'write',              wave: '0.10........'},
+  {name: 'chip_select',        wave: '0.10........'},
+  {name: 'write_data[31..0]',  wave: 'xx3xxxxxxxxx', data: ['cmd']},
+  {name: 'start',              wave: '0..10.......'},
+  {name: 'cmd',                wave: '0..10.......'},
+  {name: 'data[15..0]',        wave: 'x..3x.......', data: ['cmd']},
+  {name: 'controller_state',   wave: '5...3453453.', data: ['idle', 'dcxL', 'csxL', 'wrxL', 'wrxH', 'csxH', 'dcxH', 'idle']},
+  {name: 'busy',               wave: '0..1......0.'}
+  ], head:{
+   tick:0,
+ }
+}

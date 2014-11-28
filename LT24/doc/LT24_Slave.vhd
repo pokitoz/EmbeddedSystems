@@ -20,6 +20,7 @@ entity LT24_Slave is
 		lcd_reset_n : out   std_logic;
 		lcd_on      : out   std_logic;
 		
-		data        : inout std_logic_vector(15 downto 0)
+		cmd			: out std_logic;
+		data        : out std_logic_vector(15 downto 0)
 	);
 end entity LT24_Slave;

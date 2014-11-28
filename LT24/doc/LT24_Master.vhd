@@ -10,7 +10,7 @@ entity LT24_Master is
 		data_fifo : out std_logic_vector(31 downto 0);
 		write_fifo : out std_logic;
 		fifo_full : in std_logic;
-		fifo_almost_full : in std_logic(5 downto 0);
+		fifo_almost_full : in std_logic_vector(5 downto 0);
 		
 		address : out std_logic_vector(31 downto 0);
 		write : out std_logic;

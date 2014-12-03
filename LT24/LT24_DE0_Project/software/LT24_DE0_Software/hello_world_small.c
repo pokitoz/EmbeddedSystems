@@ -81,6 +81,7 @@
 #include "sys/alt_stdio.h"
 #include "system.h"
 #include "io.h"
+#include "image565.h"
 
 #define LCD_WR_REG(x) LT24_write_cmd(x)
 #define LCD_WR_DATA(x) LT24_write_data(x)
@@ -262,46 +263,24 @@ int main() {
 
 	LCD_WR_REG(0x0029); //display on
 
+	LCD_SetCursor(0,0);
 	LCD_WR_REG(0x002c); // 0x2C
 
-	int row = 0;
 
-	/*
-	 * 900ns delay
-	 * - 400ns won by commenting printf
-	 * - 140ns won by inlining manually functions
-	 * - 200ns won by replacing busy check by nop
-	 */
+	int i = 0;
+	int j = 0;
 
-	while (1) {
+	// Clear screen with white
+	for (i = 0; i < 320*240; ++i) {
+		LCD_WR_DATA(0xFFFF);
+	}
 
-		wait_ms(1000);
-		LCD_SetCursor(0, 0);
+	for (i = 0; i < BMPHEIGHT; ++i) {
+		LCD_SetCursor(0, i);
 		LCD_WR_REG(0x2C);
-		for (row = 0; row < 240*320; ++row) {
-			asm("nop");
-			//while (IORD_32DIRECT(LT24_COMP_0_BASE, 2*4));
-			IOWR_32DIRECT(LT24_CTRL_0_BASE, 1*4, 0x1F);
+		for (j = 0; j < BMPWIDTH; ++j) {
+			LCD_WR_DATA(image16[i*BMPWIDTH+j]);
 		}
-
-		wait_ms(1000);
-		LCD_SetCursor(0, 0);
-		LCD_WR_REG(0x2C);
-		for (row = 0; row < 240*320; ++row) {
-			asm("nop");
-			//while (IORD_32DIRECT(LT24_COMP_0_BASE, 2*4));
-			IOWR_32DIRECT(LT24_CTRL_0_BASE, 1*4, 0xFFFF);
-		}
-
-		wait_ms(1000);
-		LCD_SetCursor(0, 0);
-		LCD_WR_REG(0x2C);
-		for (row = 0; row < 240*320; ++row) {
-			asm("nop");
-			//while (IORD_32DIRECT(LT24_COMP_0_BASE, 2*4));
-			IOWR_32DIRECT(LT24_CTRL_0_BASE, 1*4, 0xF800);
-		}
-
 	}
 
 	/* Event loop never exits. */

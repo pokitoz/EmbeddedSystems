@@ -6,17 +6,33 @@
    version="1.0"
    description=""
    tags=""
-   categories="" />
+   categories="System" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
    element $${FILENAME}
    {
    }
+   element LT24_CTRL_0
+   {
+      datum _sortIndex
+      {
+         value = "4";
+         type = "int";
+      }
+   }
    element jtag_uart_0.avalon_jtag_slave
    {
       datum baseAddress
       {
-         value = "36872";
+         value = "36936";
+         type = "String";
+      }
+   }
+   element LT24_CTRL_0.avalon_slave_0
+   {
+      datum baseAddress
+      {
+         value = "36896";
          type = "String";
       }
    }
@@ -81,7 +97,7 @@
  <parameter name="hdlLanguage" value="VERILOG" />
  <parameter name="hideFromIPCatalog" value="false" />
  <parameter name="maxAdditionalLatency" value="1" />
- <parameter name="projectName" value="" />
+ <parameter name="projectName" value="LT24_Controller.qpf" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="0" />
  <parameter name="testBenchDutName" value="" />
@@ -90,6 +106,41 @@
  <instanceScript></instanceScript>
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
+ <interface
+   name="lt24_ctrl_0_lcd_reset_n"
+   internal="LT24_CTRL_0.lcd_reset_n"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="lt24_ctrl_0_lcd_on"
+   internal="LT24_CTRL_0.lcd_on"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="lt24_ctrl_0_csx"
+   internal="LT24_CTRL_0.csx"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="lt24_ctrl_0_dcx"
+   internal="LT24_CTRL_0.dcx"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="lt24_ctrl_0_wrx"
+   internal="LT24_CTRL_0.wrx"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="lt24_ctrl_0_rdx"
+   internal="LT24_CTRL_0.rdx"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="lt24_ctrl_0_data_out"
+   internal="LT24_CTRL_0.data_out"
+   type="conduit"
+   dir="end" />
  <module kind="clock_source" version="14.0" enabled="1" name="clk_0">
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="clockFrequencyKnown" value="true" />
@@ -239,8 +290,8 @@
   <parameter name="tightlyCoupledInstructionMaster1AddrWidth" value="1" />
   <parameter name="tightlyCoupledInstructionMaster2AddrWidth" value="1" />
   <parameter name="tightlyCoupledInstructionMaster3AddrWidth" value="1" />
-  <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='onchip_memory2_0.s1' start='0x4000' end='0x8000' /><slave name='nios2_qsys_0.jtag_debug_module' start='0x8800' end='0x9000' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x9008' end='0x9010' /></address-map>]]></parameter>
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='onchip_memory2_0.s1' start='0x4000' end='0x8000' /><slave name='nios2_qsys_0.jtag_debug_module' start='0x8800' end='0x9000' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x9008' end='0x9010' /></address-map>]]></parameter>
+  <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='onchip_memory2_0.s1' start='0x4000' end='0x8000' /><slave name='nios2_qsys_0.jtag_debug_module' start='0x8800' end='0x9000' /><slave name='LT24_CTRL_0.avalon_slave_0' start='0x9020' end='0x9040' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x9048' end='0x9050' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='onchip_memory2_0.s1' start='0x4000' end='0x8000' /><slave name='nios2_qsys_0.jtag_debug_module' start='0x8800' end='0x9000' /><slave name='LT24_CTRL_0.avalon_slave_0' start='0x9020' end='0x9040' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x9048' end='0x9050' /></address-map>]]></parameter>
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="deviceFamilyName" value="Cyclone IV E" />
   <parameter name="internalIrqMaskSystemInfo" value="1" />
@@ -273,6 +324,7 @@
   <parameter name="writeIRQThreshold" value="8" />
   <parameter name="avalonSpec" value="2.0" />
  </module>
+ <module kind="LT24_CTRL" version="1.0" enabled="1" name="LT24_CTRL_0" />
  <connection
    kind="avalon"
    version="14.0"
@@ -352,7 +404,7 @@
    start="nios2_qsys_0.data_master"
    end="jtag_uart_0.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x9008" />
+  <parameter name="baseAddress" value="0x9048" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -361,7 +413,7 @@
    start="nios2_qsys_0.instruction_master"
    end="jtag_uart_0.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x9008" />
+  <parameter name="baseAddress" value="0x9048" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -371,6 +423,35 @@
    end="jtag_uart_0.irq">
   <parameter name="irqNumber" value="0" />
  </connection>
+ <connection kind="clock" version="14.0" start="clk_0.clk" end="LT24_CTRL_0.clock" />
+ <connection
+   kind="reset"
+   version="14.0"
+   start="clk_0.clk_reset"
+   end="LT24_CTRL_0.reset" />
+ <connection
+   kind="avalon"
+   version="14.0"
+   start="nios2_qsys_0.instruction_master"
+   end="LT24_CTRL_0.avalon_slave_0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x9020" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="14.0"
+   start="nios2_qsys_0.data_master"
+   end="LT24_CTRL_0.avalon_slave_0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x9020" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="reset"
+   version="14.0"
+   start="nios2_qsys_0.jtag_debug_module_reset"
+   end="LT24_CTRL_0.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />

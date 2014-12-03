@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_qsys_0' in SOPC Builder design 'LT24_System'
  * SOPC Builder design path: ../../LT24_System.sopcinfo
  *
- * Generated: Wed Dec 03 12:26:14 CET 2014
+ * Generated: Wed Dec 03 14:24:00 CET 2014
  */
 
 /*
@@ -126,6 +126,21 @@
 #define __ALTERA_AVALON_JTAG_UART
 #define __ALTERA_AVALON_ONCHIP_MEMORY2
 #define __ALTERA_NIOS2_QSYS
+#define __LT24_CTRL
+
+
+/*
+ * LT24_CTRL_0 configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_LT24_CTRL_0 LT24_CTRL
+#define LT24_CTRL_0_BASE 0x9020
+#define LT24_CTRL_0_IRQ -1
+#define LT24_CTRL_0_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define LT24_CTRL_0_NAME "/dev/LT24_CTRL_0"
+#define LT24_CTRL_0_SPAN 32
+#define LT24_CTRL_0_TYPE "LT24_CTRL"
 
 
 /*
@@ -144,19 +159,19 @@
 #define ALT_NUM_INTERNAL_INTERRUPT_CONTROLLERS 1
 #define ALT_NUM_INTERRUPT_CONTROLLERS 1
 #define ALT_STDERR "/dev/jtag_uart_0"
-#define ALT_STDERR_BASE 0x9008
+#define ALT_STDERR_BASE 0x9048
 #define ALT_STDERR_DEV jtag_uart_0
 #define ALT_STDERR_IS_JTAG_UART
 #define ALT_STDERR_PRESENT
 #define ALT_STDERR_TYPE "altera_avalon_jtag_uart"
 #define ALT_STDIN "/dev/jtag_uart_0"
-#define ALT_STDIN_BASE 0x9008
+#define ALT_STDIN_BASE 0x9048
 #define ALT_STDIN_DEV jtag_uart_0
 #define ALT_STDIN_IS_JTAG_UART
 #define ALT_STDIN_PRESENT
 #define ALT_STDIN_TYPE "altera_avalon_jtag_uart"
 #define ALT_STDOUT "/dev/jtag_uart_0"
-#define ALT_STDOUT_BASE 0x9008
+#define ALT_STDOUT_BASE 0x9048
 #define ALT_STDOUT_DEV jtag_uart_0
 #define ALT_STDOUT_IS_JTAG_UART
 #define ALT_STDOUT_PRESENT
@@ -180,7 +195,7 @@
  */
 
 #define ALT_MODULE_CLASS_jtag_uart_0 altera_avalon_jtag_uart
-#define JTAG_UART_0_BASE 0x9008
+#define JTAG_UART_0_BASE 0x9048
 #define JTAG_UART_0_IRQ 0
 #define JTAG_UART_0_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define JTAG_UART_0_NAME "/dev/jtag_uart_0"

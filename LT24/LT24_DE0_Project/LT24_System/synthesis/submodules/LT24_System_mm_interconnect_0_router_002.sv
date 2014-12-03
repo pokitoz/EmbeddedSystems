@@ -50,9 +50,9 @@ module LT24_System_mm_interconnect_0_router_002_default_decode
                DEFAULT_DESTID = 1 
    )
   (output [76 - 75 : 0] default_destination_id,
-   output [3-1 : 0] default_wr_channel,
-   output [3-1 : 0] default_rd_channel,
-   output [3-1 : 0] default_src_channel
+   output [4-1 : 0] default_wr_channel,
+   output [4-1 : 0] default_rd_channel,
+   output [4-1 : 0] default_src_channel
   );
 
   assign default_destination_id = 
@@ -63,7 +63,7 @@ module LT24_System_mm_interconnect_0_router_002_default_decode
       assign default_src_channel = '0;
     end
     else begin
-      assign default_src_channel = 3'b1 << DEFAULT_CHANNEL;
+      assign default_src_channel = 4'b1 << DEFAULT_CHANNEL;
     end
   end
   endgenerate
@@ -74,8 +74,8 @@ module LT24_System_mm_interconnect_0_router_002_default_decode
       assign default_rd_channel = '0;
     end
     else begin
-      assign default_wr_channel = 3'b1 << DEFAULT_WR_CHANNEL;
-      assign default_rd_channel = 3'b1 << DEFAULT_RD_CHANNEL;
+      assign default_wr_channel = 4'b1 << DEFAULT_WR_CHANNEL;
+      assign default_rd_channel = 4'b1 << DEFAULT_RD_CHANNEL;
     end
   end
   endgenerate
@@ -105,7 +105,7 @@ module LT24_System_mm_interconnect_0_router_002
     // -------------------
     output                          src_valid,
     output reg [90-1    : 0] src_data,
-    output reg [3-1 : 0] src_channel,
+    output reg [4-1 : 0] src_channel,
     output                          src_startofpacket,
     output                          src_endofpacket,
     input                           src_ready
@@ -121,7 +121,7 @@ module LT24_System_mm_interconnect_0_router_002
     localparam PKT_PROTECTION_H = 80;
     localparam PKT_PROTECTION_L = 78;
     localparam ST_DATA_W = 90;
-    localparam ST_CHANNEL_W = 3;
+    localparam ST_CHANNEL_W = 4;
     localparam DECODER_TYPE = 1;
 
     localparam PKT_TRANS_WRITE = 54;
@@ -160,7 +160,7 @@ module LT24_System_mm_interconnect_0_router_002
     assign src_valid         = sink_valid;
     assign src_startofpacket = sink_startofpacket;
     assign src_endofpacket   = sink_endofpacket;
-    wire [3-1 : 0] default_src_channel;
+    wire [4-1 : 0] default_src_channel;
 
 
 
@@ -192,11 +192,11 @@ module LT24_System_mm_interconnect_0_router_002
 
 
         if (destid == 1  && read_transaction) begin
-            src_channel = 3'b01;
+            src_channel = 4'b01;
         end
 
         if (destid == 0 ) begin
-            src_channel = 3'b10;
+            src_channel = 4'b10;
         end
 
 

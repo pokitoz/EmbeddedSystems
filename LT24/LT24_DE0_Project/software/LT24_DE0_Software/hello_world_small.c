@@ -79,13 +79,234 @@
  */
 
 #include "sys/alt_stdio.h"
+#include "system.h"
+#include "io.h"
 
-int main()
-{ 
-  alt_putstr("Hello from Nios II!\n");
+#define LCD_WR_REG(x) LT24_write_cmd(x)
+#define LCD_WR_DATA(x) LT24_write_data(x)
 
-  /* Event loop never exits. */
-  while (1);
+void LT24_write_cmd(int cmd) {
 
-  return 0;
+	while (IORD_32DIRECT(LT24_CTRL_0_BASE, 2*4)) {
+		//alt_putstr("Wait CMD - ");
+	}
+
+	IOWR_32DIRECT(LT24_CTRL_0_BASE, 0*4, cmd);
+
+}
+
+inline void LT24_write_data(int data) {
+
+	while (IORD_32DIRECT(LT24_CTRL_0_BASE, 2*4)) {
+		//alt_putstr("Wait DATA - ");
+	}
+
+	IOWR_32DIRECT(LT24_CTRL_0_BASE, 1*4, data);
+
+}
+
+void LCD_SetCursor(alt_u16 Xpos, alt_u16 Ypos) {
+	LCD_WR_REG(0x002A);
+	LCD_WR_DATA(Xpos>>8);
+	LCD_WR_DATA(Xpos&0XFF);
+	LCD_WR_REG(0x002B);
+	LCD_WR_DATA(Ypos>>8);
+	LCD_WR_DATA(Ypos&0XFF);
+	LCD_WR_REG(0x002C);
+}
+
+void LCD_DrawPoint(alt_u16 x, alt_u16 y, alt_u16 color) {
+
+	alt_u16 color16 = color;
+
+	LCD_SetCursor(x, y);
+	LCD_WR_REG(0x002C);
+	LCD_WR_DATA(color16);
+}
+
+void wait_ms(alt_u32 ms) {
+	int i = 0;
+	for (i = 0; i < ms*25000; ++i) {
+		asm("nop");
+	}
+}
+
+void wait_20ns(alt_u32 ns20) {
+	int i = 0;
+	for (i = 0; i < ns20; ++i) {
+		asm("nop");
+	}
+}
+
+int main() {
+	alt_putstr("Hello from Nios II!\n");
+
+	//LCD ON
+	IOWR_32DIRECT(LT24_CTRL_0_BASE, 3*4, 1);
+
+	LCD_WR_REG(0x0011); //Exit Sleep
+
+	LCD_WR_REG(0x00CF);
+	LCD_WR_DATA(0x0000);
+	LCD_WR_DATA(0x0081);
+	LCD_WR_DATA(0X00c0);
+
+	LCD_WR_REG(0x00ED);
+	LCD_WR_DATA(0x0064);
+	LCD_WR_DATA(0x0003);
+	LCD_WR_DATA(0X0012);
+	LCD_WR_DATA(0X0081);
+
+	LCD_WR_REG(0x00E8);
+	LCD_WR_DATA(0x0085);
+	LCD_WR_DATA(0x0001);
+	LCD_WR_DATA(0x00798);
+
+	LCD_WR_REG(0x00CB);
+	LCD_WR_DATA(0x0039);
+	LCD_WR_DATA(0x002C);
+	LCD_WR_DATA(0x0000);
+	LCD_WR_DATA(0x0034);
+	LCD_WR_DATA(0x0002);
+
+	LCD_WR_REG(0x00F7);
+	LCD_WR_DATA(0x0020);
+
+	LCD_WR_REG(0x00EA);
+	LCD_WR_DATA(0x0000);
+	LCD_WR_DATA(0x0000);
+
+	LCD_WR_REG(0x00B1);
+	LCD_WR_DATA(0x0000);
+	LCD_WR_DATA(0x001b);
+
+	LCD_WR_REG(0x00B6);
+	LCD_WR_DATA(0x000A);
+	LCD_WR_DATA(0x00A2);
+
+	LCD_WR_REG(0x00C0); //Power control
+	LCD_WR_DATA(0x0005); //VRH[5:0]
+
+	LCD_WR_REG(0x00C1); //Power control
+	LCD_WR_DATA(0x0011); //SAP[2:0];BT[3:0]
+
+	LCD_WR_REG(0x00C5); //VCM control
+	LCD_WR_DATA(0x0045); //3F
+	LCD_WR_DATA(0x0045); //3C
+
+	LCD_WR_REG(0x00C7); //VCM control2
+	LCD_WR_DATA(0X00a2);
+
+	LCD_WR_REG(0x0036); // Memory Access Control
+	LCD_WR_DATA(0x0008);//48
+
+	LCD_WR_REG(0x00F2); // 3Gamma Function Disable
+	LCD_WR_DATA(0x0000);
+
+	LCD_WR_REG(0x0026); //Gamma curve selected
+	LCD_WR_DATA(0x0001);
+
+	LCD_WR_REG(0x00E0); //Set Gamma
+	LCD_WR_DATA(0x000F);
+	LCD_WR_DATA(0x0026);
+	LCD_WR_DATA(0x0024);
+	LCD_WR_DATA(0x000b);
+	LCD_WR_DATA(0x000E);
+	LCD_WR_DATA(0x0008);
+	LCD_WR_DATA(0x004b);
+	LCD_WR_DATA(0X00a8);
+	LCD_WR_DATA(0x003b);
+	LCD_WR_DATA(0x000a);
+	LCD_WR_DATA(0x0014);
+	LCD_WR_DATA(0x0006);
+	LCD_WR_DATA(0x0010);
+	LCD_WR_DATA(0x0009);
+	LCD_WR_DATA(0x0000);
+
+	LCD_WR_REG(0X00E1); //Set Gamma
+	LCD_WR_DATA(0x0000);
+	LCD_WR_DATA(0x001c);
+	LCD_WR_DATA(0x0020);
+	LCD_WR_DATA(0x0004);
+	LCD_WR_DATA(0x0010);
+	LCD_WR_DATA(0x0008);
+	LCD_WR_DATA(0x0034);
+	LCD_WR_DATA(0x0047);
+	LCD_WR_DATA(0x0044);
+	LCD_WR_DATA(0x0005);
+	LCD_WR_DATA(0x000b);
+	LCD_WR_DATA(0x0009);
+	LCD_WR_DATA(0x002f);
+	LCD_WR_DATA(0x0036);
+	LCD_WR_DATA(0x000f);
+
+	LCD_WR_REG(0x002A);
+	LCD_WR_DATA(0x0000);
+	LCD_WR_DATA(0x0000);
+	LCD_WR_DATA(0x0000);
+	LCD_WR_DATA(0x00ef);
+
+	LCD_WR_REG(0x002B);
+	LCD_WR_DATA(0x0000);
+	LCD_WR_DATA(0x0000);
+	LCD_WR_DATA(0x0001);
+	LCD_WR_DATA(0x003f);
+
+	LCD_WR_REG(0x003A);
+	LCD_WR_DATA(0x0055);
+
+	LCD_WR_REG(0x00f6);
+	LCD_WR_DATA(0x0001);
+	LCD_WR_DATA(0x0030);
+	LCD_WR_DATA(0x0000);
+
+	LCD_WR_REG(0x0029); //display on
+
+	LCD_WR_REG(0x002c); // 0x2C
+
+	int row = 0;
+
+	/*
+	 * 900ns delay
+	 * - 400ns won by commenting printf
+	 * - 140ns won by inlining manually functions
+	 * - 200ns won by replacing busy check by nop
+	 */
+
+	while (1) {
+
+		wait_ms(1000);
+		LCD_SetCursor(0, 0);
+		LCD_WR_REG(0x2C);
+		for (row = 0; row < 240*320; ++row) {
+			asm("nop");
+			//while (IORD_32DIRECT(LT24_COMP_0_BASE, 2*4));
+			IOWR_32DIRECT(LT24_CTRL_0_BASE, 1*4, 0x1F);
+		}
+
+		wait_ms(1000);
+		LCD_SetCursor(0, 0);
+		LCD_WR_REG(0x2C);
+		for (row = 0; row < 240*320; ++row) {
+			asm("nop");
+			//while (IORD_32DIRECT(LT24_COMP_0_BASE, 2*4));
+			IOWR_32DIRECT(LT24_CTRL_0_BASE, 1*4, 0xFFFF);
+		}
+
+		wait_ms(1000);
+		LCD_SetCursor(0, 0);
+		LCD_WR_REG(0x2C);
+		for (row = 0; row < 240*320; ++row) {
+			asm("nop");
+			//while (IORD_32DIRECT(LT24_COMP_0_BASE, 2*4));
+			IOWR_32DIRECT(LT24_CTRL_0_BASE, 1*4, 0xF800);
+		}
+
+	}
+
+	/* Event loop never exits. */
+	while (1)
+		;
+
+	return 0;
 }

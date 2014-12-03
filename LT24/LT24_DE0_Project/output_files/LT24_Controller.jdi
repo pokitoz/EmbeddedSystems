@@ -1,6 +1,6 @@
 <sld_project_info>
   <project>
-    <hash md5_digest_80b="29fd0648a05394b7c2e0"/>
+    <hash md5_digest_80b="2210bc6c3e543cb5eb47"/>
   </project>
   <file_info>
     <file device="EP4CE22F17C6" path="LT24_Controller.sof" usercode="0xFFFFFFFF"/>
@@ -144,7 +144,7 @@
   <sld_infos>
     <sld_info hpath="LT24_System:inst" name="inst">
       <assignment_values>
-        <assignment_value text="QSYS_NAME LT24_System HAS_SOPCINFO 1 GENERATION_ID 1417605256"/>
+        <assignment_value text="QSYS_NAME LT24_System HAS_SOPCINFO 1 GENERATION_ID 1417612563"/>
       </assignment_values>
       <parameters/>
     </sld_info>

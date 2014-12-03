@@ -67,7 +67,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   </table>
   <table class="blueBar">
    <tr>
-    <td class="l">2014.12.03.12:14:16</td>
+    <td class="l">2014.12.03.14:16:04</td>
     <td class="r">Datasheet</td>
    </tr>
   </table>
@@ -98,7 +98,10 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </a> altera_nios2_qsys 14.0
      <br/>&#160;&#160;
      <a href="#module_jtag_uart_0"><b>jtag_uart_0</b>
-     </a> altera_avalon_jtag_uart 14.0</span>
+     </a> altera_avalon_jtag_uart 14.0
+     <br/>&#160;&#160;
+     <a href="#module_LT24_CTRL_0"><b>LT24_CTRL_0</b>
+     </a> LT24_CTRL 1.0</span>
    </div>
   </div>
   <div style="width:100% ;  height:10px"> </div>
@@ -151,8 +154,21 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
    </tr>
    <tr>
     <td class="slaveb">avalon_jtag_slave&#160;</td>
-    <td class="addr"><span style="color:#989898">0x</span>00009008</td>
-    <td class="addr"><span style="color:#989898">0x</span>00009008</td>
+    <td class="addr"><span style="color:#989898">0x</span>00009048</td>
+    <td class="addr"><span style="color:#989898">0x</span>00009048</td>
+   </tr>
+   <tr>
+    <td class="slavemodule">&#160;
+     <a href="#module_LT24_CTRL_0"><b>LT24_CTRL_0</b>
+     </a>
+    </td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slaveb">avalon_slave_0&#160;</td>
+    <td class="addr"><span style="color:#989898">0x</span>00009020</td>
+    <td class="addr"><span style="color:#989898">0x</span>00009020</td>
    </tr>
   </table>
   <a name="module_clk_0"> </a>
@@ -456,7 +472,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_0">clk_0</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="19">nios2_qsys_0</td>
+      <td class="main" rowspan="26">nios2_qsys_0</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clk</td>
@@ -545,6 +561,42 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="to">&#160;&#160;irq</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">instruction_master&#160;&#160;</td>
+      <td class="neighbor" rowspan="6">
+       <a href="#module_LT24_CTRL_0">LT24_CTRL_0</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;avalon_slave_0</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">data_master&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;avalon_slave_0</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">jtag_debug_module_reset&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;reset</td>
      </tr>
     </table>
    </div>
@@ -1033,11 +1085,11 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">instSlaveMapParam</td>
-        <td class="parametervalue">&lt;address-map&gt;&lt;slave name='onchip_memory2_0.s1' start='0x4000' end='0x8000' /&gt;&lt;slave name='nios2_qsys_0.jtag_debug_module' start='0x8800' end='0x9000' /&gt;&lt;slave name='jtag_uart_0.avalon_jtag_slave' start='0x9008' end='0x9010' /&gt;&lt;/address-map&gt;</td>
+        <td class="parametervalue">&lt;address-map&gt;&lt;slave name='onchip_memory2_0.s1' start='0x4000' end='0x8000' /&gt;&lt;slave name='nios2_qsys_0.jtag_debug_module' start='0x8800' end='0x9000' /&gt;&lt;slave name='LT24_CTRL_0.avalon_slave_0' start='0x9020' end='0x9040' /&gt;&lt;slave name='jtag_uart_0.avalon_jtag_slave' start='0x9048' end='0x9050' /&gt;&lt;/address-map&gt;</td>
        </tr>
        <tr>
         <td class="parametername">dataSlaveMapParam</td>
-        <td class="parametervalue">&lt;address-map&gt;&lt;slave name='onchip_memory2_0.s1' start='0x4000' end='0x8000' /&gt;&lt;slave name='nios2_qsys_0.jtag_debug_module' start='0x8800' end='0x9000' /&gt;&lt;slave name='jtag_uart_0.avalon_jtag_slave' start='0x9008' end='0x9010' /&gt;&lt;/address-map&gt;</td>
+        <td class="parametervalue">&lt;address-map&gt;&lt;slave name='onchip_memory2_0.s1' start='0x4000' end='0x8000' /&gt;&lt;slave name='nios2_qsys_0.jtag_debug_module' start='0x8800' end='0x9000' /&gt;&lt;slave name='LT24_CTRL_0.avalon_slave_0' start='0x9020' end='0x9040' /&gt;&lt;slave name='jtag_uart_0.avalon_jtag_slave' start='0x9048' end='0x9050' /&gt;&lt;/address-map&gt;</td>
        </tr>
        <tr>
         <td class="parametername">clockFrequency</td>
@@ -1365,10 +1417,85 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     </tr>
    </table>
   </div>
+  <a name="module_LT24_CTRL_0"> </a>
+  <div>
+   <hr/>
+   <h2>LT24_CTRL_0</h2>LT24_CTRL v1.0
+   <br/>
+   <div class="greydiv">
+    <table class="connectionboxes">
+     <tr>
+      <td class="neighbor" rowspan="4">
+       <a href="#module_clk_0">clk_0</a>
+      </td>
+      <td class="from">clk&#160;&#160;</td>
+      <td class="main" rowspan="11">LT24_CTRL_0</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;clock</td>
+     </tr>
+     <tr>
+      <td class="from">clk_reset&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;reset</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="6">
+       <a href="#module_nios2_qsys_0">nios2_qsys_0</a>
+      </td>
+      <td class="from">instruction_master&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;avalon_slave_0</td>
+     </tr>
+     <tr>
+      <td class="from">data_master&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;avalon_slave_0</td>
+     </tr>
+     <tr>
+      <td class="from">jtag_debug_module_reset&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;reset</td>
+     </tr>
+    </table>
+   </div>
+   <br/>
+   <br/>
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Parameters</h2>
+      <table>
+       <tr>
+        <td class="parametername">deviceFamily</td>
+        <td class="parametervalue">UNKNOWN</td>
+       </tr>
+       <tr>
+        <td class="parametername">generateLegacySim</td>
+        <td class="parametervalue">false</td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+   </table>&#160;&#160;
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Software Assignments</h2>(none)</td>
+    </tr>
+   </table>
+  </div>
   <table class="blueBar">
    <tr>
     <td class="l">generation took 0.00 seconds</td>
-    <td class="r">rendering took 0.06 seconds</td>
+    <td class="r">rendering took 0.05 seconds</td>
    </tr>
   </table>
  </body>

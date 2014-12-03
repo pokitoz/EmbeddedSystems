@@ -2,10 +2,10 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>3 déc. 2014 12:26:14</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1417605974467</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>3 déc. 2014 14:24:00</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1417613040444</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\Users\aroulin\Desktop\EmbeddedSystems\LT24\LT24_DE0_Project\software\LT24_DE0_Software_bsp</BspGeneratedLocation>
-        <BspSettingsFile>.\settings.bsp</BspSettingsFile>
+        <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\LT24_System.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>
         <Cpu>nios2_qsys_0</Cpu>
@@ -869,8 +869,14 @@
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>LT24_CTRL_0</slaveDescriptor>
+                <addressRange>0x00009020 - 0x0000903F</addressRange>
+                <addressSpan>32</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>jtag_uart_0</slaveDescriptor>
-                <addressRange>0x00009008 - 0x0000900F</addressRange>
+                <addressRange>0x00009048 - 0x0000904F</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes>printable</attributes>
         </MemoryMap>

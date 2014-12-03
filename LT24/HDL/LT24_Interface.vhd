@@ -2,25 +2,31 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity LT24_Translator is
+entity LT24_Interface is
 	port(
-		clk      : in  std_logic;
-		reset_n  : in  std_logic;
-
-		start    : in  std_logic;
-		cmd      : in  std_logic;
-		data_in  : in  std_logic_vector(15 downto 0);
-		busy     : out std_logic;
-
-		csx      : out std_logic;
-		dcx      : out std_logic;
-		wrx      : out std_logic;
-		rdx      : out std_logic;
-		data_out : out std_logic_vector(15 downto 0)
+		clk          : in  std_logic;
+		reset_n      : in  std_logic;
+		-- LT24 Slave signals
+		start_single : in  std_logic;
+		data_cmd_n   : in  std_logic;
+		data_in      : in  std_logic_vector(15 downto 0);
+		busy         : out std_logic;
+		-- LT24 board signals
+		csx          : out std_logic;
+		dcx          : out std_logic;
+		wrx          : out std_logic;
+		rdx          : out std_logic;
+		data_out     : out std_logic_vector(15 downto 0);
+		-- LT24 Master signals
+		running      : in  std_logic;
+		-- FIFO signals
+		read_fifo    : out std_logic;
+		read_data    : in  std_logic_vector(15 downto 0);
+		fifo_empty   : in  std_logic
 	);
-end entity LT24_Translator;
+end entity LT24_Interface;
 
-architecture RTL of LT24_Translator is
+architecture RTL of LT24_Interface is
 	type state_type is (IDLE, WRITE_CMD, WRITE_DATA);
 	signal state_reg, state_next     : state_type;
 	signal counter_reg, counter_next : integer;
@@ -33,7 +39,9 @@ architecture RTL of LT24_Translator is
 	signal rdx_reg, rdx_next   : std_logic;
 	signal data_reg, data_next : std_logic_vector(15 downto 0);
 begin
-	state_machine : process(busy_reg, cmd, counter_reg, csx_reg, data_in, data_reg, dcx_reg, rdx_reg, start, state_reg, wrx_reg) is
+	read_fifo <= '0';
+
+	state_machine : process(busy_reg, data_cmd_n, counter_reg, csx_reg, data_in, data_reg, dcx_reg, rdx_reg, start_single, state_reg, wrx_reg) is
 	begin
 		state_next   <= state_reg;
 		counter_next <= counter_reg;
@@ -46,10 +54,10 @@ begin
 
 		case state_reg is
 			when IDLE =>
-				if start = '1' then
+				if start_single = '1' then
 					data_next <= data_in;
 					busy_next <= '1';
-					if cmd = '1' then
+					if data_cmd_n = '1' then
 						state_next <= WRITE_CMD;
 					else
 						state_next <= WRITE_DATA;
@@ -75,7 +83,7 @@ begin
 				counter_next <= counter_reg + 1;
 				case counter_reg is
 					when 0 => csx_next <= '0';
-								 wrx_next <= '0';
+						wrx_next       <= '0';
 					when 1 => wrx_next <= '1';
 					when 2 =>
 						csx_next     <= '1';
@@ -120,6 +128,5 @@ begin
 			data_reg    <= data_next;
 		end if;
 	end process reg_process;
-
 end architecture RTL;
 

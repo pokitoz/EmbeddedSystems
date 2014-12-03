@@ -31,8 +31,6 @@ architecture RTL of LT24_Interface is
 	signal state_reg, state_next     : state_type;
 	signal counter_reg, counter_next : integer;
 
-	signal busy_reg, busy_next : std_logic;
-
 	signal csx_reg, csx_next   : std_logic;
 	signal dcx_reg, dcx_next   : std_logic;
 	signal wrx_reg, wrx_next   : std_logic;
@@ -41,11 +39,12 @@ architecture RTL of LT24_Interface is
 begin
 	read_fifo <= '0';
 
-	state_machine : process(busy_reg, data_cmd_n, counter_reg, csx_reg, data_in, data_reg, dcx_reg, rdx_reg, start_single, state_reg, wrx_reg) is
+	busy <= '1' when start_single = '1' or state_reg /= IDLE else '0';
+
+	state_machine : process(data_cmd_n, counter_reg, csx_reg, data_in, data_reg, dcx_reg, rdx_reg, start_single, state_reg, wrx_reg) is
 	begin
 		state_next   <= state_reg;
 		counter_next <= counter_reg;
-		busy_next    <= busy_reg;
 		csx_next     <= csx_reg;
 		dcx_next     <= dcx_reg;
 		wrx_next     <= wrx_reg;
@@ -56,11 +55,10 @@ begin
 			when IDLE =>
 				if start_single = '1' then
 					data_next <= data_in;
-					busy_next <= '1';
 					if data_cmd_n = '1' then
-						state_next <= WRITE_CMD;
-					else
 						state_next <= WRITE_DATA;
+					else
+						state_next <= WRITE_CMD;
 					end if;
 				end if;
 			when WRITE_CMD =>
@@ -75,7 +73,6 @@ begin
 						dcx_next     <= '1';
 						state_next   <= IDLE;
 						counter_next <= 0;
-						busy_next    <= '0';
 						data_next    <= (others => '0');
 					when others => null;
 				end case;
@@ -89,16 +86,14 @@ begin
 						csx_next     <= '1';
 						state_next   <= IDLE;
 						counter_next <= 0;
-						busy_next    <= '0';
 						data_next    <= (others => '0');
 					when others => null;
 				end case;
 		end case;
 	end process state_machine;
 
-	output_process : process(busy_reg, csx_reg, data_reg, dcx_reg, rdx_reg, wrx_reg) is
+	output_process : process(csx_reg, data_reg, dcx_reg, rdx_reg, wrx_reg) is
 	begin
-		busy     <= busy_reg;
 		csx      <= csx_reg;
 		dcx      <= dcx_reg;
 		wrx      <= wrx_reg;
@@ -111,7 +106,6 @@ begin
 		if reset_n = '0' then
 			state_reg   <= IDLE;
 			counter_reg <= 0;
-			busy_reg    <= '0';
 			csx_reg     <= '1';
 			dcx_reg     <= '1';
 			wrx_reg     <= '1';
@@ -120,7 +114,6 @@ begin
 		elsif rising_edge(clk) then
 			state_reg   <= state_next;
 			counter_reg <= counter_next;
-			busy_reg    <= busy_next;
 			csx_reg     <= csx_next;
 			dcx_reg     <= dcx_next;
 			wrx_reg     <= wrx_next;

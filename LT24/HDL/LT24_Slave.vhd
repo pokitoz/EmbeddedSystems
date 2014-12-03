@@ -70,7 +70,7 @@ begin
 						data_in      <= write_data(15 downto 0);
 					when "001" =>
 						start_single <= '1';
-						data_cmd_n   <= '0';
+						data_cmd_n   <= '1';
 						data_in      <= write_data(15 downto 0);
 					when "011" =>
 						lcd_on      <= write_data(0);

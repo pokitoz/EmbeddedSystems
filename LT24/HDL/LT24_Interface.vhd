@@ -27,7 +27,7 @@ entity LT24_Interface is
 end entity LT24_Interface;
 
 architecture RTL of LT24_Interface is
-	type state_type is (IDLE, WRITE_CMD, WRITE_DATA, DMA_TRANSFER);
+	type state_type is (IDLE, WRITE_CMD, WRITE_DATA, DMA_TRANSFER, DMA_AVAILABLE, DMA_WRITE);
 	signal state_reg, state_next     : state_type;
 	signal counter_reg, counter_next : integer;
 
@@ -37,11 +37,9 @@ architecture RTL of LT24_Interface is
 	signal rdx_reg, rdx_next   : std_logic;
 	signal data_reg, data_next : std_logic_vector(15 downto 0);
 begin
-	read_fifo <= '0';
-
 	busy <= '1' when start_single = '1' or state_reg /= IDLE else '0';
 
-	state_machine : process(data_cmd_n, counter_reg, csx_reg, data_in, data_reg, dcx_reg, rdx_reg, start_single, state_reg, wrx_reg, running) is
+	state_machine : process(data_cmd_n, counter_reg, csx_reg, data_in, data_reg, dcx_reg, rdx_reg, start_single, state_reg, wrx_reg, running, fifo_empty, read_data) is
 	begin
 		state_next   <= state_reg;
 		counter_next <= counter_reg;
@@ -50,6 +48,7 @@ begin
 		wrx_next     <= wrx_reg;
 		rdx_next     <= rdx_reg;
 		data_next    <= data_reg;
+		read_fifo    <= '0';
 
 		case state_reg is
 			when IDLE =>
@@ -93,7 +92,28 @@ begin
 					when others => null;
 				end case;
 			when DMA_TRANSFER =>
-				null;                   -- if !fifo_empty
+				if (fifo_empty = '0') then
+					state_next <= DMA_AVAILABLE;
+					read_fifo  <= '1';
+				elsif (running = '0') then
+					state_next <= IDLE;
+				end if;
+			when DMA_AVAILABLE =>
+				data_next  <= read_data;
+				state_next <= DMA_WRITE;
+			when DMA_WRITE =>
+				counter_next <= counter_reg + 1;
+				case counter_reg is
+					when 0 => csx_next <= '0';
+						wrx_next       <= '0';
+					when 1 => wrx_next <= '1';
+					when 2 =>
+						csx_next     <= '1';
+						state_next   <= DMA_TRANSFER;
+						counter_next <= 0;
+						data_next    <= (others => '0');
+					when others => null;
+				end case;
 		end case;
 	end process state_machine;
 

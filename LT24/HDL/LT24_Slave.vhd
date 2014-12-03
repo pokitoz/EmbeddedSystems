@@ -30,9 +30,6 @@ end entity LT24_Slave;
 
 architecture RTL of LT24_Slave is
 begin
-	start_dma   <= '0';
-	len_dma     <= (others => '0');
-
 	read_process : process(clk, reset_n) is
 	begin
 		if reset_n = '0' then
@@ -56,12 +53,15 @@ begin
 			data_in      <= (others => '0');
 			lcd_on       <= '0';
 			lcd_reset_n  <= '1';
-			address_dma <= (others => '0');
+			start_dma    <= '0';
+			address_dma  <= (others => '0');
+			len_dma      <= (others => '0');
 		elsif rising_edge(clk) then
 			start_single <= '0';
 			data_cmd_n   <= '0';
 			data_in      <= (others => '0');
 			lcd_reset_n  <= '1';
+			start_dma    <= '0';
 			if chip_select = '1' and write = '1' then
 				case address is
 					when "000" =>
@@ -77,6 +77,9 @@ begin
 						lcd_reset_n <= write_data(1);
 					when "100" =>
 						address_dma <= write_data;
+					when "101" =>
+						len_dma   <= write_data;
+						start_dma <= '1';
 					when others => null;
 				end case;
 			end if;

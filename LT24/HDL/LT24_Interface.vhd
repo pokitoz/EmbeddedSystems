@@ -27,7 +27,7 @@ entity LT24_Interface is
 end entity LT24_Interface;
 
 architecture RTL of LT24_Interface is
-	type state_type is (IDLE, WRITE_CMD, WRITE_DATA);
+	type state_type is (IDLE, WRITE_CMD, WRITE_DATA, DMA_TRANSFER);
 	signal state_reg, state_next     : state_type;
 	signal counter_reg, counter_next : integer;
 
@@ -41,7 +41,7 @@ begin
 
 	busy <= '1' when start_single = '1' or state_reg /= IDLE else '0';
 
-	state_machine : process(data_cmd_n, counter_reg, csx_reg, data_in, data_reg, dcx_reg, rdx_reg, start_single, state_reg, wrx_reg) is
+	state_machine : process(data_cmd_n, counter_reg, csx_reg, data_in, data_reg, dcx_reg, rdx_reg, start_single, state_reg, wrx_reg, running) is
 	begin
 		state_next   <= state_reg;
 		counter_next <= counter_reg;
@@ -59,6 +59,9 @@ begin
 						state_next <= WRITE_DATA;
 					else
 						state_next <= WRITE_CMD;
+					end if;
+					if running = '1' then
+						state_next <= DMA_TRANSFER;
 					end if;
 				end if;
 			when WRITE_CMD =>
@@ -89,6 +92,8 @@ begin
 						data_next    <= (others => '0');
 					when others => null;
 				end case;
+			when DMA_TRANSFER =>
+				null;                   -- if !fifo_empty
 		end case;
 	end process state_machine;
 

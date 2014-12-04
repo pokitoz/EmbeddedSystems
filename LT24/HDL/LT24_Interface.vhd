@@ -59,9 +59,9 @@ begin
 					else
 						state_next <= WRITE_CMD;
 					end if;
-					if running = '1' then
-						state_next <= DMA_TRANSFER;
-					end if;
+				end if;
+				if running = '1' then
+					state_next <= DMA_TRANSFER;
 				end if;
 			when WRITE_CMD =>
 				counter_next <= counter_reg + 1;

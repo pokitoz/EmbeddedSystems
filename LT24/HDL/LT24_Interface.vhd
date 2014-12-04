@@ -37,7 +37,7 @@ architecture RTL of LT24_Interface is
 	signal rdx_reg, rdx_next   : std_logic;
 	signal data_reg, data_next : std_logic_vector(15 downto 0);
 begin
-	busy <= '1' when start_single = '1' or state_reg /= IDLE else '0';
+	busy <= '1' when start_single = '1' or running = '1' or state_reg /= IDLE else '0';
 
 	state_machine : process(data_cmd_n, counter_reg, csx_reg, data_in, data_reg, dcx_reg, rdx_reg, start_single, state_reg, wrx_reg, running, fifo_empty, read_data) is
 	begin

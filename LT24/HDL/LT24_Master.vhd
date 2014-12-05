@@ -34,7 +34,8 @@ architecture RTL of LT24_Master is
 	signal address_dma_reg, address_dma_next : std_logic_vector(31 downto 0);
 	signal len_dma_reg, len_dma_next         : unsigned(31 downto 0);
 begin
-	address <= address_dma;
+	address   <= address_dma;
+	burst_cnt <= (others => '0');
 
 	state_machine : process(state_reg, address_dma, len_dma, start_dma, fifo_full, len_dma_reg, read_data, wait_request, address_dma_reg) is
 	begin

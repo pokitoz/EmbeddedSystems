@@ -34,16 +34,17 @@ architecture RTL of LT24_Master is
 	signal address_dma_reg, address_dma_next : std_logic_vector(31 downto 0);
 	signal len_dma_reg, len_dma_next         : unsigned(31 downto 0);
 begin
-	
 	address <= address_dma;
-	
-	state_machine : process(state_reg, address_dma, len_dma, start_dma, fifo_full, len_dma_reg, read_data, wait_request) is
+
+	state_machine : process(state_reg, address_dma, len_dma, start_dma, fifo_full, len_dma_reg, read_data, wait_request, address_dma_reg) is
 	begin
-		state_next <= state_reg;
-		running    <= '1';
-		read <= '0';
-		write_fifo <= '1';
-		write_data <= (others => '0');
+		state_next       <= state_reg;
+		running          <= '1';
+		read             <= '0';
+		write_fifo       <= '1';
+		write_data       <= (others => '0');
+		address_dma_next <= address_dma_reg;
+		len_dma_next     <= len_dma_reg;
 		case state_reg is
 			when IDLE =>
 				running <= '0';
@@ -55,15 +56,15 @@ begin
 				end if;
 			when READ_REQUEST =>
 				read <= '1';
-				if(wait_request = '0') then
+				if (wait_request = '0') then
 					state_next <= READ_AVAILABLE;
 				end if;
 			when READ_AVAILABLE =>
-				if(fifo_full = '0') then
+				if (fifo_full = '0') then
 					write_fifo <= '1';
 					write_data <= read_data;
 					state_next <= READ_REQUEST;
-					if(len_dma_reg = X"00000001") then
+					if (len_dma_reg = X"00000001") then
 						state_next <= IDLE;
 					end if;
 					len_dma_next <= len_dma_reg - 1;

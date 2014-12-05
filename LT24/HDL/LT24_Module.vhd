@@ -90,6 +90,18 @@ architecture RTL of LT24_Module is
 			 running         : out std_logic);
 	end component LT24_Master;
 
+	component FIFO
+		port(data    : IN  STD_LOGIC_VECTOR(31 DOWNTO 0);
+			 rdclk   : IN  STD_LOGIC;
+			 rdreq   : IN  STD_LOGIC;
+			 wrclk   : IN  STD_LOGIC;
+			 wrreq   : IN  STD_LOGIC;
+			 q       : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
+			 rdempty : OUT STD_LOGIC;
+			 wrfull  : OUT STD_LOGIC;
+			 wrusedw : OUT STD_LOGIC_VECTOR(5 DOWNTO 0));
+	end component FIFO;
+
 	-- LT24 Slave <-> LT24 Interface
 	signal start_single : std_logic;
 	signal data_cmd_n   : std_logic;
@@ -169,4 +181,15 @@ begin
 			     fifo_full       => fifo_full,
 			     fifo_free_cnt   => fifo_free_cnt,
 			     running         => running);
+
+	FIFO_inst : component FIFO
+		port map(data    => write_data_fifo,
+			     rdclk   => clk,
+			     rdreq   => read_fifo,
+			     wrclk   => clk,
+			     wrreq   => write_fifo,
+			     q       => read_data_fifo,
+			     rdempty => fifo_empty,
+			     wrfull  => fifo_full,
+			     wrusedw => fifo_free_cnt);
 end architecture RTL;

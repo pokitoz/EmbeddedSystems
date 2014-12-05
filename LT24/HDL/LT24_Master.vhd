@@ -13,7 +13,7 @@ entity LT24_Master is
 		wait_request    : in  std_logic;
 		-- Avalon burst signals
 		burst_cnt       : out std_logic_vector(6 downto 0);
-		read_data_valid : in  std_logic_vector;
+		read_data_valid : in  std_logic;
 		-- LT24 Slave signals
 		start_dma       : in  std_logic;
 		address_dma     : in  std_logic_vector(31 downto 0);

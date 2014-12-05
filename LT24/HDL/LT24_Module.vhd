@@ -4,24 +4,31 @@ use ieee.numeric_std.all;
 
 entity LT24_Module is
 	port(
-		clk         : in  std_logic;
-		reset_n     : in  std_logic;
+		clk              : in  std_logic;
+		reset_n          : in  std_logic;
 		-- Avalon Slave signals
-		address     : in  std_logic_vector(2 downto 0);
-		chip_select : in  std_logic;
-		read        : in  std_logic;
-		write       : in  std_logic;
-		read_data   : out std_logic_vector(31 downto 0);
-		write_data  : in  std_logic_vector(31 downto 0);
+		address_slave    : in  std_logic_vector(2 downto 0);
+		chip_select      : in  std_logic;
+		read_slave       : in  std_logic;
+		write            : in  std_logic;
+		read_data_slave  : out std_logic_vector(31 downto 0);
+		write_data_slave : in  std_logic_vector(31 downto 0);
 		-- LT24 Board signals
-		lcd_reset_n : out std_logic;
-		lcd_on      : out std_logic;
+		lcd_reset_n      : out std_logic;
+		lcd_on           : out std_logic;
 		-- LT24 Interface signals
-		csx         : out std_logic;
-		dcx         : out std_logic;
-		wrx         : out std_logic;
-		rdx         : out std_logic;
-		data_out    : out std_logic_vector(15 downto 0)
+		csx              : out std_logic;
+		dcx              : out std_logic;
+		wrx              : out std_logic;
+		rdx              : out std_logic;
+		data_out         : out std_logic_vector(15 downto 0);
+		-- LT24 Master signals
+		address_master   : out std_logic_vector(31 downto 0);
+		read_master      : out std_logic;
+		read_data_master : in  std_logic_vector(31 downto 0);
+		wait_request     : in  std_logic;
+		burst_cnt        : out std_logic_vector(6 downto 0);
+		read_data_valid  : in  std_logic
 	);
 end entity LT24_Module;
 
@@ -64,6 +71,25 @@ architecture RTL of LT24_Module is
 			 fifo_empty   : in  std_logic);
 	end component LT24_Interface;
 
+	component LT24_Master
+		port(clk             : in  std_logic;
+			 reset_n         : in  std_logic;
+			 address         : out std_logic_vector(31 downto 0);
+			 read            : out std_logic;
+			 read_data       : in  std_logic_vector(31 downto 0);
+			 wait_request    : in  std_logic;
+			 burst_cnt       : out std_logic_vector(6 downto 0);
+			 read_data_valid : in  std_logic;
+			 start_dma       : in  std_logic;
+			 address_dma     : in  std_logic_vector(31 downto 0);
+			 len_dma         : in  std_logic_vector(31 downto 0);
+			 write_fifo      : out std_logic;
+			 write_data      : out std_logic_vector(31 downto 0);
+			 fifo_full       : in  std_logic;
+			 fifo_free_cnt   : in  std_logic_vector(6 downto 0);
+			 running         : out std_logic);
+	end component LT24_Master;
+
 	-- LT24 Slave <-> LT24 Interface
 	signal start_single : std_logic;
 	signal data_cmd_n   : std_logic;
@@ -79,20 +105,26 @@ architecture RTL of LT24_Module is
 	signal running : std_logic;
 
 	-- LT24 Interface <-> FIFO
-	signal read_fifo  : std_logic;
-	signal fifo_empty : std_logic;
+	signal read_fifo      : std_logic;
+	signal fifo_empty     : std_logic;
 	signal read_data_fifo : std_logic_vector(15 downto 0);
+
+	-- LT24 Master <-> FIFO
+	signal write_fifo      : std_logic;
+	signal fifo_full       : std_logic;
+	signal write_data_fifo : std_logic_vector(31 downto 0);
+	signal fifo_free_cnt   : std_logic_vector(6 downto 0);
 
 begin
 	LT24_Slave_inst : component LT24_Slave
 		port map(clk          => clk,
 			     reset_n      => reset_n,
-			     address      => address,
+			     address      => address_slave,
 			     chip_select  => chip_select,
-			     read         => read,
+			     read         => read_slave,
 			     write        => write,
-			     read_data    => read_data,
-			     write_data   => write_data,
+			     read_data    => read_data_slave,
+			     write_data   => write_data_slave,
 			     lcd_reset_n  => lcd_reset_n,
 			     lcd_on       => lcd_on,
 			     start_single => start_single,
@@ -119,4 +151,22 @@ begin
 			     read_fifo    => read_fifo,
 			     read_data    => read_data_fifo,
 			     fifo_empty   => fifo_empty);
+
+	LT24_Master_inst : component LT24_Master
+		port map(clk             => clk,
+			     reset_n         => reset_n,
+			     address         => address_master,
+			     read            => read_master,
+			     read_data       => read_data_master,
+			     wait_request    => wait_request,
+			     burst_cnt       => burst_cnt,
+			     read_data_valid => read_data_valid,
+			     start_dma       => start_dma,
+			     address_dma     => address_dma,
+			     len_dma         => len_dma,
+			     write_fifo      => write_fifo,
+			     write_data      => write_data_fifo,
+			     fifo_full       => fifo_full,
+			     fifo_free_cnt   => fifo_free_cnt,
+			     running         => running);
 end architecture RTL;

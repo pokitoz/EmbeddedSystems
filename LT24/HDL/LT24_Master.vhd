@@ -42,7 +42,7 @@ begin
 		state_next       <= state_reg;
 		running          <= '1';
 		read             <= '0';
-		write_fifo       <= '1';
+		write_fifo       <= '0';
 		write_data       <= (others => '0');
 		address_dma_next <= address_dma_reg;
 		len_dma_next     <= len_dma_reg;

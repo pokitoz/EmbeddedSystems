@@ -86,7 +86,7 @@ architecture RTL of LT24_Module is
 			 write_fifo      : out std_logic;
 			 write_data      : out std_logic_vector(31 downto 0);
 			 fifo_full       : in  std_logic;
-			 fifo_free_cnt   : in  std_logic_vector(6 downto 0);
+			 fifo_free_cnt   : in  std_logic_vector(5 downto 0);
 			 running         : out std_logic);
 	end component LT24_Master;
 
@@ -125,7 +125,7 @@ architecture RTL of LT24_Module is
 	signal write_fifo      : std_logic;
 	signal fifo_full       : std_logic;
 	signal write_data_fifo : std_logic_vector(31 downto 0);
-	signal fifo_free_cnt   : std_logic_vector(6 downto 0);
+	signal fifo_free_cnt   : std_logic_vector(5 downto 0);
 
 begin
 	LT24_Slave_inst : component LT24_Slave

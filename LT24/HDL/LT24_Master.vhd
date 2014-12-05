@@ -22,7 +22,7 @@ entity LT24_Master is
 		write_fifo      : out std_logic;
 		write_data      : out std_logic_vector(31 downto 0);
 		fifo_full       : in  std_logic;
-		fifo_free_cnt   : in  std_logic_vector(6 downto 0);
+		fifo_free_cnt   : in  std_logic_vector(5 downto 0);
 		-- LT24 Interface signals
 		running         : out std_logic
 	);

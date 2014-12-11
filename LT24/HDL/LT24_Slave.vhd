@@ -29,6 +29,7 @@ entity LT24_Slave is
 end entity LT24_Slave;
 
 architecture RTL of LT24_Slave is
+	signal address_dma_reg : std_logic_vector(31 downto 0);
 begin
 	read_process : process(clk, reset_n) is
 	begin
@@ -38,7 +39,9 @@ begin
 			if chip_select = '1' and read = '1' then
 				case address is
 					when "010" =>
-						read_data(0) <= busy;
+						read_data <= (31 downto 1 => '0') & busy;
+					when "100" =>
+						read_data <= address_dma_reg;
 					when others => null;
 				end case;
 			end if;
@@ -55,6 +58,7 @@ begin
 			lcd_reset_n  <= '1';
 			start_dma    <= '0';
 			address_dma  <= (others => '0');
+			address_dma_reg <= (others => '0');
 			len_dma      <= (others => '0');
 		elsif rising_edge(clk) then
 			start_single <= '0';
@@ -77,6 +81,7 @@ begin
 						lcd_reset_n <= write_data(1);
 					when "100" =>
 						address_dma <= write_data;
+						address_dma_reg <= write_data;
 					when "101" =>
 						len_dma   <= write_data;
 						start_dma <= '1';

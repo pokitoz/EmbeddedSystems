@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>3 déc. 2014 14:24:00</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1417613040444</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>11 déc. 2014 22:20:21</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1418332821523</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\Users\aroulin\Desktop\EmbeddedSystems\LT24\LT24_DE0_Project\software\LT24_DE0_Software_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\LT24_System.sopcinfo</SopcDesignFile>

@@ -141,6 +141,26 @@
    internal="LT24_CTRL_0.data_out"
    type="conduit"
    dir="end" />
+ <interface
+   name="lt24_ctrl_0_wait_request_master_debug"
+   internal="LT24_CTRL_0.wait_request_master_debug"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="lt24_ctrl_0_read_master_debug"
+   internal="LT24_CTRL_0.read_master_debug"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="lt24_ctrl_0_read_data_master_debug"
+   internal="LT24_CTRL_0.read_data_master_debug"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="lt24_ctrl_0_address_master_debug"
+   internal="LT24_CTRL_0.address_master_debug"
+   type="conduit"
+   dir="end" />
  <module kind="clock_source" version="14.0" enabled="1" name="clk_0">
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="clockFrequencyKnown" value="true" />
@@ -324,7 +344,7 @@
   <parameter name="writeIRQThreshold" value="8" />
   <parameter name="avalonSpec" value="2.0" />
  </module>
- <module kind="LT24_CTRL" version="1.0" enabled="1" name="LT24_CTRL_0" />
+ <module kind="LT24_CTRL" version="1.4" enabled="1" name="LT24_CTRL_0" />
  <connection
    kind="avalon"
    version="14.0"
@@ -423,11 +443,15 @@
    end="jtag_uart_0.irq">
   <parameter name="irqNumber" value="0" />
  </connection>
- <connection kind="clock" version="14.0" start="clk_0.clk" end="LT24_CTRL_0.clock" />
  <connection
    kind="reset"
    version="14.0"
    start="clk_0.clk_reset"
+   end="LT24_CTRL_0.reset" />
+ <connection
+   kind="reset"
+   version="14.0"
+   start="nios2_qsys_0.jtag_debug_module_reset"
    end="LT24_CTRL_0.reset" />
  <connection
    kind="avalon"
@@ -447,11 +471,34 @@
   <parameter name="baseAddress" value="0x9020" />
   <parameter name="defaultConnection" value="false" />
  </connection>
+ <connection kind="clock" version="14.0" start="clk_0.clk" end="LT24_CTRL_0.clock" />
  <connection
-   kind="reset"
+   kind="avalon"
    version="14.0"
-   start="nios2_qsys_0.jtag_debug_module_reset"
-   end="LT24_CTRL_0.reset" />
+   start="LT24_CTRL_0.avalon_master"
+   end="jtag_uart_0.avalon_jtag_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x9048" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="14.0"
+   start="LT24_CTRL_0.avalon_master"
+   end="nios2_qsys_0.jtag_debug_module">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x8800" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="14.0"
+   start="LT24_CTRL_0.avalon_master"
+   end="onchip_memory2_0.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x4000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />

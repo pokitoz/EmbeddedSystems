@@ -28,7 +28,13 @@ entity LT24_Module is
 		read_data_master : in  std_logic_vector(31 downto 0);
 		wait_request     : in  std_logic;
 		burst_cnt        : out std_logic_vector(6 downto 0);
-		read_data_valid  : in  std_logic
+		read_data_valid  : in  std_logic;
+		byte_enable_n 	  : out std_logic_vector(3 downto 0);
+		
+		read_data_master_debug : out  std_logic_vector(31 downto 0);
+		read_master_debug : out std_logic;
+		address_master_debug : out std_logic_vector(31 downto 0);
+		wait_request_debug : out std_logic
 	);
 end entity LT24_Module;
 
@@ -78,6 +84,7 @@ architecture RTL of LT24_Module is
 			 read            : out std_logic;
 			 read_data       : in  std_logic_vector(31 downto 0);
 			 wait_request    : in  std_logic;
+			 byte_enable_n	  : out std_logic_vector(3 downto 0);
 			 burst_cnt       : out std_logic_vector(6 downto 0);
 			 read_data_valid : in  std_logic;
 			 start_dma       : in  std_logic;
@@ -87,7 +94,10 @@ architecture RTL of LT24_Module is
 			 write_data      : out std_logic_vector(31 downto 0);
 			 fifo_full       : in  std_logic;
 			 fifo_free_cnt   : in  std_logic_vector(5 downto 0);
-			 running         : out std_logic);
+			 running         : out std_logic;
+			 
+			 read_debug      : out std_logic;
+			 address_master_debug : out std_logic_vector(31 downto 0));
 	end component LT24_Master;
 
 	component FIFO
@@ -171,6 +181,7 @@ begin
 			     read            => read_master,
 			     read_data       => read_data_master,
 			     wait_request    => wait_request,
+				  byte_enable_n	=> byte_enable_n,
 			     burst_cnt       => burst_cnt,
 			     read_data_valid => read_data_valid,
 			     start_dma       => start_dma,
@@ -180,7 +191,9 @@ begin
 			     write_data      => write_data_fifo,
 			     fifo_full       => fifo_full,
 			     fifo_free_cnt   => fifo_free_cnt,
-			     running         => running);
+			     running         => running,
+				  read_debug		=> read_master_debug,
+				  address_master_debug => address_master_debug);
 
 	FIFO_inst : component FIFO
 		port map(data    => write_data_fifo,
@@ -192,4 +205,10 @@ begin
 			     rdempty => fifo_empty,
 			     wrfull  => fifo_full,
 			     wrusedw => fifo_free_cnt);
+				  
+				  
+	read_data_master_debug <= read_data_master;
+	wait_request_debug		<= wait_request;
+									
+									
 end architecture RTL;

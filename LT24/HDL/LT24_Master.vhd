@@ -11,6 +11,7 @@ entity LT24_Master is
 		read            : out std_logic;
 		read_data       : in  std_logic_vector(31 downto 0);
 		wait_request    : in  std_logic;
+		byte_enable_n	 : out std_logic_vector(3 downto 0);
 		-- Avalon burst signals
 		burst_cnt       : out std_logic_vector(6 downto 0);
 		read_data_valid : in  std_logic;
@@ -24,7 +25,11 @@ entity LT24_Master is
 		fifo_full       : in  std_logic;
 		fifo_free_cnt   : in  std_logic_vector(5 downto 0);
 		-- LT24 Interface signals
-		running         : out std_logic
+		running         : out std_logic;
+		
+		read_debug      : out std_logic;
+		address_master_debug : out std_logic_vector(31 downto 0)
+		
 	);
 end entity LT24_Master;
 
@@ -39,17 +44,22 @@ architecture RTL of LT24_Master is
 begin
 	
 	address <= std_logic_vector(address_dma_reg);
+	address_master_debug <= std_logic_vector(address_dma_reg);
 	burst_cnt <= (others => '0');
-
+	byte_enable_n <= (others => '0');
+	write_data <= write_data_reg;
+	
+	
 	state_machine : process(state_reg, address_dma, len_dma, start_dma, fifo_full, len_dma_reg, read_data, wait_request, address_dma_reg) is
 	begin
 		state_next       <= state_reg;
 		running          <= '1';
 		read             <= '0';
+		read_debug       <= '0';
+		
 		write_fifo       <= '0';
 		write_data_next  <= write_data_reg;
 		address_dma_next <= address_dma_reg;
-		write_data			<= X"000F000F";
 		len_dma_next     <= len_dma_reg;
 		case state_reg is
 			when IDLE =>
@@ -62,14 +72,13 @@ begin
 				end if;
 			when READ_REQUEST =>
 				read <= '1';
+				read_debug <= '1';
 				if (wait_request = '0') then
 					state_next <= READ_AVAILABLE;
 				end if;
 				write_data_next       <=  read_data;
-				
+			
 			when READ_AVAILABLE =>
-				
-				write_data <= read_data;
 				
 			--	if(read_data_valid = '1') then
 					if (fifo_full = '0') then
@@ -79,7 +88,7 @@ begin
 							state_next <= IDLE;
 						end if;
 						--Increment the address
-						address_dma_next <= address_dma_next + 4;
+						--address_dma_next <= address_dma_next + 4;
 						len_dma_next <= len_dma_reg - 1;
 					end if;
 			--	end if;

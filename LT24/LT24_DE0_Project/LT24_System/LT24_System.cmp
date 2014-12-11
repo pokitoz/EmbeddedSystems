@@ -1,14 +1,18 @@
 	component LT24_System is
 		port (
-			clk_clk                        : in  std_logic                     := 'X'; -- clk
-			reset_reset_n                  : in  std_logic                     := 'X'; -- reset_n
-			lt24_ctrl_0_lcd_reset_n_export : out std_logic;                            -- export
-			lt24_ctrl_0_lcd_on_export      : out std_logic;                            -- export
-			lt24_ctrl_0_csx_export         : out std_logic;                            -- export
-			lt24_ctrl_0_dcx_export         : out std_logic;                            -- export
-			lt24_ctrl_0_wrx_export         : out std_logic;                            -- export
-			lt24_ctrl_0_rdx_export         : out std_logic;                            -- export
-			lt24_ctrl_0_data_out_export    : out std_logic_vector(15 downto 0)         -- export
+			clk_clk                                      : in  std_logic                     := 'X'; -- clk
+			reset_reset_n                                : in  std_logic                     := 'X'; -- reset_n
+			lt24_ctrl_0_lcd_reset_n_export               : out std_logic;                            -- export
+			lt24_ctrl_0_lcd_on_export                    : out std_logic;                            -- export
+			lt24_ctrl_0_csx_export                       : out std_logic;                            -- export
+			lt24_ctrl_0_dcx_export                       : out std_logic;                            -- export
+			lt24_ctrl_0_wrx_export                       : out std_logic;                            -- export
+			lt24_ctrl_0_rdx_export                       : out std_logic;                            -- export
+			lt24_ctrl_0_data_out_export                  : out std_logic_vector(15 downto 0);        -- export
+			lt24_ctrl_0_wait_request_master_debug_export : out std_logic;                            -- export
+			lt24_ctrl_0_read_master_debug_export         : out std_logic;                            -- export
+			lt24_ctrl_0_read_data_master_debug_export    : out std_logic_vector(31 downto 0);        -- export
+			lt24_ctrl_0_address_master_debug_export      : out std_logic_vector(31 downto 0)         -- export
 		);
 	end component LT24_System;
 

@@ -1,16 +1,16 @@
-Fitter Status : Successful - Wed Dec 03 14:20:58 2014
+Fitter Status : Successful - Thu Dec 11 22:18:51 2014
 Quartus II 64-Bit Version : 14.0.0 Build 200 06/17/2014 SJ Full Version
 Revision Name : LT24_Controller
 Top-level Entity Name : LT24_Controller
 Family : Cyclone IV E
 Device : EP4CE22F17C6
 Timing Models : Final
-Total logic elements : 2,826 / 22,320 ( 13 % )
-    Total combinational functions : 2,620 / 22,320 ( 12 % )
-    Dedicated logic registers : 1,643 / 22,320 ( 7 % )
-Total registers : 1643
-Total pins : 24 / 154 ( 16 % )
+Total logic elements : 3,770 / 22,320 ( 17 % )
+    Total combinational functions : 3,520 / 22,320 ( 16 % )
+    Dedicated logic registers : 2,282 / 22,320 ( 10 % )
+Total registers : 2282
+Total pins : 35 / 154 ( 23 % )
 Total virtual pins : 0
-Total memory bits : 176,640 / 608,256 ( 29 % )
+Total memory bits : 178,688 / 608,256 ( 29 % )
 Embedded Multiplier 9-bit elements : 4 / 132 ( 3 % )
 Total PLLs : 0 / 4 ( 0 % )

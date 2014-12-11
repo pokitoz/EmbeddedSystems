@@ -702,6 +702,8 @@ set_location_assignment PIN_H3 -to TCK
 set_location_assignment PIN_H4 -to TDI
 set_location_assignment PIN_J4 -to TDO
 set_location_assignment PIN_J5 -to TMS
+set_global_assignment -name VHDL_FILE ../HDL/LT24_Master.vhd
+set_global_assignment -name VHDL_FILE ../HDL/FIFO.vhd
 set_global_assignment -name VHDL_FILE ../HDL/LT24_Module.vhd
 set_global_assignment -name QIP_FILE LT24_System/synthesis/LT24_System.qip
 set_global_assignment -name VHDL_FILE ../HDL/LT24_Slave.vhd

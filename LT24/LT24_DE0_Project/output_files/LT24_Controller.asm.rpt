@@ -1,5 +1,5 @@
 Assembler report for LT24_Controller
-Wed Dec 03 14:21:03 2014
+Thu Dec 11 22:18:56 2014
 Quartus II 64-Bit Version 14.0.0 Build 200 06/17/2014 SJ Full Version
 
 
@@ -39,7 +39,7 @@ agreement for further details.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Wed Dec 03 14:21:03 2014 ;
+; Assembler Status      ; Successful - Thu Dec 11 22:18:56 2014 ;
 ; Revision Name         ; LT24_Controller                       ;
 ; Top-level Entity Name ; LT24_Controller                       ;
 ; Family                ; Cyclone IV E                          ;
@@ -80,8 +80,8 @@ agreement for further details.
 ; Option         ; Setting                                                                                                  ;
 +----------------+----------------------------------------------------------------------------------------------------------+
 ; Device         ; EP4CE22F17C6                                                                                             ;
-; JTAG usercode  ; 0x0034D761                                                                                               ;
-; Checksum       ; 0x0034D761                                                                                               ;
+; JTAG usercode  ; 0x003E0544                                                                                               ;
+; Checksum       ; 0x003E0544                                                                                               ;
 +----------------+----------------------------------------------------------------------------------------------------------+
 
 
@@ -91,14 +91,14 @@ agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Assembler
     Info: Version 14.0.0 Build 200 06/17/2014 SJ Full Version
-    Info: Processing started: Wed Dec 03 14:21:01 2014
+    Info: Processing started: Thu Dec 11 22:18:54 2014
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off LT24_Controller -c LT24_Controller
 Info (115031): Writing out detailed assembly data for power analysis
 Info (115030): Assembler is generating device programming files
 Info: Quartus II 64-Bit Assembler was successful. 0 errors, 0 warnings
-    Info: Peak virtual memory: 519 megabytes
-    Info: Processing ended: Wed Dec 03 14:21:03 2014
-    Info: Elapsed time: 00:00:02
+    Info: Peak virtual memory: 520 megabytes
+    Info: Processing ended: Thu Dec 11 22:18:57 2014
+    Info: Elapsed time: 00:00:03
     Info: Total CPU time (on all processors): 00:00:02
 
 

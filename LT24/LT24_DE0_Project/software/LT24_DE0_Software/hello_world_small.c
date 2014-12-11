@@ -86,6 +86,16 @@
 #define LCD_WR_REG(x) LT24_write_cmd(x)
 #define LCD_WR_DATA(x) LT24_write_data(x)
 
+void LT24_dma_start(alt_u32 address, alt_u32 len) {
+
+	while (IORD_32DIRECT(LT24_CTRL_0_BASE, 2*4))
+		;
+	IOWR_32DIRECT(LT24_CTRL_0_BASE, 4*4, address);
+	while (IORD_32DIRECT(LT24_CTRL_0_BASE, 2*4))
+		;
+	IOWR_32DIRECT(LT24_CTRL_0_BASE, 5*4, len);
+}
+
 void LT24_write_cmd(int cmd) {
 
 	while (IORD_32DIRECT(LT24_CTRL_0_BASE, 2*4)) {
@@ -127,7 +137,7 @@ void LCD_DrawPoint(alt_u16 x, alt_u16 y, alt_u16 color) {
 
 void wait_ms(alt_u32 ms) {
 	int i = 0;
-	for (i = 0; i < ms*25000; ++i) {
+	for (i = 0; i < ms * 25000; ++i) {
 		asm("nop");
 	}
 }
@@ -145,7 +155,8 @@ int main() {
 	//LCD ON
 	IOWR_32DIRECT(LT24_CTRL_0_BASE, 3*4, 1);
 
-	LCD_WR_REG(0x0011); //Exit Sleep
+	LCD_WR_REG(0x0011);
+	//Exit Sleep
 
 	LCD_WR_REG(0x00CF);
 	LCD_WR_DATA(0x0000);
@@ -185,29 +196,42 @@ int main() {
 	LCD_WR_DATA(0x000A);
 	LCD_WR_DATA(0x00A2);
 
-	LCD_WR_REG(0x00C0); //Power control
-	LCD_WR_DATA(0x0005); //VRH[5:0]
+	LCD_WR_REG(0x00C0);
+	//Power control
+	LCD_WR_DATA(0x0005);
+	//VRH[5:0]
 
-	LCD_WR_REG(0x00C1); //Power control
-	LCD_WR_DATA(0x0011); //SAP[2:0];BT[3:0]
+	LCD_WR_REG(0x00C1);
+	//Power control
+	LCD_WR_DATA(0x0011);
+	//SAP[2:0];BT[3:0]
 
-	LCD_WR_REG(0x00C5); //VCM control
-	LCD_WR_DATA(0x0045); //3F
-	LCD_WR_DATA(0x0045); //3C
+	LCD_WR_REG(0x00C5);
+	//VCM control
+	LCD_WR_DATA(0x0045);
+	//3F
+	LCD_WR_DATA(0x0045);
+	//3C
 
-	LCD_WR_REG(0x00C7); //VCM control2
+	LCD_WR_REG(0x00C7);
+	//VCM control2
 	LCD_WR_DATA(0X00a2);
 
-	LCD_WR_REG(0x0036); // Memory Access Control
-	LCD_WR_DATA(0x0008);//48
+	LCD_WR_REG(0x0036);
+	// Memory Access Control
+	LCD_WR_DATA(0x0008);
+	//48
 
-	LCD_WR_REG(0x00F2); // 3Gamma Function Disable
+	LCD_WR_REG(0x00F2);
+	// 3Gamma Function Disable
 	LCD_WR_DATA(0x0000);
 
-	LCD_WR_REG(0x0026); //Gamma curve selected
+	LCD_WR_REG(0x0026);
+	//Gamma curve selected
 	LCD_WR_DATA(0x0001);
 
-	LCD_WR_REG(0x00E0); //Set Gamma
+	LCD_WR_REG(0x00E0);
+	//Set Gamma
 	LCD_WR_DATA(0x000F);
 	LCD_WR_DATA(0x0026);
 	LCD_WR_DATA(0x0024);
@@ -224,7 +248,8 @@ int main() {
 	LCD_WR_DATA(0x0009);
 	LCD_WR_DATA(0x0000);
 
-	LCD_WR_REG(0X00E1); //Set Gamma
+	LCD_WR_REG(0X00E1);
+	//Set Gamma
 	LCD_WR_DATA(0x0000);
 	LCD_WR_DATA(0x001c);
 	LCD_WR_DATA(0x0020);
@@ -261,27 +286,31 @@ int main() {
 	LCD_WR_DATA(0x0030);
 	LCD_WR_DATA(0x0000);
 
-	LCD_WR_REG(0x0029); //display on
+	LCD_WR_REG(0x0029);
+	//display on
 
-	LCD_SetCursor(0,0);
-	LCD_WR_REG(0x002c); // 0x2C
-
+	LCD_SetCursor(0, 0);
+	LCD_WR_REG(0x002c);
+	// 0x2C
 
 	int i = 0;
 	int j = 0;
 
 	// Clear screen with white
-	for (i = 0; i < 320*240; ++i) {
-		LCD_WR_DATA(0xFFFF);
+	for (i = 0; i < 320 * 240; ++i) {
+		LCD_WR_DATA(0xFF80);
 	}
 
-	for (i = 0; i < BMPHEIGHT; ++i) {
-		LCD_SetCursor(0, i);
-		LCD_WR_REG(0x2C);
-		for (j = 0; j < BMPWIDTH; ++j) {
-			LCD_WR_DATA(image16[i*BMPWIDTH+j]);
-		}
-	}
+	printf("0x%x\n", image16);
+	LT24_dma_start((int) image16, 240 * 30);
+
+//	for (i = 0; i < BMPHEIGHT; ++i) {
+//		LCD_SetCursor(0, i);
+//		LCD_WR_REG(0x2C);
+//		for (j = 0; j < BMPWIDTH; ++j) {
+//			LCD_WR_DATA(image16[i*BMPWIDTH+j]);
+//		}
+//	}
 
 	/* Event loop never exits. */
 	while (1)

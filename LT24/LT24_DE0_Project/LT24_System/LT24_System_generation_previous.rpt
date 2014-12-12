@@ -2,21 +2,23 @@ Info: Starting: Create block symbol file (.bsf)
 Info: ip-generate --project-directory=C:\Users\aroulin\Desktop\EmbeddedSystems\LT24\LT24_DE0_Project --output-directory=C:\Users\aroulin\Desktop\EmbeddedSystems\LT24\LT24_DE0_Project\LT24_System --report-file=bsf:C:\Users\aroulin\Desktop\EmbeddedSystems\LT24\LT24_DE0_Project\LT24_System\LT24_System.bsf --system-info=DEVICE_FAMILY="Cyclone IV E" --system-info=DEVICE=EP4CE22F17C6 --system-info=DEVICE_SPEEDGRADE=6 --component-file=C:\Users\aroulin\Desktop\EmbeddedSystems\LT24\LT24_DE0_Project\LT24_System.qsys
 Progress: Loading LT24_DE0_Project/LT24_System.qsys
 Progress: Reading input file
-Progress: Adding clk_0 [clock_source 14.0]
-Progress: Parameterizing module clk_0
-Progress: Adding onchip_memory2_0 [altera_avalon_onchip_memory2 14.0]
-Progress: Parameterizing module onchip_memory2_0
-Progress: Adding nios2_qsys_0 [altera_nios2_qsys 14.0]
-Progress: Parameterizing module nios2_qsys_0
-Progress: Adding jtag_uart_0 [altera_avalon_jtag_uart 14.0]
-Progress: Parameterizing module jtag_uart_0
-Progress: Adding LT24_CTRL_0 [LT24_CTRL 1.4]
+Progress: Adding clk [clock_source 14.0]
+Progress: Parameterizing module clk
+Progress: Adding nios2 [altera_nios2_qsys 14.0]
+Progress: Parameterizing module nios2
+Progress: Adding jtag_uart [altera_avalon_jtag_uart 14.0]
+Progress: Parameterizing module jtag_uart
+Progress: Adding sdram_controller [altera_avalon_new_sdram_controller 14.0]
+Progress: Parameterizing module sdram_controller
+Progress: Adding pll [altpll 14.0]
+Progress: Parameterizing module pll
+Progress: Adding LT24_CTRL_0 [LT24_CTRL 1.5]
 Progress: Parameterizing module LT24_CTRL_0
 Progress: Building connections
 Progress: Parameterizing connections
 Progress: Validating
 Progress: Done reading input file
-Info: LT24_System.nios2_qsys_0: Please note that for early evaluation, preview versions of new Nios II Gen2 Processors are available with this release.
+Info: LT24_System.nios2: Please note that for early evaluation, preview versions of new Nios II Gen2 Processors are available with this release.
 Info: ip-generate succeeded.
 Info: Finished: Create block symbol file (.bsf)
 Info: 
@@ -24,78 +26,105 @@ Info: Starting: Create HDL design files for synthesis
 Info: ip-generate --project-directory=C:\Users\aroulin\Desktop\EmbeddedSystems\LT24\LT24_DE0_Project --output-directory=C:\Users\aroulin\Desktop\EmbeddedSystems\LT24\LT24_DE0_Project\LT24_System\synthesis --file-set=QUARTUS_SYNTH --report-file=html:C:\Users\aroulin\Desktop\EmbeddedSystems\LT24\LT24_DE0_Project\LT24_System\LT24_System.html --report-file=sopcinfo:C:\Users\aroulin\Desktop\EmbeddedSystems\LT24\LT24_DE0_Project\LT24_System.sopcinfo --report-file=cmp:C:\Users\aroulin\Desktop\EmbeddedSystems\LT24\LT24_DE0_Project\LT24_System\LT24_System.cmp --report-file=qip:C:\Users\aroulin\Desktop\EmbeddedSystems\LT24\LT24_DE0_Project\LT24_System\synthesis\LT24_System.qip --report-file=svd:C:\Users\aroulin\Desktop\EmbeddedSystems\LT24\LT24_DE0_Project\LT24_System\synthesis\LT24_System.svd --report-file=regmap:C:\Users\aroulin\Desktop\EmbeddedSystems\LT24\LT24_DE0_Project\LT24_System\synthesis\LT24_System.regmap --report-file=xml:C:\Users\aroulin\Desktop\EmbeddedSystems\LT24\LT24_DE0_Project\LT24_System\LT24_System.xml --report-file=debuginfo:C:\Users\aroulin\Desktop\EmbeddedSystems\LT24\LT24_DE0_Project\LT24_System\synthesis\LT24_System.debuginfo --system-info=DEVICE_FAMILY="Cyclone IV E" --system-info=DEVICE=EP4CE22F17C6 --system-info=DEVICE_SPEEDGRADE=6 --component-file=C:\Users\aroulin\Desktop\EmbeddedSystems\LT24\LT24_DE0_Project\LT24_System.qsys --language=VERILOG
 Progress: Loading LT24_DE0_Project/LT24_System.qsys
 Progress: Reading input file
-Progress: Adding clk_0 [clock_source 14.0]
-Progress: Parameterizing module clk_0
-Progress: Adding onchip_memory2_0 [altera_avalon_onchip_memory2 14.0]
-Progress: Parameterizing module onchip_memory2_0
-Progress: Adding nios2_qsys_0 [altera_nios2_qsys 14.0]
-Progress: Parameterizing module nios2_qsys_0
-Progress: Adding jtag_uart_0 [altera_avalon_jtag_uart 14.0]
-Progress: Parameterizing module jtag_uart_0
-Progress: Adding LT24_CTRL_0 [LT24_CTRL 1.4]
+Progress: Adding clk [clock_source 14.0]
+Progress: Parameterizing module clk
+Progress: Adding nios2 [altera_nios2_qsys 14.0]
+Progress: Parameterizing module nios2
+Progress: Adding jtag_uart [altera_avalon_jtag_uart 14.0]
+Progress: Parameterizing module jtag_uart
+Progress: Adding sdram_controller [altera_avalon_new_sdram_controller 14.0]
+Progress: Parameterizing module sdram_controller
+Progress: Adding pll [altpll 14.0]
+Progress: Parameterizing module pll
+Progress: Adding LT24_CTRL_0 [LT24_CTRL 1.5]
 Progress: Parameterizing module LT24_CTRL_0
 Progress: Building connections
 Progress: Parameterizing connections
 Progress: Validating
 Progress: Done reading input file
-Info: LT24_System.nios2_qsys_0: Please note that for early evaluation, preview versions of new Nios II Gen2 Processors are available with this release.
+Info: LT24_System.nios2: Please note that for early evaluation, preview versions of new Nios II Gen2 Processors are available with this release.
 Info: LT24_System: Generating LT24_System "LT24_System" for QUARTUS_SYNTH
-Info: onchip_memory2_0: Starting RTL generation for module 'LT24_System_onchip_memory2_0'
-Info: onchip_memory2_0:   Generation command is [exec C:/altera/14.0/quartus/bin64/perl/bin/perl.exe -I C:/altera/14.0/quartus/bin64/perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=LT24_System_onchip_memory2_0 --dir=C:/Users/aroulin/AppData/Local/Temp/alt6415_7993749462461126103.dir/0002_onchip_memory2_0_gen/ --quartus_dir=C:/altera/14.0/quartus --verilog --config=C:/Users/aroulin/AppData/Local/Temp/alt6415_7993749462461126103.dir/0002_onchip_memory2_0_gen//LT24_System_onchip_memory2_0_component_configuration.pl  --do_build_sim=0  ]
-Info: onchip_memory2_0: Done RTL generation for module 'LT24_System_onchip_memory2_0'
-Info: onchip_memory2_0: "LT24_System" instantiated altera_avalon_onchip_memory2 "onchip_memory2_0"
-Info: nios2_qsys_0: Starting RTL generation for module 'LT24_System_nios2_qsys_0'
-Info: nios2_qsys_0:   Generation command is [exec C:/altera/14.0/quartus/bin64/eperlcmd.exe -I C:/altera/14.0/quartus/bin64/perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2/cpu_lib -I C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2/nios_lib -I C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2 -I C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2 -- C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2/generate_rtl.epl --name=LT24_System_nios2_qsys_0 --dir=C:/Users/aroulin/AppData/Local/Temp/alt6415_7993749462461126103.dir/0003_nios2_qsys_0_gen/ --quartus_bindir=C:/altera/14.0/quartus/bin64 --verilog --config=C:/Users/aroulin/AppData/Local/Temp/alt6415_7993749462461126103.dir/0003_nios2_qsys_0_gen//LT24_System_nios2_qsys_0_processor_configuration.pl  --do_build_sim=0  ]
-Info: nios2_qsys_0: # 2014.12.11 22:12:43 (*) Starting Nios II generation
-Info: nios2_qsys_0: # 2014.12.11 22:12:43 (*)   Checking for plaintext license.
-Info: nios2_qsys_0: # 2014.12.11 22:12:44 (*)   Couldn't query license setup in Quartus directory C:/altera/14.0/quartus/bin64
-Info: nios2_qsys_0: # 2014.12.11 22:12:44 (*)   Defaulting to contents of LM_LICENSE_FILE environment variable
-Info: nios2_qsys_0: # 2014.12.11 22:12:44 (*)   Plaintext license not found.
-Info: nios2_qsys_0: # 2014.12.11 22:12:44 (*)   Checking for encrypted license (non-evaluation).
-Info: nios2_qsys_0: # 2014.12.11 22:12:45 (*)   Couldn't query license setup in Quartus directory C:/altera/14.0/quartus/bin64
-Info: nios2_qsys_0: # 2014.12.11 22:12:45 (*)   Defaulting to contents of LM_LICENSE_FILE environment variable
-Info: nios2_qsys_0: # 2014.12.11 22:12:46 (*)   Encrypted license found.  SOF will not be time-limited.
-Info: nios2_qsys_0: # 2014.12.11 22:12:46 (*)   Elaborating CPU configuration settings
-Info: nios2_qsys_0: # 2014.12.11 22:12:46 (*)   Creating all objects for CPU
-Info: nios2_qsys_0: # 2014.12.11 22:12:47 (*)     Pipeline frontend
-Info: nios2_qsys_0: # 2014.12.11 22:12:48 (*)   Generating RTL from CPU objects
-Info: nios2_qsys_0: # 2014.12.11 22:12:49 (*)   Creating encrypted RTL
-Info: nios2_qsys_0: # 2014.12.11 22:12:50 (*) Done Nios II generation
-Info: nios2_qsys_0: Done RTL generation for module 'LT24_System_nios2_qsys_0'
-Info: nios2_qsys_0: "LT24_System" instantiated altera_nios2_qsys "nios2_qsys_0"
-Info: jtag_uart_0: Starting RTL generation for module 'LT24_System_jtag_uart_0'
-Info: jtag_uart_0:   Generation command is [exec C:/altera/14.0/quartus/bin64/perl/bin/perl.exe -I C:/altera/14.0/quartus/bin64/perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart -- C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart/generate_rtl.pl --name=LT24_System_jtag_uart_0 --dir=C:/Users/aroulin/AppData/Local/Temp/alt6415_7993749462461126103.dir/0004_jtag_uart_0_gen/ --quartus_dir=C:/altera/14.0/quartus --verilog --config=C:/Users/aroulin/AppData/Local/Temp/alt6415_7993749462461126103.dir/0004_jtag_uart_0_gen//LT24_System_jtag_uart_0_component_configuration.pl  --do_build_sim=0  ]
-Info: jtag_uart_0: Done RTL generation for module 'LT24_System_jtag_uart_0'
-Info: jtag_uart_0: "LT24_System" instantiated altera_avalon_jtag_uart "jtag_uart_0"
+Info: Inserting clock-crossing logic between cmd_demux.src1 and cmd_mux_001.sink0
+Info: Inserting clock-crossing logic between cmd_demux_001.src1 and cmd_mux_001.sink1
+Info: Inserting clock-crossing logic between cmd_demux_002.src0 and cmd_mux_001.sink2
+Info: Inserting clock-crossing logic between rsp_demux_001.src0 and rsp_mux.sink1
+Info: Inserting clock-crossing logic between rsp_demux_001.src1 and rsp_mux_001.sink1
+Info: Inserting clock-crossing logic between rsp_demux_001.src2 and rsp_mux_002.sink0
+Info: nios2: Starting RTL generation for module 'LT24_System_nios2'
+Info: nios2:   Generation command is [exec C:/altera/14.0/quartus/bin64/eperlcmd.exe -I C:/altera/14.0/quartus/bin64/perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2/cpu_lib -I C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2/nios_lib -I C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2 -I C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2 -- C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2/generate_rtl.epl --name=LT24_System_nios2 --dir=C:/Users/aroulin/AppData/Local/Temp/alt6416_8922561774027116579.dir/0001_nios2_gen/ --quartus_bindir=C:/altera/14.0/quartus/bin64 --verilog --config=C:/Users/aroulin/AppData/Local/Temp/alt6416_8922561774027116579.dir/0001_nios2_gen//LT24_System_nios2_processor_configuration.pl  --do_build_sim=0  ]
+Info: nios2: # 2014.12.12 10:28:46 (*) Starting Nios II generation
+Info: nios2: # 2014.12.12 10:28:46 (*)   Checking for plaintext license.
+Info: nios2: # 2014.12.12 10:28:47 (*)   Couldn't query license setup in Quartus directory C:/altera/14.0/quartus/bin64
+Info: nios2: # 2014.12.12 10:28:47 (*)   Defaulting to contents of LM_LICENSE_FILE environment variable
+Info: nios2: # 2014.12.12 10:28:47 (*)   Plaintext license not found.
+Info: nios2: # 2014.12.12 10:28:47 (*)   Checking for encrypted license (non-evaluation).
+Info: nios2: # 2014.12.12 10:28:48 (*)   Couldn't query license setup in Quartus directory C:/altera/14.0/quartus/bin64
+Info: nios2: # 2014.12.12 10:28:48 (*)   Defaulting to contents of LM_LICENSE_FILE environment variable
+Info: nios2: # 2014.12.12 10:28:59 (*)   Encrypted license found.  SOF will not be time-limited.
+Info: nios2: # 2014.12.12 10:28:59 (*)   Elaborating CPU configuration settings
+Info: nios2: # 2014.12.12 10:28:59 (*)   Creating all objects for CPU
+Info: nios2: # 2014.12.12 10:28:59 (*)     Testbench
+Info: nios2: # 2014.12.12 10:28:59 (*)     Instruction decoding
+Info: nios2: # 2014.12.12 10:28:59 (*)       Instruction fields
+Info: nios2: # 2014.12.12 10:28:59 (*)       Instruction decodes
+Info: nios2: # 2014.12.12 10:29:00 (*)       Signals for RTL simulation waveforms
+Info: nios2: # 2014.12.12 10:29:00 (*)       Instruction controls
+Info: nios2: # 2014.12.12 10:29:00 (*)     Pipeline frontend
+Info: nios2: # 2014.12.12 10:29:00 (*)     Pipeline backend
+Info: nios2: # 2014.12.12 10:29:01 (*)   Generating RTL from CPU objects
+Info: nios2: # 2014.12.12 10:29:03 (*)   Creating encrypted RTL
+Info: nios2: # 2014.12.12 10:29:04 (*) Done Nios II generation
+Info: nios2: Done RTL generation for module 'LT24_System_nios2'
+Info: nios2: "LT24_System" instantiated altera_nios2_qsys "nios2"
+Info: jtag_uart: Starting RTL generation for module 'LT24_System_jtag_uart'
+Info: jtag_uart:   Generation command is [exec C:/altera/14.0/quartus/bin64/perl/bin/perl.exe -I C:/altera/14.0/quartus/bin64/perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart -- C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart/generate_rtl.pl --name=LT24_System_jtag_uart --dir=C:/Users/aroulin/AppData/Local/Temp/alt6416_8922561774027116579.dir/0002_jtag_uart_gen/ --quartus_dir=C:/altera/14.0/quartus --verilog --config=C:/Users/aroulin/AppData/Local/Temp/alt6416_8922561774027116579.dir/0002_jtag_uart_gen//LT24_System_jtag_uart_component_configuration.pl  --do_build_sim=0  ]
+Info: jtag_uart: Done RTL generation for module 'LT24_System_jtag_uart'
+Info: jtag_uart: "LT24_System" instantiated altera_avalon_jtag_uart "jtag_uart"
+Info: sdram_controller: Starting RTL generation for module 'LT24_System_sdram_controller'
+Info: sdram_controller:   Generation command is [exec C:/altera/14.0/quartus/bin64/perl/bin/perl.exe -I C:/altera/14.0/quartus/bin64/perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_new_sdram_controller -- C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_new_sdram_controller/generate_rtl.pl --name=LT24_System_sdram_controller --dir=C:/Users/aroulin/AppData/Local/Temp/alt6416_8922561774027116579.dir/0003_sdram_controller_gen/ --quartus_dir=C:/altera/14.0/quartus --verilog --config=C:/Users/aroulin/AppData/Local/Temp/alt6416_8922561774027116579.dir/0003_sdram_controller_gen//LT24_System_sdram_controller_component_configuration.pl  --do_build_sim=0  ]
+Info: sdram_controller: Done RTL generation for module 'LT24_System_sdram_controller'
+Info: sdram_controller: "LT24_System" instantiated altera_avalon_new_sdram_controller "sdram_controller"
+Info: pll: "LT24_System" instantiated altpll "pll"
 Info: LT24_CTRL_0: "LT24_System" instantiated LT24_CTRL "LT24_CTRL_0"
 Info: mm_interconnect_0: "LT24_System" instantiated altera_mm_interconnect "mm_interconnect_0"
 Info: irq_mapper: "LT24_System" instantiated altera_irq_mapper "irq_mapper"
 Info: rst_controller: "LT24_System" instantiated altera_reset_controller "rst_controller"
-Info: nios2_qsys_0_instruction_master_translator: "mm_interconnect_0" instantiated altera_merlin_master_translator "nios2_qsys_0_instruction_master_translator"
-Info: nios2_qsys_0_jtag_debug_module_translator: "mm_interconnect_0" instantiated altera_merlin_slave_translator "nios2_qsys_0_jtag_debug_module_translator"
-Info: nios2_qsys_0_instruction_master_agent: "mm_interconnect_0" instantiated altera_merlin_master_agent "nios2_qsys_0_instruction_master_agent"
-Info: nios2_qsys_0_jtag_debug_module_agent: "mm_interconnect_0" instantiated altera_merlin_slave_agent "nios2_qsys_0_jtag_debug_module_agent"
-Info: nios2_qsys_0_jtag_debug_module_agent_rsp_fifo: "mm_interconnect_0" instantiated altera_avalon_sc_fifo "nios2_qsys_0_jtag_debug_module_agent_rsp_fifo"
+Info: nios2_instruction_master_translator: "mm_interconnect_0" instantiated altera_merlin_master_translator "nios2_instruction_master_translator"
+Info: nios2_jtag_debug_module_translator: "mm_interconnect_0" instantiated altera_merlin_slave_translator "nios2_jtag_debug_module_translator"
+Info: nios2_instruction_master_agent: "mm_interconnect_0" instantiated altera_merlin_master_agent "nios2_instruction_master_agent"
+Info: nios2_jtag_debug_module_agent: "mm_interconnect_0" instantiated altera_merlin_slave_agent "nios2_jtag_debug_module_agent"
+Info: nios2_jtag_debug_module_agent_rsp_fifo: "mm_interconnect_0" instantiated altera_avalon_sc_fifo "nios2_jtag_debug_module_agent_rsp_fifo"
 Info: router: "mm_interconnect_0" instantiated altera_merlin_router "router"
+Info: router_001: "mm_interconnect_0" instantiated altera_merlin_router "router_001"
 Info: router_002: "mm_interconnect_0" instantiated altera_merlin_router "router_002"
 Info: router_003: "mm_interconnect_0" instantiated altera_merlin_router "router_003"
-Info: router_006: "mm_interconnect_0" instantiated altera_merlin_router "router_006"
-Info: nios2_qsys_0_instruction_master_limiter: "mm_interconnect_0" instantiated altera_merlin_traffic_limiter "nios2_qsys_0_instruction_master_limiter"
+Info: router_004: "mm_interconnect_0" instantiated altera_merlin_router "router_004"
+Info: router_005: "mm_interconnect_0" instantiated altera_merlin_router "router_005"
+Info: nios2_instruction_master_limiter: "mm_interconnect_0" instantiated altera_merlin_traffic_limiter "nios2_instruction_master_limiter"
 Info: Reusing file C:/Users/aroulin/Desktop/EmbeddedSystems/LT24/LT24_DE0_Project/LT24_System/synthesis/submodules/altera_avalon_sc_fifo.v
-Info: nios2_qsys_0_jtag_debug_module_burst_adapter: "mm_interconnect_0" instantiated altera_merlin_burst_adapter "nios2_qsys_0_jtag_debug_module_burst_adapter"
+Info: sdram_controller_s1_burst_adapter: "mm_interconnect_0" instantiated altera_merlin_burst_adapter "sdram_controller_s1_burst_adapter"
 Info: Reusing file C:/Users/aroulin/Desktop/EmbeddedSystems/LT24/LT24_DE0_Project/LT24_System/synthesis/submodules/altera_avalon_st_pipeline_base.v
 Info: cmd_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux"
 Info: cmd_demux_001: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux_001"
 Info: cmd_demux_002: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux_002"
 Info: cmd_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux"
-Info: cmd_mux_003: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_003"
+Info: cmd_mux_001: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_001"
+Info: Reusing file C:/Users/aroulin/Desktop/EmbeddedSystems/LT24/LT24_DE0_Project/LT24_System/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: cmd_mux_002: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_002"
 Info: Reusing file C:/Users/aroulin/Desktop/EmbeddedSystems/LT24/LT24_DE0_Project/LT24_System/synthesis/submodules/altera_merlin_arbitrator.sv
 Info: rsp_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux"
-Info: rsp_demux_003: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_003"
+Info: rsp_demux_001: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_001"
 Info: rsp_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux"
+Info: Reusing file C:/Users/aroulin/Desktop/EmbeddedSystems/LT24/LT24_DE0_Project/LT24_System/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: rsp_mux_001: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux_001"
 Info: Reusing file C:/Users/aroulin/Desktop/EmbeddedSystems/LT24/LT24_DE0_Project/LT24_System/synthesis/submodules/altera_merlin_arbitrator.sv
 Info: rsp_mux_002: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux_002"
 Info: Reusing file C:/Users/aroulin/Desktop/EmbeddedSystems/LT24/LT24_DE0_Project/LT24_System/synthesis/submodules/altera_merlin_arbitrator.sv
-Info: LT24_System: Done "LT24_System" with 28 modules, 54 files
+Info: sdram_controller_s1_rsp_width_adapter: "mm_interconnect_0" instantiated altera_merlin_width_adapter "sdram_controller_s1_rsp_width_adapter"
+Info: Reusing file C:/Users/aroulin/Desktop/EmbeddedSystems/LT24/LT24_DE0_Project/LT24_System/synthesis/submodules/altera_merlin_address_alignment.sv
+Info: Reusing file C:/Users/aroulin/Desktop/EmbeddedSystems/LT24/LT24_DE0_Project/LT24_System/synthesis/submodules/altera_merlin_burst_uncompressor.sv
+Info: crosser: "mm_interconnect_0" instantiated altera_avalon_st_handshake_clock_crosser "crosser"
+Info: Reusing file C:/Users/aroulin/Desktop/EmbeddedSystems/LT24/LT24_DE0_Project/LT24_System/synthesis/submodules/altera_avalon_st_pipeline_base.v
+Info: LT24_System: Done "LT24_System" with 35 modules, 63 files
 Info: ip-generate succeeded.
 Info: Finished: Create HDL design files for synthesis

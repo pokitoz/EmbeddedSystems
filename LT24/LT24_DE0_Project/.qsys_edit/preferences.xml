@@ -3,7 +3,7 @@
  <debug showDebugMenu="0" />
  <systemtable>
   <columns>
-   <connections preferredWidth="159" />
+   <connections preferredWidth="191" />
    <irq preferredWidth="34" />
   </columns>
  </systemtable>

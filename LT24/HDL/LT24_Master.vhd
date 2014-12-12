@@ -11,10 +11,6 @@ entity LT24_Master is
 		read            : out std_logic;
 		read_data       : in  std_logic_vector(31 downto 0);
 		wait_request    : in  std_logic;
-		byte_enable_n	 : out std_logic_vector(3 downto 0);
-		-- Avalon burst signals
-		burst_cnt       : out std_logic_vector(6 downto 0);
-		read_data_valid : in  std_logic;
 		-- LT24 Slave signals
 		start_dma       : in  std_logic;
 		address_dma     : in  std_logic_vector(31 downto 0);
@@ -45,8 +41,6 @@ begin
 	
 	address <= std_logic_vector(address_dma_reg);
 	address_master_debug <= std_logic_vector(address_dma_reg);
-	burst_cnt <= (others => '0');
-	byte_enable_n <= (others => '0');
 	write_data <= write_data_reg;
 	
 	
@@ -79,19 +73,15 @@ begin
 				write_data_next       <=  read_data;
 			
 			when READ_AVAILABLE =>
-				
-			--	if(read_data_valid = '1') then
-					if (fifo_full = '0') then
-						write_fifo <= '1';
-						state_next <= READ_REQUEST;
-						if (len_dma_reg = X"00000001") then
-							state_next <= IDLE;
-						end if;
-						--Increment the address
-						--address_dma_next <= address_dma_next + 4;
-						len_dma_next <= len_dma_reg - 1;
-					end if;
-			--	end if;
+			if(fifo_full = '0') then
+				write_fifo <= '1';
+				state_next <= READ_REQUEST;
+				if (len_dma_reg = X"00000001") then
+					state_next <= IDLE;
+				end if;
+				len_dma_next <= len_dma_reg - 1;
+				address_dma_next <= address_dma_reg + 4;
+			end if;
 		end case;
 	end process state_machine;
 
@@ -107,7 +97,6 @@ begin
 			address_dma_reg <= address_dma_next;
 			len_dma_reg     <= len_dma_next;
 			write_data_reg <= write_data_next;
-			
 		end if;
 	end process reg_process;
 

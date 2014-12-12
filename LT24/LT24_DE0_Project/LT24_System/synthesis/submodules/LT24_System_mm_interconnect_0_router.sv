@@ -49,14 +49,14 @@ module LT24_System_mm_interconnect_0_router_default_decode
                DEFAULT_RD_CHANNEL = -1,
                DEFAULT_DESTID = 3 
    )
-  (output [98 - 97 : 0] default_destination_id,
+  (output [92 - 91 : 0] default_destination_id,
    output [4-1 : 0] default_wr_channel,
    output [4-1 : 0] default_rd_channel,
    output [4-1 : 0] default_src_channel
   );
 
   assign default_destination_id = 
-    DEFAULT_DESTID[98 - 97 : 0];
+    DEFAULT_DESTID[92 - 91 : 0];
 
   generate begin : default_decode
     if (DEFAULT_CHANNEL == -1) begin
@@ -95,7 +95,7 @@ module LT24_System_mm_interconnect_0_router
     // Command Sink (Input)
     // -------------------
     input                       sink_valid,
-    input  [112-1 : 0]    sink_data,
+    input  [106-1 : 0]    sink_data,
     input                       sink_startofpacket,
     input                       sink_endofpacket,
     output                      sink_ready,
@@ -104,7 +104,7 @@ module LT24_System_mm_interconnect_0_router
     // Command Source (Output)
     // -------------------
     output                          src_valid,
-    output reg [112-1    : 0] src_data,
+    output reg [106-1    : 0] src_data,
     output reg [4-1 : 0] src_channel,
     output                          src_startofpacket,
     output                          src_endofpacket,
@@ -116,11 +116,11 @@ module LT24_System_mm_interconnect_0_router
     // -------------------------------------------------------
     localparam PKT_ADDR_H = 67;
     localparam PKT_ADDR_L = 36;
-    localparam PKT_DEST_ID_H = 98;
-    localparam PKT_DEST_ID_L = 97;
-    localparam PKT_PROTECTION_H = 102;
-    localparam PKT_PROTECTION_L = 100;
-    localparam ST_DATA_W = 112;
+    localparam PKT_DEST_ID_H = 92;
+    localparam PKT_DEST_ID_L = 91;
+    localparam PKT_PROTECTION_H = 96;
+    localparam PKT_PROTECTION_L = 94;
+    localparam ST_DATA_W = 106;
     localparam ST_CHANNEL_W = 4;
     localparam DECODER_TYPE = 0;
 

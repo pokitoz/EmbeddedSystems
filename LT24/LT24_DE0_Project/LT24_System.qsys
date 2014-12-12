@@ -344,7 +344,7 @@
   <parameter name="writeIRQThreshold" value="8" />
   <parameter name="avalonSpec" value="2.0" />
  </module>
- <module kind="LT24_CTRL" version="1.4" enabled="1" name="LT24_CTRL_0" />
+ <module kind="LT24_CTRL" version="1.5" enabled="1" name="LT24_CTRL_0" />
  <connection
    kind="avalon"
    version="14.0"
@@ -456,40 +456,22 @@
  <connection
    kind="avalon"
    version="14.0"
-   start="nios2_qsys_0.instruction_master"
-   end="LT24_CTRL_0.avalon_slave_0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x9020" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="14.0"
    start="nios2_qsys_0.data_master"
    end="LT24_CTRL_0.avalon_slave_0">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x9020" />
   <parameter name="defaultConnection" value="false" />
  </connection>
+ <connection
+   kind="avalon"
+   version="14.0"
+   start="nios2_qsys_0.instruction_master"
+   end="LT24_CTRL_0.avalon_slave_0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x9020" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
  <connection kind="clock" version="14.0" start="clk_0.clk" end="LT24_CTRL_0.clock" />
- <connection
-   kind="avalon"
-   version="14.0"
-   start="LT24_CTRL_0.avalon_master"
-   end="jtag_uart_0.avalon_jtag_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x9048" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="14.0"
-   start="LT24_CTRL_0.avalon_master"
-   end="nios2_qsys_0.jtag_debug_module">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x8800" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
  <connection
    kind="avalon"
    version="14.0"

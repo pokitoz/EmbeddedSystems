@@ -27,9 +27,6 @@ entity LT24_Module is
 		read_master      : out std_logic;
 		read_data_master : in  std_logic_vector(31 downto 0);
 		wait_request     : in  std_logic;
-		burst_cnt        : out std_logic_vector(6 downto 0);
-		read_data_valid  : in  std_logic;
-		byte_enable_n 	  : out std_logic_vector(3 downto 0);
 		
 		read_data_master_debug : out  std_logic_vector(31 downto 0);
 		read_master_debug : out std_logic;
@@ -84,9 +81,6 @@ architecture RTL of LT24_Module is
 			 read            : out std_logic;
 			 read_data       : in  std_logic_vector(31 downto 0);
 			 wait_request    : in  std_logic;
-			 byte_enable_n	  : out std_logic_vector(3 downto 0);
-			 burst_cnt       : out std_logic_vector(6 downto 0);
-			 read_data_valid : in  std_logic;
 			 start_dma       : in  std_logic;
 			 address_dma     : in  std_logic_vector(31 downto 0);
 			 len_dma         : in  std_logic_vector(31 downto 0);
@@ -181,9 +175,6 @@ begin
 			     read            => read_master,
 			     read_data       => read_data_master,
 			     wait_request    => wait_request,
-				  byte_enable_n	=> byte_enable_n,
-			     burst_cnt       => burst_cnt,
-			     read_data_valid => read_data_valid,
 			     start_dma       => start_dma,
 			     address_dma     => address_dma,
 			     len_dma         => len_dma,

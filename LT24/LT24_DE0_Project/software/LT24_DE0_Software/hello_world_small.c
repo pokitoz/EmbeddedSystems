@@ -302,7 +302,16 @@ int main() {
 	}
 
 	printf("0x%x\n", image16);
-	LT24_dma_start((int) image16, 240 * 30);
+	LT24_dma_start(image16, (BMPHEIGHT*BMPWIDTH)/2);
+	while (IORD_32DIRECT(LT24_CTRL_0_BASE, 2*4)) {
+		printf("DMA busy writing\n");
+	}
+
+
+//	for (i = 0; i < 60; ++i) {
+//		LCD_SetCursor(50, 50+i);
+//		LT24_dma_start((int) image16, 30);
+//	}
 
 //	for (i = 0; i < BMPHEIGHT; ++i) {
 //		LCD_SetCursor(0, i);

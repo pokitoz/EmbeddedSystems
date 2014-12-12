@@ -241,6 +241,7 @@ agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
+	(annotation_block (location)(rect 258 816 306 832))
 )
 (pin
 	(bidir)

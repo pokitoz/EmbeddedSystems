@@ -295,18 +295,55 @@ int main() {
 
 	int i = 0;
 	int j = 0;
+	int index = 0;
+
+	for (j = 0; j < 2; ++j) {
+		for (i = 0; i < 240; ++i) {
+			image16[index++] = 0x0000;
+		}
+
+		for (i = 0; i < 240; ++i) {
+			image16[index++] = 0x0000;
+		}
+
+		for (i = 0; i < 240; ++i) {
+			image16[index++] = 0x0000;
+		}
+
+		for (i = 0; i < 240; ++i) {
+			image16[index++] = 0x0000;
+		}
+
+		for (i = 0; i < 240; ++i) {
+			image16[index++] = 0xFF80;
+		}
+
+		for (i = 0; i < 240; ++i) {
+			image16[index++] = 0xFF80;
+		}
+
+		for (i = 0; i < 240; ++i) {
+			image16[index++] = 0xFF80;
+		}
+
+		for (i = 0; i < 240; ++i) {
+			image16[index++] = 0xFF80;
+		}
+	}
 
 	// Clear screen with white
 	for (i = 0; i < 320 * 240; ++i) {
-		LCD_WR_DATA(0xFF80);
+		LCD_WR_DATA(0xFFFF);
 	}
 
 	printf("0x%x\n", image16);
-	LT24_dma_start(image16, (BMPHEIGHT*BMPWIDTH)/2);
-	while (IORD_32DIRECT(LT24_CTRL_0_BASE, 2*4)) {
-		printf("DMA busy writing\n");
-	}
 
+	for (i = 0; i < 320 / BMPHEIGHT; i++) {
+		LT24_dma_start(image16, (BMPHEIGHT * BMPWIDTH) / 2);
+		while (IORD_32DIRECT(LT24_CTRL_0_BASE, 2*4)) {
+			printf("DMA busy writing\n");
+		}
+	}
 
 //	for (i = 0; i < 60; ++i) {
 //		LCD_SetCursor(50, 50+i);

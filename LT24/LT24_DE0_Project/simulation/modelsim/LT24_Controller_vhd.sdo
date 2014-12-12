@@ -30,7 +30,7 @@
 (DELAYFILE
   (SDFVERSION "2.1")
   (DESIGN "LT24_Controller")
-  (DATE "12/12/2014 09:14:31")
+  (DATE "12/12/2014 09:35:22")
   (VENDOR "Altera")
   (PROGRAM "Quartus II 64-Bit")
   (VERSION "Version 14.0.0 Build 200 06/17/2014 SJ Full Version")

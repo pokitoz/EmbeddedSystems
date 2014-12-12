@@ -7,6 +7,7 @@
    <irq preferredWidth="34" />
   </columns>
  </systemtable>
- <library expandedCategories="Library,Project" />
+ <library
+   expandedCategories="Library/DSP/Video and Image Processing,Library/DSP,Library/Basic Functions,Library,Project,Library/Memory Interfaces and Controllers,Library/Processors and Peripherals,Library/Memory Interfaces and Controllers/Memory Interfaces with UniPHY,Library/Processors and Peripherals/Inter-Process Communication,Library/Memory Interfaces and Controllers/Memory Interfaces with ALTMEMPHY,Library/Basic Functions/On Chip Memory,Library/Memory Interfaces and Controllers/SDRAM" />
  <window width="1920" height="1160" x="0" y="0" />
 </preferences>

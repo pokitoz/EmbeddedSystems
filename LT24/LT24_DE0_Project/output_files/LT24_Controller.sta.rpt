@@ -1,5 +1,5 @@
 TimeQuest Timing Analyzer report for LT24_Controller
-Fri Dec 12 09:14:25 2014
+Fri Dec 12 09:35:16 2014
 Quartus II 64-Bit Version 14.0.0 Build 200 06/17/2014 SJ Full Version
 
 
@@ -153,8 +153,8 @@ agreement for further details.
 +---------------------------------------------------------------+--------+--------------------------+
 ; SDC File Path                                                 ; Status ; Read at                  ;
 +---------------------------------------------------------------+--------+--------------------------+
-; LT24_System/synthesis/submodules/altera_reset_controller.sdc  ; OK     ; Fri Dec 12 09:14:23 2014 ;
-; LT24_System/synthesis/submodules/LT24_System_nios2_qsys_0.sdc ; OK     ; Fri Dec 12 09:14:23 2014 ;
+; LT24_System/synthesis/submodules/altera_reset_controller.sdc  ; OK     ; Fri Dec 12 09:35:14 2014 ;
+; LT24_System/synthesis/submodules/LT24_System_nios2_qsys_0.sdc ; OK     ; Fri Dec 12 09:35:14 2014 ;
 +---------------------------------------------------------------+--------+--------------------------+
 
 
@@ -2655,7 +2655,7 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit TimeQuest Timing Analyzer
     Info: Version 14.0.0 Build 200 06/17/2014 SJ Full Version
-    Info: Processing started: Fri Dec 12 09:14:21 2014
+    Info: Processing started: Fri Dec 12 09:35:12 2014
 Info: Command: quartus_sta LT24_Controller -c LT24_Controller
 Info: qsta_default_script.tcl version: #1
 Info (11104): Parallel Compilation has detected 8 hyper-threaded processors. However, the extra hyper-threaded processors will not be used by default. Parallel Compilation will use 4 of the 4 physical processors detected instead.
@@ -2817,8 +2817,8 @@ Info (332114): Report Metastability: Found 2 synchronizer chains.
 Info (332102): Design is not fully constrained for setup requirements
 Info (332102): Design is not fully constrained for hold requirements
 Info: Quartus II 64-Bit TimeQuest Timing Analyzer was successful. 0 errors, 15 warnings
-    Info: Peak virtual memory: 637 megabytes
-    Info: Processing ended: Fri Dec 12 09:14:25 2014
+    Info: Peak virtual memory: 623 megabytes
+    Info: Processing ended: Fri Dec 12 09:35:16 2014
     Info: Elapsed time: 00:00:04
     Info: Total CPU time (on all processors): 00:00:03
 

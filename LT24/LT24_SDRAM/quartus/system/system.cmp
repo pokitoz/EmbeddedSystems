@@ -1,0 +1,37 @@
+	component system is
+		port (
+			clk_clk                                 : in    std_logic                     := 'X';             -- clk
+			reset_reset_n                           : in    std_logic                     := 'X';             -- reset_n
+			sdram_addr                              : out   std_logic_vector(12 downto 0);                    -- addr
+			sdram_ba                                : out   std_logic_vector(1 downto 0);                     -- ba
+			sdram_cas_n                             : out   std_logic;                                        -- cas_n
+			sdram_cke                               : out   std_logic;                                        -- cke
+			sdram_cs_n                              : out   std_logic;                                        -- cs_n
+			sdram_dq                                : inout std_logic_vector(15 downto 0) := (others => 'X'); -- dq
+			sdram_dqm                               : out   std_logic_vector(1 downto 0);                     -- dqm
+			sdram_ras_n                             : out   std_logic;                                        -- ras_n
+			sdram_we_n                              : out   std_logic;                                        -- we_n
+			pio_leds_export                         : out   std_logic_vector(7 downto 0);                     -- export
+			pio_buttons_export                      : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- export
+			pio_switches_export                     : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- export
+			pll_sdram_clk                           : out   std_logic;                                        -- clk
+			pll_areset_export                       : in    std_logic                     := 'X';             -- export
+			pll_locked_export                       : out   std_logic;                                        -- export
+			pll_phasedone_export                    : out   std_logic;                                        -- export
+			pll_camera_clk                          : out   std_logic;                                        -- clk
+			camera_interface_0_camera_pixclk_export : in    std_logic                     := 'X';             -- export
+			camera_interface_0_camera_data_export   : in    std_logic_vector(11 downto 0) := (others => 'X'); -- export
+			camera_interface_0_camera_lval_export   : in    std_logic                     := 'X';             -- export
+			camera_interface_0_camera_fval_export   : in    std_logic                     := 'X';             -- export
+			camera_interface_0_camera_scl_export    : inout std_logic                     := 'X';             -- export
+			camera_interface_0_camera_sda_export    : inout std_logic                     := 'X';             -- export
+			lt24_ctrl_0_lcd_reset_n_export          : out   std_logic;                                        -- export
+			lt24_ctrl_0_lcd_on_export               : out   std_logic;                                        -- export
+			lt24_ctrl_0_csx_export                  : out   std_logic;                                        -- export
+			lt24_ctrl_0_wrx_export                  : out   std_logic;                                        -- export
+			lt24_ctrl_0_rdx_export                  : out   std_logic;                                        -- export
+			lt24_ctrl_0_data_out_export             : out   std_logic_vector(15 downto 0);                    -- export
+			lt24_ctrl_0_dcx_export                  : out   std_logic                                         -- export
+		);
+	end component system;
+

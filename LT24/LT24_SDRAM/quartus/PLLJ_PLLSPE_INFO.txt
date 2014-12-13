@@ -1,0 +1,5 @@
+PLL_Name	system:system_inst|system_pll:pll|system_pll_altpll_vbh2:sd1|pll7
+PLLJITTER	35
+PLLSPEmax	84
+PLLSPEmin	-53
+

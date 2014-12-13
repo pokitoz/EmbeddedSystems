@@ -1,0 +1,37 @@
+In this directory are 3 vhdl files:
+- i2c_interface.vhd --> it is the top level entity with Avalon connection as a slave
+- i2c_clkgen.vhd    --> module for clkgeneration of the interface as a clk divider to be used as clk enable
+- i2c_core.vhd      --> core module for i2c protocole
+
+The component is 8 bits wide as Avalon slave with 4 address
+It can be use as 
+- Dynamic memory model
+- Native register model, this mode is obsolote from version 8 of Quartus
+
+- The access by software need to be carefully done to acces the register
+
+#if Avalon_i2c_ModeDynamic
+#define IORD_I2C_DR() IORD_8DIRECT(Base_i2c,0)
+#define IORD_I2C_CR() IORD_8DIRECT(Base_i2c,1)
+#define IORD_I2C_SR() IORD_8DIRECT(Base_i2c,2)
+#define IORD_I2C_CD() IORD_8DIRECT(Base_i2c,3)
+
+#define IOWR_I2C_DR(data) IOWR_8DIRECT(Base_i2c,0,data)
+#define IOWR_I2C_CR(data) IOWR_8DIRECT(Base_i2c,1,data)
+#define IOWR_I2C_SR(data) IOWR_8DIRECT(Base_i2c,2,data)
+#define IOWR_I2C_CD(data) IOWR_8DIRECT(Base_i2c,3,data)
+
+#else
+// Base_i2c is defined in system.h, adapt from name used in SOPC
+
+#define IORD_I2C_DR() IORD(Base_i2c,0)
+#define IORD_I2C_CR() IORD(Base_i2c,1)
+#define IORD_I2C_SR() IORD(Base_i2c,2)
+#define IORD_I2C_CD() IORD(Base_i2c,3)
+
+#define IOWR_I2C_DR(data) IOWR(Base_i2c,0,data)
+#define IOWR_I2C_CR(data) IOWR(Base_i2c,1,data)
+#define IOWR_I2C_SR(data) IOWR(Base_i2c,2,data)
+#define IOWR_I2C_CD(data) IOWR(Base_i2c,3,data)
+
+#endif

@@ -1,0 +1,825 @@
+#============================================================
+# Build by Terasic System Builder
+#============================================================
+
+set_global_assignment -name FAMILY "Cyclone IV E"
+set_global_assignment -name DEVICE EP4CE22F17C6
+set_global_assignment -name TOP_LEVEL_ENTITY "DE0_NANO"
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION 12.0
+set_global_assignment -name LAST_QUARTUS_VERSION 14.0
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "13:30:38 DECEMBER 11,2014"
+set_global_assignment -name DEVICE_FILTER_PACKAGE FBGA
+set_global_assignment -name DEVICE_FILTER_PIN_COUNT 256
+set_global_assignment -name DEVICE_FILTER_SPEED_GRADE 6
+
+#============================================================
+# CLOCK
+#============================================================
+set_location_assignment PIN_R8 -to CLOCK_50
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to CLOCK_50
+
+#============================================================
+# LED
+#============================================================
+set_location_assignment PIN_A15 -to LED[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[0]
+set_location_assignment PIN_A13 -to LED[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[1]
+set_location_assignment PIN_B13 -to LED[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[2]
+set_location_assignment PIN_A11 -to LED[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[3]
+set_location_assignment PIN_D1 -to LED[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[4]
+set_location_assignment PIN_F3 -to LED[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[5]
+set_location_assignment PIN_B1 -to LED[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[6]
+set_location_assignment PIN_L3 -to LED[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[7]
+
+#============================================================
+# KEY_N
+#============================================================
+set_location_assignment PIN_J15 -to KEY_N[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY_N[0]
+set_location_assignment PIN_E1 -to KEY_N[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY_N[1]
+
+#============================================================
+# SW_N
+#============================================================
+set_location_assignment PIN_M1 -to SW_N[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW_N[0]
+set_location_assignment PIN_T8 -to SW_N[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW_N[1]
+set_location_assignment PIN_B9 -to SW_N[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW_N[2]
+set_location_assignment PIN_M15 -to SW_N[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW_N[3]
+
+#============================================================
+# SDRAM
+#============================================================
+set_location_assignment PIN_M7 -to DRAM_BA[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_BA[0]
+set_location_assignment PIN_M6 -to DRAM_BA[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_BA[1]
+set_location_assignment PIN_R6 -to DRAM_DQM[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQM[0]
+set_location_assignment PIN_T5 -to DRAM_DQM[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQM[1]
+set_location_assignment PIN_L2 -to DRAM_RAS_N
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_RAS_N
+set_location_assignment PIN_L1 -to DRAM_CAS_N
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_CAS_N
+set_location_assignment PIN_L7 -to DRAM_CKE
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_CKE
+set_location_assignment PIN_R4 -to DRAM_CLK
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_CLK
+set_location_assignment PIN_C2 -to DRAM_WE_N
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_WE_N
+set_location_assignment PIN_P6 -to DRAM_CS_N
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_CS_N
+set_location_assignment PIN_G2 -to DRAM_DQ[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[0]
+set_location_assignment PIN_G1 -to DRAM_DQ[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[1]
+set_location_assignment PIN_L8 -to DRAM_DQ[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[2]
+set_location_assignment PIN_K5 -to DRAM_DQ[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[3]
+set_location_assignment PIN_K2 -to DRAM_DQ[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[4]
+set_location_assignment PIN_J2 -to DRAM_DQ[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[5]
+set_location_assignment PIN_J1 -to DRAM_DQ[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[6]
+set_location_assignment PIN_R7 -to DRAM_DQ[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[7]
+set_location_assignment PIN_T4 -to DRAM_DQ[8]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[8]
+set_location_assignment PIN_T2 -to DRAM_DQ[9]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[9]
+set_location_assignment PIN_T3 -to DRAM_DQ[10]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[10]
+set_location_assignment PIN_R3 -to DRAM_DQ[11]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[11]
+set_location_assignment PIN_R5 -to DRAM_DQ[12]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[12]
+set_location_assignment PIN_P3 -to DRAM_DQ[13]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[13]
+set_location_assignment PIN_N3 -to DRAM_DQ[14]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[14]
+set_location_assignment PIN_K1 -to DRAM_DQ[15]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[15]
+set_location_assignment PIN_P2 -to DRAM_ADDR[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_ADDR[0]
+set_location_assignment PIN_N5 -to DRAM_ADDR[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_ADDR[1]
+set_location_assignment PIN_N6 -to DRAM_ADDR[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_ADDR[2]
+set_location_assignment PIN_M8 -to DRAM_ADDR[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_ADDR[3]
+set_location_assignment PIN_P8 -to DRAM_ADDR[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_ADDR[4]
+set_location_assignment PIN_T7 -to DRAM_ADDR[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_ADDR[5]
+set_location_assignment PIN_N8 -to DRAM_ADDR[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_ADDR[6]
+set_location_assignment PIN_T6 -to DRAM_ADDR[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_ADDR[7]
+set_location_assignment PIN_R1 -to DRAM_ADDR[8]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_ADDR[8]
+set_location_assignment PIN_P1 -to DRAM_ADDR[9]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_ADDR[9]
+set_location_assignment PIN_N2 -to DRAM_ADDR[10]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_ADDR[10]
+set_location_assignment PIN_N1 -to DRAM_ADDR[11]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_ADDR[11]
+set_location_assignment PIN_L4 -to DRAM_ADDR[12]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_ADDR[12]
+
+#============================================================
+# GPIO_0, GPIO_0 connect to D5M - 5M Pixel Camera
+#============================================================
+set_location_assignment PIN_A8 -to GPIO_0_D5M_PIXCLK
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO_0_D5M_PIXCLK
+set_location_assignment PIN_D3 -to GPIO_0_D5M_D[11]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO_0_D5M_D[11]
+set_location_assignment PIN_C3 -to GPIO_0_D5M_D[10]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO_0_D5M_D[10]
+set_location_assignment PIN_A2 -to GPIO_0_D5M_D[9]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO_0_D5M_D[9]
+set_location_assignment PIN_A3 -to GPIO_0_D5M_D[8]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO_0_D5M_D[8]
+set_location_assignment PIN_B3 -to GPIO_0_D5M_D[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO_0_D5M_D[7]
+set_location_assignment PIN_B4 -to GPIO_0_D5M_D[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO_0_D5M_D[6]
+set_location_assignment PIN_A4 -to GPIO_0_D5M_D[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO_0_D5M_D[5]
+set_location_assignment PIN_B5 -to GPIO_0_D5M_D[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO_0_D5M_D[4]
+set_location_assignment PIN_A5 -to GPIO_0_D5M_D[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO_0_D5M_D[3]
+set_location_assignment PIN_D5 -to GPIO_0_D5M_D[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO_0_D5M_D[2]
+set_location_assignment PIN_B6 -to GPIO_0_D5M_D[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO_0_D5M_D[1]
+set_location_assignment PIN_A6 -to GPIO_0_D5M_D[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO_0_D5M_D[0]
+set_location_assignment PIN_A7 -to GPIO_0_D5M_XCLKIN
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO_0_D5M_XCLKIN
+set_location_assignment PIN_C6 -to GPIO_0_D5M_RESET_N
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO_0_D5M_RESET_N
+set_location_assignment PIN_E6 -to GPIO_0_D5M_TRIGGER
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO_0_D5M_TRIGGER
+set_location_assignment PIN_E7 -to GPIO_0_D5M_STROBE
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO_0_D5M_STROBE
+set_location_assignment PIN_D8 -to GPIO_0_D5M_LVAL
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO_0_D5M_LVAL
+set_location_assignment PIN_E8 -to GPIO_0_D5M_FVAL
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO_0_D5M_FVAL
+set_location_assignment PIN_F8 -to GPIO_0_D5M_SDATA
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO_0_D5M_SDATA
+set_location_assignment PIN_F9 -to GPIO_0_D5M_SCLK
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO_0_D5M_SCLK
+
+#============================================================
+# End of pin assignments by Terasic System Builder
+#============================================================
+
+
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name FLOW_ENABLE_RTL_VIEWER ON
+set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS ON
+set_global_assignment -name SMART_RECOMPILE ON
+set_global_assignment -name FLOW_ENABLE_IO_ASSIGNMENT_ANALYSIS ON
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+
+set_global_assignment -name VHDL_FILE ../vhdl/LT24_Slave.vhd
+set_global_assignment -name VHDL_FILE ../vhdl/LT24_Module.vhd
+set_global_assignment -name VHDL_FILE ../vhdl/LT24_Master.vhd
+set_global_assignment -name VHDL_FILE ../vhdl/LT24_Interface.vhd
+set_global_assignment -name VHDL_FILE ../vhdl/LT24_FIFO.vhd
+set_global_assignment -name VHDL_FILE ../vhdl/DE0_NANO.vhd
+set_global_assignment -name VHDL_FILE ../vhdl/i2c_interface.vhd
+set_global_assignment -name VHDL_FILE ../vhdl/i2c_core.vhd
+set_global_assignment -name VHDL_FILE ../vhdl/i2c_clkgen.vhd
+set_global_assignment -name VHDL_FILE ../vhdl/fifo.vhd
+set_global_assignment -name VHDL_FILE ../vhdl/CameraInterface.vhd
+set_global_assignment -name VHDL_FILE ../vhdl/CameraController.vhd
+set_global_assignment -name VHDL_FILE ../vhdl/AvalonInterfaces.vhd
+set_global_assignment -name QSYS_FILE system.qsys
+set_global_assignment -name SDC_FILE TRDB_D5M_camera_interface.sdc
+set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "3.3-V LVCMOS"
+set_global_assignment -name ENABLE_INIT_DONE_OUTPUT OFF
+set_global_assignment -name RESERVE_ALL_UNUSED_PINS "AS INPUT TRI-STATED WITH WEAK PULL-UP"
+set_global_assignment -name RESERVE_ASDO_AFTER_CONFIGURATION "AS INPUT TRI-STATED"
+set_global_assignment -name RESERVE_ALL_UNUSED_PINS_NO_OUTPUT_GND "AS INPUT TRI-STATED"
+set_global_assignment -name CYCLONEII_RESERVE_NCEO_AFTER_CONFIGURATION "USE AS REGULAR IO"
+set_global_assignment -name RESERVE_NCEO_AFTER_CONFIGURATION "USE AS REGULAR IO"
+set_global_assignment -name FMAX_REQUIREMENT "100 MHz"
+set_global_assignment -name IOBANK_VCCIO 3.3V -section_id 8
+set_global_assignment -name STRATIX_CONFIGURATION_DEVICE EPCS16
+set_location_assignment PIN_R8 -to CLOCK
+set_location_assignment PIN_J15 -to KEY_n[0]
+set_location_assignment PIN_J15 -to KEY_n0
+set_location_assignment PIN_E1 -to KEY_n[1]
+set_location_assignment PIN_E1 -to KEY_n1
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER KEY_n[0] -section_id KEY_n[0..1]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER KEY_n[1] -section_id KEY_n[0..1]
+set_location_assignment PIN_A15 -to LED_Green[0]
+set_location_assignment PIN_A15 -to LED_Green0
+set_location_assignment PIN_A13 -to LED_Green[1]
+set_location_assignment PIN_A13 -to LED_Green1
+set_location_assignment PIN_B13 -to LED_Green[2]
+set_location_assignment PIN_B13 -to LED_Green2
+set_location_assignment PIN_A11 -to LED_Green[3]
+set_location_assignment PIN_A11 -to LED_Green3
+set_location_assignment PIN_D1 -to LED_Green[4]
+set_location_assignment PIN_D1 -to LED_Green4
+set_location_assignment PIN_F3 -to LED_Green[5]
+set_location_assignment PIN_F3 -to LED_Green5
+set_location_assignment PIN_B1 -to LED_Green[6]
+set_location_assignment PIN_B1 -to LED_Green6
+set_location_assignment PIN_L3 -to LED_Green[7]
+set_location_assignment PIN_L3 -to LED_Green7
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Green[0] -section_id LED_Green[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Green[1] -section_id LED_Green[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Green[2] -section_id LED_Green[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Green[3] -section_id LED_Green[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Green[4] -section_id LED_Green[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Green[5] -section_id LED_Green[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Green[6] -section_id LED_Green[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Green[7] -section_id LED_Green[0..7]
+set_location_assignment PIN_M1 -to SW[0]
+set_location_assignment PIN_M1 -to SW0
+set_location_assignment PIN_T8 -to SW[1]
+set_location_assignment PIN_T8 -to SW1
+set_location_assignment PIN_B9 -to SW[2]
+set_location_assignment PIN_B9 -to SW2
+set_location_assignment PIN_M15 -to SW[3]
+set_location_assignment PIN_M15 -to SW3
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER SW[0] -section_id SW[0..3]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER SW[1] -section_id SW[0..3]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER SW[2] -section_id SW[0..3]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER SW[3] -section_id SW[0..3]
+set_location_assignment PIN_F2 -to I2C_SCLK
+set_location_assignment PIN_F1 -to I2C_SDAT
+set_location_assignment PIN_G5 -to G_SENSOR_CS_N
+set_location_assignment PIN_M2 -to G_SENSOR_INT
+set_location_assignment PIN_A10 -to ADC_CS_N
+set_location_assignment PIN_B10 -to ADC_SADDR
+set_location_assignment PIN_B14 -to ADC_SCLK
+set_location_assignment PIN_A9 -to ADC_SDAT
+set_location_assignment PIN_P2 -to DRAM_ADDR0
+set_location_assignment PIN_N5 -to DRAM_ADDR1
+set_location_assignment PIN_N6 -to DRAM_ADDR2
+set_location_assignment PIN_M8 -to DRAM_ADDR3
+set_location_assignment PIN_P8 -to DRAM_ADDR4
+set_location_assignment PIN_T7 -to DRAM_ADDR5
+set_location_assignment PIN_N8 -to DRAM_ADDR6
+set_location_assignment PIN_T6 -to DRAM_ADDR7
+set_location_assignment PIN_R1 -to DRAM_ADDR8
+set_location_assignment PIN_P1 -to DRAM_ADDR9
+set_location_assignment PIN_N2 -to DRAM_ADDR10
+set_location_assignment PIN_N1 -to DRAM_ADDR11
+set_location_assignment PIN_L4 -to DRAM_ADDR12
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_ADDR[0] -section_id DRAM_ADDR[0..12]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_ADDR[1] -section_id DRAM_ADDR[0..12]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_ADDR[2] -section_id DRAM_ADDR[0..12]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_ADDR[3] -section_id DRAM_ADDR[0..12]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_ADDR[4] -section_id DRAM_ADDR[0..12]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_ADDR[5] -section_id DRAM_ADDR[0..12]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_ADDR[6] -section_id DRAM_ADDR[0..12]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_ADDR[7] -section_id DRAM_ADDR[0..12]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_ADDR[8] -section_id DRAM_ADDR[0..12]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_ADDR[9] -section_id DRAM_ADDR[0..12]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_ADDR[10] -section_id DRAM_ADDR[0..12]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_ADDR[11] -section_id DRAM_ADDR[0..12]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_ADDR[12] -section_id DRAM_ADDR[0..12]
+set_location_assignment PIN_M7 -to DRAM_BA0
+set_location_assignment PIN_M6 -to DRAM_BA1
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_BA[0] -section_id DRAM_BA[0..1]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_BA[1] -section_id DRAM_BA[0..1]
+set_location_assignment PIN_G2 -to DRAM_DQ0
+set_location_assignment PIN_G1 -to DRAM_DQ1
+set_location_assignment PIN_L8 -to DRAM_DQ2
+set_location_assignment PIN_K5 -to DRAM_DQ3
+set_location_assignment PIN_K2 -to DRAM_DQ4
+set_location_assignment PIN_J2 -to DRAM_DQ5
+set_location_assignment PIN_J1 -to DRAM_DQ6
+set_location_assignment PIN_R7 -to DRAM_DQ7
+set_location_assignment PIN_T4 -to DRAM_DQ8
+set_location_assignment PIN_T2 -to DRAM_DQ9
+set_location_assignment PIN_T3 -to DRAM_DQ10
+set_location_assignment PIN_R3 -to DRAM_DQ11
+set_location_assignment PIN_R5 -to DRAM_DQ12
+set_location_assignment PIN_P3 -to DRAM_DQ13
+set_location_assignment PIN_N3 -to DRAM_DQ14
+set_location_assignment PIN_K1 -to DRAM_DQ15
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_DQ[0] -section_id DRAM_DQ[0..15]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_DQ[1] -section_id DRAM_DQ[0..15]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_DQ[2] -section_id DRAM_DQ[0..15]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_DQ[3] -section_id DRAM_DQ[0..15]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_DQ[4] -section_id DRAM_DQ[0..15]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_DQ[5] -section_id DRAM_DQ[0..15]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_DQ[6] -section_id DRAM_DQ[0..15]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_DQ[7] -section_id DRAM_DQ[0..15]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_DQ[8] -section_id DRAM_DQ[0..15]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_DQ[9] -section_id DRAM_DQ[0..15]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_DQ[10] -section_id DRAM_DQ[0..15]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_DQ[11] -section_id DRAM_DQ[0..15]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_DQ[12] -section_id DRAM_DQ[0..15]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_DQ[13] -section_id DRAM_DQ[0..15]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_DQ[14] -section_id DRAM_DQ[0..15]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_DQ[15] -section_id DRAM_DQ[0..15]
+set_location_assignment PIN_R6 -to DRAM_DQM0
+set_location_assignment PIN_T5 -to DRAM_DQM1
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_DQM[0] -section_id DRAM_DQM[0..1]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER DRAM_DQM[1] -section_id DRAM_DQM[0..1]
+set_location_assignment PIN_C1 -to EPCS_ASDO
+set_location_assignment PIN_H2 -to EPCS_DATA0
+set_location_assignment PIN_H1 -to EPCS_DCLK
+set_location_assignment PIN_D2 -to EPCS_NCSO
+set_location_assignment PIN_D3 -to GPIO_0_D[0]
+set_location_assignment PIN_D3 -to GPIO_0_D0
+set_location_assignment PIN_C3 -to GPIO_0_D[1]
+set_location_assignment PIN_C3 -to GPIO_0_D1
+set_location_assignment PIN_A2 -to GPIO_0_D[2]
+set_location_assignment PIN_A2 -to GPIO_0_D2
+set_location_assignment PIN_A3 -to GPIO_0_D[3]
+set_location_assignment PIN_A3 -to GPIO_0_D3
+set_location_assignment PIN_B3 -to GPIO_0_D[4]
+set_location_assignment PIN_B3 -to GPIO_0_D4
+set_location_assignment PIN_B4 -to GPIO_0_D[5]
+set_location_assignment PIN_B4 -to GPIO_0_D5
+set_location_assignment PIN_A4 -to GPIO_0_D[6]
+set_location_assignment PIN_A4 -to GPIO_0_D6
+set_location_assignment PIN_B5 -to GPIO_0_D[7]
+set_location_assignment PIN_B5 -to GPIO_0_D7
+set_location_assignment PIN_A5 -to GPIO_0_D[8]
+set_location_assignment PIN_A5 -to GPIO_0_D8
+set_location_assignment PIN_D5 -to GPIO_0_D[9]
+set_location_assignment PIN_D5 -to GPIO_0_D9
+set_location_assignment PIN_B6 -to GPIO_0_D[10]
+set_location_assignment PIN_B6 -to GPIO_0_D10
+set_location_assignment PIN_A6 -to GPIO_0_D[11]
+set_location_assignment PIN_A6 -to GPIO_0_D11
+set_location_assignment PIN_B7 -to GPIO_0_D[12]
+set_location_assignment PIN_B7 -to GPIO_0_D12
+set_location_assignment PIN_D6 -to GPIO_0_D[13]
+set_location_assignment PIN_D6 -to GPIO_0_D13
+set_location_assignment PIN_A7 -to GPIO_0_D[14]
+set_location_assignment PIN_A7 -to GPIO_0_D14
+set_location_assignment PIN_C6 -to GPIO_0_D[15]
+set_location_assignment PIN_C6 -to GPIO_0_D15
+set_location_assignment PIN_C8 -to GPIO_0_D[16]
+set_location_assignment PIN_C8 -to GPIO_0_D16
+set_location_assignment PIN_E6 -to GPIO_0_D[17]
+set_location_assignment PIN_E6 -to GPIO_0_D17
+set_location_assignment PIN_E7 -to GPIO_0_D[18]
+set_location_assignment PIN_E7 -to GPIO_0_D18
+set_location_assignment PIN_D8 -to GPIO_0_D[19]
+set_location_assignment PIN_D8 -to GPIO_0_D19
+set_location_assignment PIN_E8 -to GPIO_0_D[20]
+set_location_assignment PIN_E8 -to GPIO_0_D20
+set_location_assignment PIN_F8 -to GPIO_0_D[21]
+set_location_assignment PIN_F8 -to GPIO_0_D21
+set_location_assignment PIN_F9 -to GPIO_0_D[22]
+set_location_assignment PIN_F9 -to GPIO_0_D22
+set_location_assignment PIN_E9 -to GPIO_0_D[23]
+set_location_assignment PIN_E9 -to GPIO_0_D23
+set_location_assignment PIN_C9 -to GPIO_0_D[24]
+set_location_assignment PIN_C9 -to GPIO_0_D24
+set_location_assignment PIN_D9 -to GPIO_0_D[25]
+set_location_assignment PIN_D9 -to GPIO_0_D25
+set_location_assignment PIN_E11 -to GPIO_0_D[26]
+set_location_assignment PIN_E11 -to GPIO_0_D26
+set_location_assignment PIN_E10 -to GPIO_0_D[27]
+set_location_assignment PIN_E10 -to GPIO_0_D27
+set_location_assignment PIN_C11 -to GPIO_0_D[28]
+set_location_assignment PIN_C11 -to GPIO_0_D28
+set_location_assignment PIN_B11 -to GPIO_0_D[29]
+set_location_assignment PIN_B11 -to GPIO_0_D29
+set_location_assignment PIN_A12 -to GPIO_0_D[30]
+set_location_assignment PIN_A12 -to GPIO_0_D30
+set_location_assignment PIN_D11 -to GPIO_0_D[31]
+set_location_assignment PIN_D11 -to GPIO_0_D31
+set_location_assignment PIN_D12 -to GPIO_0_D[32]
+set_location_assignment PIN_D12 -to GPIO_0_D32
+set_location_assignment PIN_B12 -to GPIO_0_D[33]
+set_location_assignment PIN_B12 -to GPIO_0_D33
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[0] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[1] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[2] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[3] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[4] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[5] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[6] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[7] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[8] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[9] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[10] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[11] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[12] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[13] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[14] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[15] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[16] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[17] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[18] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[19] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[20] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[21] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[22] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[23] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[24] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[25] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[26] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[27] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[28] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[29] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[30] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[31] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[32] -section_id GPIO_0_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_D[33] -section_id GPIO_0_D[0..33]
+set_location_assignment PIN_A8 -to GPIO_0_IN[0]
+set_location_assignment PIN_A8 -to GPIO_0_IN0
+set_location_assignment PIN_B8 -to GPIO_0_IN[1]
+set_location_assignment PIN_B8 -to GPIO_0_IN1
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_IN[0] -section_id GPIO_0_IN[0..1]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_0_IN[1] -section_id GPIO_0_IN[0..1]
+set_location_assignment PIN_F13 -to GPIO_1_D[0]
+set_location_assignment PIN_F13 -to GPIO_1_D0
+set_location_assignment PIN_T15 -to GPIO_1_D[1]
+set_location_assignment PIN_T15 -to GPIO_1_D1
+set_location_assignment PIN_T14 -to GPIO_1_D[2]
+set_location_assignment PIN_T14 -to GPIO_1_D2
+set_location_assignment PIN_T13 -to GPIO_1_D[3]
+set_location_assignment PIN_T13 -to GPIO_1_D3
+set_location_assignment PIN_R13 -to GPIO_1_D[4]
+set_location_assignment PIN_R13 -to GPIO_1_D4
+set_location_assignment PIN_T12 -to GPIO_1_D[5]
+set_location_assignment PIN_T12 -to GPIO_1_D5
+set_location_assignment PIN_R12 -to GPIO_1_D[6]
+set_location_assignment PIN_R12 -to GPIO_1_D6
+set_location_assignment PIN_T11 -to GPIO_1_D[7]
+set_location_assignment PIN_T11 -to GPIO_1_D7
+set_location_assignment PIN_T10 -to GPIO_1_D[8]
+set_location_assignment PIN_T10 -to GPIO_1_D8
+set_location_assignment PIN_R11 -to GPIO_1_D[9]
+set_location_assignment PIN_R11 -to GPIO_1_D9
+set_location_assignment PIN_P11 -to GPIO_1_D[10]
+set_location_assignment PIN_P11 -to GPIO_1_D10
+set_location_assignment PIN_R10 -to GPIO_1_D[11]
+set_location_assignment PIN_R10 -to GPIO_1_D11
+set_location_assignment PIN_N12 -to GPIO_1_D[12]
+set_location_assignment PIN_N12 -to GPIO_1_D12
+set_location_assignment PIN_P9 -to GPIO_1_D[13]
+set_location_assignment PIN_P9 -to GPIO_1_D13
+set_location_assignment PIN_N9 -to GPIO_1_D[14]
+set_location_assignment PIN_N9 -to GPIO_1_D14
+set_location_assignment PIN_N11 -to GPIO_1_D[15]
+set_location_assignment PIN_N11 -to GPIO_1_D15
+set_location_assignment PIN_L16 -to GPIO_1_D[16]
+set_location_assignment PIN_L16 -to GPIO_1_D16
+set_location_assignment PIN_K16 -to GPIO_1_D[17]
+set_location_assignment PIN_K16 -to GPIO_1_D17
+set_location_assignment PIN_R16 -to GPIO_1_D[18]
+set_location_assignment PIN_R16 -to GPIO_1_D18
+set_location_assignment PIN_L15 -to GPIO_1_D[19]
+set_location_assignment PIN_L15 -to GPIO_1_D19
+set_location_assignment PIN_P15 -to GPIO_1_D[20]
+set_location_assignment PIN_P15 -to GPIO_1_D20
+set_location_assignment PIN_P16 -to GPIO_1_D[21]
+set_location_assignment PIN_P16 -to GPIO_1_D21
+set_location_assignment PIN_R14 -to GPIO_1_D[22]
+set_location_assignment PIN_R14 -to GPIO_1_D22
+set_location_assignment PIN_N16 -to GPIO_1_D[23]
+set_location_assignment PIN_N16 -to GPIO_1_D23
+set_location_assignment PIN_N15 -to GPIO_1_D[24]
+set_location_assignment PIN_N15 -to GPIO_1_D24
+set_location_assignment PIN_P14 -to GPIO_1_D[25]
+set_location_assignment PIN_P14 -to GPIO_1_D25
+set_location_assignment PIN_L14 -to GPIO_1_D[26]
+set_location_assignment PIN_L14 -to GPIO_1_D26
+set_location_assignment PIN_N14 -to GPIO_1_D[27]
+set_location_assignment PIN_N14 -to GPIO_1_D27
+set_location_assignment PIN_M10 -to GPIO_1_D[28]
+set_location_assignment PIN_M10 -to GPIO_1_D28
+set_location_assignment PIN_L13 -to GPIO_1_D[29]
+set_location_assignment PIN_L13 -to GPIO_1_D29
+set_location_assignment PIN_J16 -to GPIO_1_D[30]
+set_location_assignment PIN_J16 -to GPIO_1_D30
+set_location_assignment PIN_K15 -to GPIO_1_D[31]
+set_location_assignment PIN_K15 -to GPIO_1_D31
+set_location_assignment PIN_J13 -to GPIO_1_D[32]
+set_location_assignment PIN_J13 -to GPIO_1_D32
+set_location_assignment PIN_J14 -to GPIO_1_D[33]
+set_location_assignment PIN_J14 -to GPIO_1_D33
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[0] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[1] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[2] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[3] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[4] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[5] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[6] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[7] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[8] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[9] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[10] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[11] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[12] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[13] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[14] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[15] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[16] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[17] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[18] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[19] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[20] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[21] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[22] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[23] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[24] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[25] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[26] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[27] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[28] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[29] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[30] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[31] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[32] -section_id GPIO_1_D[0..33]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_D[33] -section_id GPIO_1_D[0..33]
+set_location_assignment PIN_T9 -to GPIO_1_IN[0]
+set_location_assignment PIN_T9 -to GPIO_1_IN0
+set_location_assignment PIN_R9 -to GPIO_1_IN[1]
+set_location_assignment PIN_R9 -to GPIO_1_IN1
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_IN[0] -section_id GPIO_1_IN[0..1]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_1_IN[1] -section_id GPIO_1_IN[0..1]
+set_location_assignment PIN_D3 -to Ext_Clk_In
+set_location_assignment PIN_C3 -to Ext_Clk_Out
+set_location_assignment PIN_A2 -to Button_n[2]
+set_location_assignment PIN_A2 -to Button_n2
+set_location_assignment PIN_A3 -to TP0
+set_location_assignment PIN_B3 -to Button_n[3]
+set_location_assignment PIN_B3 -to Button_n3
+set_location_assignment PIN_B4 -to LED_Reset
+set_location_assignment PIN_A4 -to LED_SelC_n[1]
+set_location_assignment PIN_A4 -to LED_SelC_n1
+set_location_assignment PIN_B5 -to LED_SelC_n[0]
+set_location_assignment PIN_B5 -to LED_SelC_n0
+set_location_assignment PIN_A5 -to LED_SelC_n[3]
+set_location_assignment PIN_A5 -to LED_SelC_n3
+set_location_assignment PIN_D5 -to LED_SelC_n[2]
+set_location_assignment PIN_D5 -to LED_SelC_n2
+set_location_assignment PIN_B6 -to LED_SelC_n[5]
+set_location_assignment PIN_B6 -to LED_SelC_n5
+set_location_assignment PIN_A6 -to LED_SelC_n[4]
+set_location_assignment PIN_A6 -to LED_SelC_n4
+set_location_assignment PIN_B7 -to LED_SelC_n[7]
+set_location_assignment PIN_B7 -to LED_SelC_n7
+set_location_assignment PIN_D6 -to LED_SelC_n[6]
+set_location_assignment PIN_D6 -to LED_SelC_n6
+set_location_assignment PIN_A7 -to LED_SelC_n[9]
+set_location_assignment PIN_A7 -to LED_SelC_n9
+set_location_assignment PIN_C6 -to LED_SelC_n[8]
+set_location_assignment PIN_C6 -to LED_SelC_n8
+set_location_assignment PIN_C8 -to LED_SelC_n[11]
+set_location_assignment PIN_C8 -to LED_SelC_n11
+set_location_assignment PIN_E6 -to LED_SelC_n[10]
+set_location_assignment PIN_E6 -to LED_SelC_n10
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_SelC_n[0] -section_id LED_SelC_n[0..11]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_SelC_n[1] -section_id LED_SelC_n[0..11]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_SelC_n[2] -section_id LED_SelC_n[0..11]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_SelC_n[3] -section_id LED_SelC_n[0..11]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_SelC_n[4] -section_id LED_SelC_n[0..11]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_SelC_n[5] -section_id LED_SelC_n[0..11]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_SelC_n[6] -section_id LED_SelC_n[0..11]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_SelC_n[7] -section_id LED_SelC_n[0..11]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_SelC_n[8] -section_id LED_SelC_n[0..11]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_SelC_n[9] -section_id LED_SelC_n[0..11]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_SelC_n[10] -section_id LED_SelC_n[0..11]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_SelC_n[11] -section_id LED_SelC_n[0..11]
+set_location_assignment PIN_E7 -to Sw_LedB[7]
+set_location_assignment PIN_E7 -to Sw_LedB7
+set_location_assignment PIN_D8 -to Sw_LedB[6]
+set_location_assignment PIN_D8 -to Sw_LedB6
+set_location_assignment PIN_E8 -to Sw_LedB[5]
+set_location_assignment PIN_E8 -to Sw_LedB5
+set_location_assignment PIN_F8 -to Sw_LedB[4]
+set_location_assignment PIN_F8 -to Sw_LedB4
+set_location_assignment PIN_F9 -to Sw_LedB[3]
+set_location_assignment PIN_F9 -to Sw_LedB3
+set_location_assignment PIN_E9 -to Sw_LedB[2]
+set_location_assignment PIN_E9 -to Sw_LedB2
+set_location_assignment PIN_C9 -to Sw_LedB[1]
+set_location_assignment PIN_C9 -to Sw_LedB1
+set_location_assignment PIN_D9 -to Sw_LedB[0]
+set_location_assignment PIN_D9 -to Sw_LedB0
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER Sw_LedB[0] -section_id Sw_LedB[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER Sw_LedB[1] -section_id Sw_LedB[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER Sw_LedB[2] -section_id Sw_LedB[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER Sw_LedB[3] -section_id Sw_LedB[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER Sw_LedB[4] -section_id Sw_LedB[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER Sw_LedB[5] -section_id Sw_LedB[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER Sw_LedB[6] -section_id Sw_LedB[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER Sw_LedB[7] -section_id Sw_LedB[0..7]
+set_location_assignment PIN_E11 -to Sw_LedA[7]
+set_location_assignment PIN_E11 -to Sw_LedA7
+set_location_assignment PIN_E10 -to Sw_LedA[6]
+set_location_assignment PIN_E10 -to Sw_LedA6
+set_location_assignment PIN_C11 -to Sw_LedA[5]
+set_location_assignment PIN_C11 -to Sw_LedA5
+set_location_assignment PIN_B11 -to Sw_LedA[4]
+set_location_assignment PIN_B11 -to Sw_LedA4
+set_location_assignment PIN_A12 -to Sw_LedA[3]
+set_location_assignment PIN_A12 -to Sw_LedA3
+set_location_assignment PIN_D11 -to Sw_LedA[2]
+set_location_assignment PIN_D11 -to Sw_LedA2
+set_location_assignment PIN_D12 -to Sw_LedA[1]
+set_location_assignment PIN_D12 -to Sw_LedA1
+set_location_assignment PIN_B12 -to Sw_LedA[0]
+set_location_assignment PIN_B12 -to Sw_LedA0
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER Sw_LedA[0] -section_id Sw_LedA[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER Sw_LedA[1] -section_id Sw_LedA[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER Sw_LedA[2] -section_id Sw_LedA[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER Sw_LedA[3] -section_id Sw_LedA[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER Sw_LedA[4] -section_id Sw_LedA[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER Sw_LedA[5] -section_id Sw_LedA[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER Sw_LedA[6] -section_id Sw_LedA[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER Sw_LedA[7] -section_id Sw_LedA[0..7]
+set_location_assignment PIN_A8 -to Button_n[0]
+set_location_assignment PIN_A8 -to Button_n0
+set_location_assignment PIN_B8 -to Button_n[1]
+set_location_assignment PIN_B8 -to Button_n1
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER Button_n[0] -section_id Button_n[0..3]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER Button_n[1] -section_id Button_n[0..3]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER Button_n[2] -section_id Button_n[0..3]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER Button_n[3] -section_id Button_n[0..3]
+set_location_assignment PIN_F13 -to Serial_SDA
+set_location_assignment PIN_T15 -to Serial_SCL
+set_location_assignment PIN_T14 -to JoystickS_n
+set_location_assignment PIN_T13 -to TP1
+set_location_assignment PIN_R13 -to JoystickW_n
+set_location_assignment PIN_T12 -to JoystickC_n
+set_location_assignment PIN_R12 -to LED_Sel_R[0]
+set_location_assignment PIN_R12 -to LED_Sel_R0
+set_location_assignment PIN_T11 -to LED_Sel_B[0]
+set_location_assignment PIN_T11 -to LED_Sel_B0
+set_location_assignment PIN_T10 -to LED_Sel_G[0]
+set_location_assignment PIN_T10 -to LED_Sel_G0
+set_location_assignment PIN_R11 -to LED_Sel_R[1]
+set_location_assignment PIN_R11 -to LED_Sel_R1
+set_location_assignment PIN_P11 -to LED_Sel_B[1]
+set_location_assignment PIN_P11 -to LED_Sel_B1
+set_location_assignment PIN_R10 -to LED_Sel_G[1]
+set_location_assignment PIN_R10 -to LED_Sel_G1
+set_location_assignment PIN_N12 -to LED_Sel_R[2]
+set_location_assignment PIN_N12 -to LED_Sel_R2
+set_location_assignment PIN_P9 -to LED_Sel_B[2]
+set_location_assignment PIN_P9 -to LED_Sel_B2
+set_location_assignment PIN_N9 -to LED_Sel_G[2]
+set_location_assignment PIN_N9 -to LED_Sel_G2
+set_location_assignment PIN_N11 -to LED_Sel_R[3]
+set_location_assignment PIN_N11 -to LED_Sel_R3
+set_location_assignment PIN_L16 -to LED_Sel_B[3]
+set_location_assignment PIN_L16 -to LED_Sel_B3
+set_location_assignment PIN_K16 -to LED_Sel_G[3]
+set_location_assignment PIN_K16 -to LED_Sel_G3
+set_location_assignment PIN_R16 -to LED_Sel_R[4]
+set_location_assignment PIN_R16 -to LED_Sel_R4
+set_location_assignment PIN_L15 -to LED_Sel_B[4]
+set_location_assignment PIN_L15 -to LED_Sel_B4
+set_location_assignment PIN_P15 -to LED_Sel_G[4]
+set_location_assignment PIN_P15 -to LED_Sel_G4
+set_location_assignment PIN_P16 -to LED_Sel_R[5]
+set_location_assignment PIN_P16 -to LED_Sel_R5
+set_location_assignment PIN_R14 -to LED_Sel_B[5]
+set_location_assignment PIN_R14 -to LED_Sel_B5
+set_location_assignment PIN_N16 -to LED_Sel_G[5]
+set_location_assignment PIN_N16 -to LED_Sel_G5
+set_location_assignment PIN_N15 -to LED_Sel_R[6]
+set_location_assignment PIN_N15 -to LED_Sel_R6
+set_location_assignment PIN_P14 -to LED_Sel_B[6]
+set_location_assignment PIN_P14 -to LED_Sel_B6
+set_location_assignment PIN_L14 -to LED_Sel_G[6]
+set_location_assignment PIN_L14 -to LED_Sel_G6
+set_location_assignment PIN_N14 -to LED_Sel_R[7]
+set_location_assignment PIN_N14 -to LED_Sel_R7
+set_location_assignment PIN_M10 -to LED_Sel_B[7]
+set_location_assignment PIN_M10 -to LED_Sel_B7
+set_location_assignment PIN_L13 -to LED_Sel_G[7]
+set_location_assignment PIN_L13 -to LED_Sel_G7
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Sel_R[0] -section_id LED_Sel_R[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Sel_R[1] -section_id LED_Sel_R[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Sel_R[2] -section_id LED_Sel_R[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Sel_R[3] -section_id LED_Sel_R[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Sel_R[4] -section_id LED_Sel_R[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Sel_R[5] -section_id LED_Sel_R[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Sel_R[6] -section_id LED_Sel_R[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Sel_R[7] -section_id LED_Sel_R[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Sel_G[0] -section_id LED_Sel_G[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Sel_G[1] -section_id LED_Sel_G[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Sel_G[2] -section_id LED_Sel_G[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Sel_G[3] -section_id LED_Sel_G[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Sel_G[4] -section_id LED_Sel_G[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Sel_G[5] -section_id LED_Sel_G[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Sel_G[6] -section_id LED_Sel_G[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Sel_G[7] -section_id LED_Sel_G[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Sel_B[0] -section_id LED_Sel_B[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Sel_B[1] -section_id LED_Sel_B[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Sel_B[2] -section_id LED_Sel_B[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Sel_B[3] -section_id LED_Sel_B[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Sel_B[4] -section_id LED_Sel_B[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Sel_B[5] -section_id LED_Sel_B[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Sel_B[6] -section_id LED_Sel_B[0..7]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LED_Sel_B[7] -section_id LED_Sel_B[0..7]
+set_location_assignment PIN_J16 -to LedButton[0]
+set_location_assignment PIN_J16 -to LedButton0
+set_location_assignment PIN_K15 -to LedButton[1]
+set_location_assignment PIN_K15 -to LedButton1
+set_location_assignment PIN_J13 -to LedButton[2]
+set_location_assignment PIN_J13 -to LedButton2
+set_location_assignment PIN_J14 -to LedButton[3]
+set_location_assignment PIN_J14 -to LedButton3
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LedButton[0] -section_id LedButton[0..3]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LedButton[1] -section_id LedButton[0..3]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LedButton[2] -section_id LedButton[0..3]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER LedButton[3] -section_id LedButton[0..3]
+set_location_assignment PIN_T9 -to JoystickN_n
+set_location_assignment PIN_R9 -to JoystickE_n
+set_location_assignment PIN_A14 -to GPIO_2_D[0]
+set_location_assignment PIN_A14 -to GPIO_2_D0
+set_location_assignment PIN_B16 -to GPIO_2_D[1]
+set_location_assignment PIN_B16 -to GPIO_2_D1
+set_location_assignment PIN_C14 -to GPIO_2_D[2]
+set_location_assignment PIN_C14 -to GPIO_2_D2
+set_location_assignment PIN_C16 -to GPIO_2_D[3]
+set_location_assignment PIN_C16 -to GPIO_2_D3
+set_location_assignment PIN_C15 -to GPIO_2_D[4]
+set_location_assignment PIN_C15 -to GPIO_2_D4
+set_location_assignment PIN_D16 -to GPIO_2_D[5]
+set_location_assignment PIN_D16 -to GPIO_2_D5
+set_location_assignment PIN_D15 -to GPIO_2_D[6]
+set_location_assignment PIN_D15 -to GPIO_2_D6
+set_location_assignment PIN_D14 -to GPIO_2_D[7]
+set_location_assignment PIN_D14 -to GPIO_2_D7
+set_location_assignment PIN_F15 -to GPIO_2_D[8]
+set_location_assignment PIN_F15 -to GPIO_2_D8
+set_location_assignment PIN_F16 -to GPIO_2_D[9]
+set_location_assignment PIN_F16 -to GPIO_2_D9
+set_location_assignment PIN_F14 -to GPIO_2_D[10]
+set_location_assignment PIN_F14 -to GPIO_2_D10
+set_location_assignment PIN_G16 -to GPIO_2_D[11]
+set_location_assignment PIN_G16 -to GPIO_2_D11
+set_location_assignment PIN_G15 -to GPIO_2_D[12]
+set_location_assignment PIN_G15 -to GPIO_2_D12
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_2_D[0] -section_id GPIO_2_D[0..12]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_2_D[1] -section_id GPIO_2_D[0..12]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_2_D[2] -section_id GPIO_2_D[0..12]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_2_D[3] -section_id GPIO_2_D[0..12]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_2_D[4] -section_id GPIO_2_D[0..12]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_2_D[5] -section_id GPIO_2_D[0..12]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_2_D[6] -section_id GPIO_2_D[0..12]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_2_D[7] -section_id GPIO_2_D[0..12]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_2_D[8] -section_id GPIO_2_D[0..12]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_2_D[9] -section_id GPIO_2_D[0..12]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_2_D[10] -section_id GPIO_2_D[0..12]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_2_D[11] -section_id GPIO_2_D[0..12]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_2_D[12] -section_id GPIO_2_D[0..12]
+set_location_assignment PIN_E15 -to GPIO_2_IN[0]
+set_location_assignment PIN_E15 -to GPIO_2_IN0
+set_location_assignment PIN_E16 -to GPIO_2_IN[1]
+set_location_assignment PIN_E16 -to GPIO_2_IN1
+set_location_assignment PIN_M16 -to GPIO_2_IN[2]
+set_location_assignment PIN_M16 -to GPIO_2_IN2
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_2_IN[0] -section_id GPIO_2_IN[0..2]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_2_IN[1] -section_id GPIO_2_IN[0..2]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER GPIO_2_IN[2] -section_id GPIO_2_IN[0..2]
+set_location_assignment PIN_H13 -to MSEL[0]
+set_location_assignment PIN_H13 -to MSEL0
+set_location_assignment PIN_H12 -to MSEL[1]
+set_location_assignment PIN_H12 -to MSEL1
+set_location_assignment PIN_G12 -to MSEL[2]
+set_location_assignment PIN_G12 -to MSEL2
+set_location_assignment PIN_J3 -to nCE
+set_location_assignment PIN_H5 -to nCONFIG
+set_location_assignment PIN_F4 -to nSTATUS
+set_location_assignment PIN_H14 -to CONF_DONE
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER MSEL[0] -section_id MSEL[0..2]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER MSEL[1] -section_id MSEL[0..2]
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER MSEL[2] -section_id MSEL[0..2]
+set_location_assignment PIN_H3 -to TCK
+set_location_assignment PIN_H4 -to TDI
+set_location_assignment PIN_J4 -to TDO
+set_location_assignment PIN_J5 -to TMS
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

@@ -30,10 +30,11 @@ entity LT24_Master is
 end entity LT24_Master;
 
 architecture RTL of LT24_Master is
-	type state_type is (IDLE, READ_REQUEST, READ_AVAILABLE);
+	type state_type is (IDLE, READ_REQUEST, READ_AVAILABLE, ENDING);
 	signal state_reg, state_next             : state_type;
 	signal address_dma_reg, address_dma_next : unsigned(31 downto 0);
 	signal len_dma_reg, len_dma_next         : unsigned(31 downto 0);
+	signal counter_reg, counter_next : integer;
 	
 	signal write_data_reg, write_data_next : std_logic_vector(31 downto 0);
 	
@@ -50,6 +51,7 @@ begin
 		running          <= '1';
 		read             <= '0';
 		read_debug       <= '0';
+		counter_next <= 0;
 		
 		write_fifo       <= '0';
 		write_data_next  <= write_data_reg;
@@ -77,11 +79,18 @@ begin
 				write_fifo <= '1';
 				state_next <= READ_REQUEST;
 				if (len_dma_reg = X"00000001") then
-					state_next <= IDLE;
+					state_next <= ENDING;
+					counter_next <= 1;
 				end if;
 				len_dma_next <= len_dma_reg - 1;
 				address_dma_next <= address_dma_reg + 4;
 			end if;
+			
+			when ENDING =>
+				counter_next <= counter_reg + 1;
+				if(counter_reg = 50) then
+					state_next <= IDLE;
+				end if;
 		end case;
 	end process state_machine;
 
@@ -92,11 +101,13 @@ begin
 			address_dma_reg <= (others => '0');
 			write_data_reg <= (others => '0');
 			len_dma_reg     <= (others => '0');
+			counter_reg <= 0;
 		elsif rising_edge(clk) then
 			state_reg       <= state_next;
 			address_dma_reg <= address_dma_next;
 			len_dma_reg     <= len_dma_next;
 			write_data_reg <= write_data_next;
+			counter_reg <= counter_next;
 		end if;
 	end process reg_process;
 

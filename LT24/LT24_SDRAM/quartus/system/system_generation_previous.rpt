@@ -1,5 +1,5 @@
 Info: Starting: Create block symbol file (.bsf)
-Info: ip-generate --project-directory=C:\Users\andy\embedded_systems\TRDB_D5M_camera_interface\quartus --output-directory=C:\Users\andy\embedded_systems\TRDB_D5M_camera_interface\quartus\system --report-file=bsf:C:\Users\andy\embedded_systems\TRDB_D5M_camera_interface\quartus\system\system.bsf --system-info=DEVICE_FAMILY="Cyclone IV E" --system-info=DEVICE=EP4CE22F17C6 --system-info=DEVICE_SPEEDGRADE=6 --component-file=C:\Users\andy\embedded_systems\TRDB_D5M_camera_interface\quartus\system.qsys
+Info: ip-generate --project-directory=C:\Users\andy\EmbeddedSystems\LT24\LT24_SDRAM\quartus --output-directory=C:\Users\andy\EmbeddedSystems\LT24\LT24_SDRAM\quartus\system --report-file=bsf:C:\Users\andy\EmbeddedSystems\LT24\LT24_SDRAM\quartus\system\system.bsf --system-info=DEVICE_FAMILY="Cyclone IV E" --system-info=DEVICE=EP4CE22F17C6 --system-info=DEVICE_SPEEDGRADE=6 --component-file=C:\Users\andy\EmbeddedSystems\LT24\LT24_SDRAM\quartus\system.qsys
 Progress: Loading quartus/system.qsys
 Progress: Reading input file
 Progress: Adding clk [clock_source 14.0]
@@ -41,7 +41,7 @@ Info: ip-generate succeeded.
 Info: Finished: Create block symbol file (.bsf)
 Info: 
 Info: Starting: Create HDL design files for synthesis
-Info: ip-generate --project-directory=C:\Users\andy\embedded_systems\TRDB_D5M_camera_interface\quartus --output-directory=C:\Users\andy\embedded_systems\TRDB_D5M_camera_interface\quartus\system\synthesis --file-set=QUARTUS_SYNTH --report-file=html:C:\Users\andy\embedded_systems\TRDB_D5M_camera_interface\quartus\system\system.html --report-file=sopcinfo:C:\Users\andy\embedded_systems\TRDB_D5M_camera_interface\quartus\system.sopcinfo --report-file=cmp:C:\Users\andy\embedded_systems\TRDB_D5M_camera_interface\quartus\system\system.cmp --report-file=qip:C:\Users\andy\embedded_systems\TRDB_D5M_camera_interface\quartus\system\synthesis\system.qip --report-file=svd:C:\Users\andy\embedded_systems\TRDB_D5M_camera_interface\quartus\system\synthesis\system.svd --report-file=regmap:C:\Users\andy\embedded_systems\TRDB_D5M_camera_interface\quartus\system\synthesis\system.regmap --report-file=xml:C:\Users\andy\embedded_systems\TRDB_D5M_camera_interface\quartus\system\system.xml --report-file=debuginfo:C:\Users\andy\embedded_systems\TRDB_D5M_camera_interface\quartus\system\synthesis\system.debuginfo --system-info=DEVICE_FAMILY="Cyclone IV E" --system-info=DEVICE=EP4CE22F17C6 --system-info=DEVICE_SPEEDGRADE=6 --component-file=C:\Users\andy\embedded_systems\TRDB_D5M_camera_interface\quartus\system.qsys --language=VERILOG
+Info: ip-generate --project-directory=C:\Users\andy\EmbeddedSystems\LT24\LT24_SDRAM\quartus --output-directory=C:\Users\andy\EmbeddedSystems\LT24\LT24_SDRAM\quartus\system\synthesis --file-set=QUARTUS_SYNTH --report-file=html:C:\Users\andy\EmbeddedSystems\LT24\LT24_SDRAM\quartus\system\system.html --report-file=sopcinfo:C:\Users\andy\EmbeddedSystems\LT24\LT24_SDRAM\quartus\system.sopcinfo --report-file=cmp:C:\Users\andy\EmbeddedSystems\LT24\LT24_SDRAM\quartus\system\system.cmp --report-file=qip:C:\Users\andy\EmbeddedSystems\LT24\LT24_SDRAM\quartus\system\synthesis\system.qip --report-file=svd:C:\Users\andy\EmbeddedSystems\LT24\LT24_SDRAM\quartus\system\synthesis\system.svd --report-file=regmap:C:\Users\andy\EmbeddedSystems\LT24\LT24_SDRAM\quartus\system\synthesis\system.regmap --report-file=xml:C:\Users\andy\EmbeddedSystems\LT24\LT24_SDRAM\quartus\system\system.xml --report-file=debuginfo:C:\Users\andy\EmbeddedSystems\LT24\LT24_SDRAM\quartus\system\synthesis\system.debuginfo --system-info=DEVICE_FAMILY="Cyclone IV E" --system-info=DEVICE=EP4CE22F17C6 --system-info=DEVICE_SPEEDGRADE=6 --component-file=C:\Users\andy\EmbeddedSystems\LT24\LT24_SDRAM\quartus\system.qsys --language=VERILOG
 Progress: Loading quartus/system.qsys
 Progress: Reading input file
 Progress: Adding clk [clock_source 14.0]
@@ -89,52 +89,52 @@ Info: Inserting clock-crossing logic between rsp_demux_001.src1 and rsp_mux_001.
 Info: Inserting clock-crossing logic between rsp_demux_001.src2 and rsp_mux_002.sink0
 Info: Inserting clock-crossing logic between rsp_demux_001.src3 and rsp_mux_003.sink0
 Info: nios2: Starting RTL generation for module 'system_nios2'
-Info: nios2:   Generation command is [exec C:/altera/14.0/quartus/bin64/eperlcmd.exe -I C:/altera/14.0/quartus/bin64/perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2/cpu_lib -I C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2/nios_lib -I C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2 -I C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2 -- C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2/generate_rtl.epl --name=system_nios2 --dir=C:/Users/andy/AppData/Local/Temp/alt6417_1806410675035369017.dir/0001_nios2_gen/ --quartus_bindir=C:/altera/14.0/quartus/bin64 --verilog --config=C:/Users/andy/AppData/Local/Temp/alt6417_1806410675035369017.dir/0001_nios2_gen//system_nios2_processor_configuration.pl  --do_build_sim=0  ]
-Info: nios2: # 2014.12.13 19:12:57 (*) Starting Nios II generation
-Info: nios2: # 2014.12.13 19:12:57 (*)   Checking for plaintext license.
-Info: nios2: # 2014.12.13 19:12:59 (*)   Couldn't query license setup in Quartus directory C:/altera/14.0/quartus/bin64
-Info: nios2: # 2014.12.13 19:12:59 (*)   Defaulting to contents of LM_LICENSE_FILE environment variable
-Info: nios2: # 2014.12.13 19:12:59 (*)   LM_LICENSE_FILE environment variable is empty
-Info: nios2: # 2014.12.13 19:12:59 (*)   Plaintext license not found.
-Info: nios2: # 2014.12.13 19:12:59 (*)   Checking for encrypted license (non-evaluation).
-Info: nios2: # 2014.12.13 19:13:01 (*)   Couldn't query license setup in Quartus directory C:/altera/14.0/quartus/bin64
-Info: nios2: # 2014.12.13 19:13:01 (*)   Defaulting to contents of LM_LICENSE_FILE environment variable
-Info: nios2: # 2014.12.13 19:13:01 (*)   LM_LICENSE_FILE environment variable is empty
-Info: nios2: # 2014.12.13 19:13:01 (*)   Encrypted license not found.  Defaulting to OCP evaluation license (produces a time-limited SOF)
-Info: nios2: # 2014.12.13 19:13:01 (*)   Elaborating CPU configuration settings
-Info: nios2: # 2014.12.13 19:13:01 (*)   Creating all objects for CPU
-Info: nios2: # 2014.12.13 19:13:01 (*)     Testbench
-Info: nios2: # 2014.12.13 19:13:01 (*)     Instruction decoding
-Info: nios2: # 2014.12.13 19:13:01 (*)       Instruction fields
-Info: nios2: # 2014.12.13 19:13:01 (*)       Instruction decodes
-Info: nios2: # 2014.12.13 19:13:02 (*)       Signals for RTL simulation waveforms
-Info: nios2: # 2014.12.13 19:13:02 (*)       Instruction controls
-Info: nios2: # 2014.12.13 19:13:02 (*)     Pipeline frontend
-Info: nios2: # 2014.12.13 19:13:03 (*)     Pipeline backend
-Info: nios2: # 2014.12.13 19:13:06 (*)   Generating RTL from CPU objects
-Info: nios2: # 2014.12.13 19:13:10 (*)   Creating encrypted RTL
-Info: nios2: # 2014.12.13 19:13:11 (*) Done Nios II generation
+Info: nios2:   Generation command is [exec C:/altera/14.0/quartus/bin64/eperlcmd.exe -I C:/altera/14.0/quartus/bin64/perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2/cpu_lib -I C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2/nios_lib -I C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2 -I C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2 -- C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2/generate_rtl.epl --name=system_nios2 --dir=C:/Users/andy/AppData/Local/Temp/alt6417_2376522718349885075.dir/0001_nios2_gen/ --quartus_bindir=C:/altera/14.0/quartus/bin64 --verilog --config=C:/Users/andy/AppData/Local/Temp/alt6417_2376522718349885075.dir/0001_nios2_gen//system_nios2_processor_configuration.pl  --do_build_sim=0  ]
+Info: nios2: # 2014.12.13 22:59:08 (*) Starting Nios II generation
+Info: nios2: # 2014.12.13 22:59:08 (*)   Checking for plaintext license.
+Info: nios2: # 2014.12.13 22:59:10 (*)   Couldn't query license setup in Quartus directory C:/altera/14.0/quartus/bin64
+Info: nios2: # 2014.12.13 22:59:10 (*)   Defaulting to contents of LM_LICENSE_FILE environment variable
+Info: nios2: # 2014.12.13 22:59:10 (*)   LM_LICENSE_FILE environment variable is empty
+Info: nios2: # 2014.12.13 22:59:10 (*)   Plaintext license not found.
+Info: nios2: # 2014.12.13 22:59:10 (*)   Checking for encrypted license (non-evaluation).
+Info: nios2: # 2014.12.13 22:59:12 (*)   Couldn't query license setup in Quartus directory C:/altera/14.0/quartus/bin64
+Info: nios2: # 2014.12.13 22:59:12 (*)   Defaulting to contents of LM_LICENSE_FILE environment variable
+Info: nios2: # 2014.12.13 22:59:12 (*)   LM_LICENSE_FILE environment variable is empty
+Info: nios2: # 2014.12.13 22:59:12 (*)   Encrypted license not found.  Defaulting to OCP evaluation license (produces a time-limited SOF)
+Info: nios2: # 2014.12.13 22:59:12 (*)   Elaborating CPU configuration settings
+Info: nios2: # 2014.12.13 22:59:12 (*)   Creating all objects for CPU
+Info: nios2: # 2014.12.13 22:59:12 (*)     Testbench
+Info: nios2: # 2014.12.13 22:59:12 (*)     Instruction decoding
+Info: nios2: # 2014.12.13 22:59:12 (*)       Instruction fields
+Info: nios2: # 2014.12.13 22:59:12 (*)       Instruction decodes
+Info: nios2: # 2014.12.13 22:59:13 (*)       Signals for RTL simulation waveforms
+Info: nios2: # 2014.12.13 22:59:13 (*)       Instruction controls
+Info: nios2: # 2014.12.13 22:59:13 (*)     Pipeline frontend
+Info: nios2: # 2014.12.13 22:59:13 (*)     Pipeline backend
+Info: nios2: # 2014.12.13 22:59:17 (*)   Generating RTL from CPU objects
+Info: nios2: # 2014.12.13 22:59:21 (*)   Creating encrypted RTL
+Info: nios2: # 2014.12.13 22:59:22 (*) Done Nios II generation
 Info: nios2: Done RTL generation for module 'system_nios2'
 Info: nios2: "system" instantiated altera_nios2_qsys "nios2"
 Info: jtag_uart: Starting RTL generation for module 'system_jtag_uart'
-Info: jtag_uart:   Generation command is [exec C:/altera/14.0/quartus/bin64/perl/bin/perl.exe -I C:/altera/14.0/quartus/bin64/perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart -- C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart/generate_rtl.pl --name=system_jtag_uart --dir=C:/Users/andy/AppData/Local/Temp/alt6417_1806410675035369017.dir/0002_jtag_uart_gen/ --quartus_dir=C:/altera/14.0/quartus --verilog --config=C:/Users/andy/AppData/Local/Temp/alt6417_1806410675035369017.dir/0002_jtag_uart_gen//system_jtag_uart_component_configuration.pl  --do_build_sim=0  ]
+Info: jtag_uart:   Generation command is [exec C:/altera/14.0/quartus/bin64/perl/bin/perl.exe -I C:/altera/14.0/quartus/bin64/perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart -- C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart/generate_rtl.pl --name=system_jtag_uart --dir=C:/Users/andy/AppData/Local/Temp/alt6417_2376522718349885075.dir/0002_jtag_uart_gen/ --quartus_dir=C:/altera/14.0/quartus --verilog --config=C:/Users/andy/AppData/Local/Temp/alt6417_2376522718349885075.dir/0002_jtag_uart_gen//system_jtag_uart_component_configuration.pl  --do_build_sim=0  ]
 Info: jtag_uart: Done RTL generation for module 'system_jtag_uart'
 Info: jtag_uart: "system" instantiated altera_avalon_jtag_uart "jtag_uart"
 Info: sdram_controller: Starting RTL generation for module 'system_sdram_controller'
-Info: sdram_controller:   Generation command is [exec C:/altera/14.0/quartus/bin64/perl/bin/perl.exe -I C:/altera/14.0/quartus/bin64/perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_new_sdram_controller -- C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_new_sdram_controller/generate_rtl.pl --name=system_sdram_controller --dir=C:/Users/andy/AppData/Local/Temp/alt6417_1806410675035369017.dir/0003_sdram_controller_gen/ --quartus_dir=C:/altera/14.0/quartus --verilog --config=C:/Users/andy/AppData/Local/Temp/alt6417_1806410675035369017.dir/0003_sdram_controller_gen//system_sdram_controller_component_configuration.pl  --do_build_sim=0  ]
+Info: sdram_controller:   Generation command is [exec C:/altera/14.0/quartus/bin64/perl/bin/perl.exe -I C:/altera/14.0/quartus/bin64/perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_new_sdram_controller -- C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_new_sdram_controller/generate_rtl.pl --name=system_sdram_controller --dir=C:/Users/andy/AppData/Local/Temp/alt6417_2376522718349885075.dir/0003_sdram_controller_gen/ --quartus_dir=C:/altera/14.0/quartus --verilog --config=C:/Users/andy/AppData/Local/Temp/alt6417_2376522718349885075.dir/0003_sdram_controller_gen//system_sdram_controller_component_configuration.pl  --do_build_sim=0  ]
 Info: sdram_controller: Done RTL generation for module 'system_sdram_controller'
 Info: sdram_controller: "system" instantiated altera_avalon_new_sdram_controller "sdram_controller"
 Info: sysid: "system" instantiated altera_avalon_sysid_qsys "sysid"
 Info: pio_leds: Starting RTL generation for module 'system_pio_leds'
-Info: pio_leds:   Generation command is [exec C:/altera/14.0/quartus/bin64/perl/bin/perl.exe -I C:/altera/14.0/quartus/bin64/perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=system_pio_leds --dir=C:/Users/andy/AppData/Local/Temp/alt6417_1806410675035369017.dir/0005_pio_leds_gen/ --quartus_dir=C:/altera/14.0/quartus --verilog --config=C:/Users/andy/AppData/Local/Temp/alt6417_1806410675035369017.dir/0005_pio_leds_gen//system_pio_leds_component_configuration.pl  --do_build_sim=0  ]
+Info: pio_leds:   Generation command is [exec C:/altera/14.0/quartus/bin64/perl/bin/perl.exe -I C:/altera/14.0/quartus/bin64/perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=system_pio_leds --dir=C:/Users/andy/AppData/Local/Temp/alt6417_2376522718349885075.dir/0005_pio_leds_gen/ --quartus_dir=C:/altera/14.0/quartus --verilog --config=C:/Users/andy/AppData/Local/Temp/alt6417_2376522718349885075.dir/0005_pio_leds_gen//system_pio_leds_component_configuration.pl  --do_build_sim=0  ]
 Info: pio_leds: Done RTL generation for module 'system_pio_leds'
 Info: pio_leds: "system" instantiated altera_avalon_pio "pio_leds"
 Info: pio_buttons: Starting RTL generation for module 'system_pio_buttons'
-Info: pio_buttons:   Generation command is [exec C:/altera/14.0/quartus/bin64/perl/bin/perl.exe -I C:/altera/14.0/quartus/bin64/perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=system_pio_buttons --dir=C:/Users/andy/AppData/Local/Temp/alt6417_1806410675035369017.dir/0006_pio_buttons_gen/ --quartus_dir=C:/altera/14.0/quartus --verilog --config=C:/Users/andy/AppData/Local/Temp/alt6417_1806410675035369017.dir/0006_pio_buttons_gen//system_pio_buttons_component_configuration.pl  --do_build_sim=0  ]
+Info: pio_buttons:   Generation command is [exec C:/altera/14.0/quartus/bin64/perl/bin/perl.exe -I C:/altera/14.0/quartus/bin64/perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=system_pio_buttons --dir=C:/Users/andy/AppData/Local/Temp/alt6417_2376522718349885075.dir/0006_pio_buttons_gen/ --quartus_dir=C:/altera/14.0/quartus --verilog --config=C:/Users/andy/AppData/Local/Temp/alt6417_2376522718349885075.dir/0006_pio_buttons_gen//system_pio_buttons_component_configuration.pl  --do_build_sim=0  ]
 Info: pio_buttons: Done RTL generation for module 'system_pio_buttons'
 Info: pio_buttons: "system" instantiated altera_avalon_pio "pio_buttons"
 Info: pio_switches: Starting RTL generation for module 'system_pio_switches'
-Info: pio_switches:   Generation command is [exec C:/altera/14.0/quartus/bin64/perl/bin/perl.exe -I C:/altera/14.0/quartus/bin64/perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=system_pio_switches --dir=C:/Users/andy/AppData/Local/Temp/alt6417_1806410675035369017.dir/0007_pio_switches_gen/ --quartus_dir=C:/altera/14.0/quartus --verilog --config=C:/Users/andy/AppData/Local/Temp/alt6417_1806410675035369017.dir/0007_pio_switches_gen//system_pio_switches_component_configuration.pl  --do_build_sim=0  ]
+Info: pio_switches:   Generation command is [exec C:/altera/14.0/quartus/bin64/perl/bin/perl.exe -I C:/altera/14.0/quartus/bin64/perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=system_pio_switches --dir=C:/Users/andy/AppData/Local/Temp/alt6417_2376522718349885075.dir/0007_pio_switches_gen/ --quartus_dir=C:/altera/14.0/quartus --verilog --config=C:/Users/andy/AppData/Local/Temp/alt6417_2376522718349885075.dir/0007_pio_switches_gen//system_pio_switches_component_configuration.pl  --do_build_sim=0  ]
 Info: pio_switches: Done RTL generation for module 'system_pio_switches'
 Info: pio_switches: "system" instantiated altera_avalon_pio "pio_switches"
 Info: pll: "system" instantiated altpll "pll"
@@ -155,27 +155,30 @@ Info: router_004: "mm_interconnect_0" instantiated altera_merlin_router "router_
 Info: router_005: "mm_interconnect_0" instantiated altera_merlin_router "router_005"
 Info: router_006: "mm_interconnect_0" instantiated altera_merlin_router "router_006"
 Info: nios2_instruction_master_limiter: "mm_interconnect_0" instantiated altera_merlin_traffic_limiter "nios2_instruction_master_limiter"
-Info: Reusing file C:/Users/andy/embedded_systems/TRDB_D5M_camera_interface/quartus/system/synthesis/submodules/altera_avalon_sc_fifo.v
+Info: Reusing file C:/Users/andy/EmbeddedSystems/LT24/LT24_SDRAM/quartus/system/synthesis/submodules/altera_avalon_sc_fifo.v
 Info: sdram_controller_s1_burst_adapter: "mm_interconnect_0" instantiated altera_merlin_burst_adapter "sdram_controller_s1_burst_adapter"
-Info: Reusing file C:/Users/andy/embedded_systems/TRDB_D5M_camera_interface/quartus/system/synthesis/submodules/altera_avalon_st_pipeline_base.v
+Info: Reusing file C:/Users/andy/EmbeddedSystems/LT24/LT24_SDRAM/quartus/system/synthesis/submodules/altera_avalon_st_pipeline_base.v
 Info: cmd_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux"
 Info: cmd_demux_001: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux_001"
 Info: cmd_demux_002: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux_002"
 Info: cmd_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux"
 Info: cmd_mux_001: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_001"
-Info: Reusing file C:/Users/andy/embedded_systems/TRDB_D5M_camera_interface/quartus/system/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: Reusing file C:/Users/andy/EmbeddedSystems/LT24/LT24_SDRAM/quartus/system/synthesis/submodules/altera_merlin_arbitrator.sv
 Info: cmd_mux_002: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_002"
-Info: Reusing file C:/Users/andy/embedded_systems/TRDB_D5M_camera_interface/quartus/system/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: Reusing file C:/Users/andy/EmbeddedSystems/LT24/LT24_SDRAM/quartus/system/synthesis/submodules/altera_merlin_arbitrator.sv
 Info: rsp_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux"
 Info: rsp_demux_001: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_001"
 Info: rsp_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux"
-Info: Reusing file C:/Users/andy/embedded_systems/TRDB_D5M_camera_interface/quartus/system/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: Reusing file C:/Users/andy/EmbeddedSystems/LT24/LT24_SDRAM/quartus/system/synthesis/submodules/altera_merlin_arbitrator.sv
 Info: rsp_mux_001: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux_001"
-Info: Reusing file C:/Users/andy/embedded_systems/TRDB_D5M_camera_interface/quartus/system/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: Reusing file C:/Users/andy/EmbeddedSystems/LT24/LT24_SDRAM/quartus/system/synthesis/submodules/altera_merlin_arbitrator.sv
 Info: rsp_mux_002: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux_002"
-Info: Reusing file C:/Users/andy/embedded_systems/TRDB_D5M_camera_interface/quartus/system/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: Reusing file C:/Users/andy/EmbeddedSystems/LT24/LT24_SDRAM/quartus/system/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: sdram_controller_s1_rsp_width_adapter: "mm_interconnect_0" instantiated altera_merlin_width_adapter "sdram_controller_s1_rsp_width_adapter"
+Info: Reusing file C:/Users/andy/EmbeddedSystems/LT24/LT24_SDRAM/quartus/system/synthesis/submodules/altera_merlin_address_alignment.sv
+Info: Reusing file C:/Users/andy/EmbeddedSystems/LT24/LT24_SDRAM/quartus/system/synthesis/submodules/altera_merlin_burst_uncompressor.sv
 Info: crosser: "mm_interconnect_0" instantiated altera_avalon_st_handshake_clock_crosser "crosser"
-Info: Reusing file C:/Users/andy/embedded_systems/TRDB_D5M_camera_interface/quartus/system/synthesis/submodules/altera_avalon_st_pipeline_base.v
-Info: system: Done "system" with 39 modules, 73 files
+Info: Reusing file C:/Users/andy/EmbeddedSystems/LT24/LT24_SDRAM/quartus/system/synthesis/submodules/altera_avalon_st_pipeline_base.v
+Info: system: Done "system" with 40 modules, 74 files
 Info: ip-generate succeeded.
 Info: Finished: Create HDL design files for synthesis

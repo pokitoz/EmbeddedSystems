@@ -24,7 +24,7 @@
    {
       datum baseAddress
       {
-         value = "134221856";
+         value = "67112992";
          type = "String";
       }
    }
@@ -40,7 +40,7 @@
    {
       datum baseAddress
       {
-         value = "134221976";
+         value = "67113112";
          type = "String";
       }
    }
@@ -48,7 +48,7 @@
    {
       datum baseAddress
       {
-         value = "134221824";
+         value = "67112960";
          type = "String";
       }
    }
@@ -64,7 +64,7 @@
    {
       datum baseAddress
       {
-         value = "134221968";
+         value = "67113104";
          type = "String";
       }
    }
@@ -72,7 +72,7 @@
    {
       datum baseAddress
       {
-         value = "134219776";
+         value = "67110912";
          type = "String";
       }
    }
@@ -128,23 +128,7 @@
    {
       datum baseAddress
       {
-         value = "134221920";
-         type = "String";
-      }
-   }
-   element pio_switches.s1
-   {
-      datum baseAddress
-      {
-         value = "134221936";
-         type = "String";
-      }
-   }
-   element pio_leds.s1
-   {
-      datum baseAddress
-      {
-         value = "134221888";
+         value = "67113056";
          type = "String";
       }
    }
@@ -152,7 +136,15 @@
    {
       datum baseAddress
       {
-         value = "134221952";
+         value = "67113088";
+         type = "String";
+      }
+   }
+   element pio_switches.s1
+   {
+      datum baseAddress
+      {
+         value = "67113072";
          type = "String";
       }
    }
@@ -160,7 +152,15 @@
    {
       datum baseAddress
       {
-         value = "67108864";
+         value = "33554432";
+         type = "String";
+      }
+   }
+   element pio_leds.s1
+   {
+      datum baseAddress
+      {
+         value = "67113024";
          type = "String";
       }
    }
@@ -411,8 +411,8 @@
   <parameter name="ocimem_ramBlockType" value="Automatic" />
   <parameter name="mmu_ramBlockType" value="Automatic" />
   <parameter name="bht_ramBlockType" value="Automatic" />
-  <parameter name="instAddrWidth" value="28" />
-  <parameter name="dataAddrWidth" value="28" />
+  <parameter name="instAddrWidth" value="27" />
+  <parameter name="dataAddrWidth" value="27" />
   <parameter name="tightlyCoupledDataMaster0AddrWidth" value="1" />
   <parameter name="tightlyCoupledDataMaster1AddrWidth" value="1" />
   <parameter name="tightlyCoupledDataMaster2AddrWidth" value="1" />
@@ -421,8 +421,8 @@
   <parameter name="tightlyCoupledInstructionMaster1AddrWidth" value="1" />
   <parameter name="tightlyCoupledInstructionMaster2AddrWidth" value="1" />
   <parameter name="tightlyCoupledInstructionMaster3AddrWidth" value="1" />
-  <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='sdram_controller.s1' start='0x4000000' end='0x6000000' /><slave name='nios2.jtag_debug_module' start='0x8000800' end='0x8001000' /></address-map>]]></parameter>
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sdram_controller.s1' start='0x4000000' end='0x6000000' /><slave name='nios2.jtag_debug_module' start='0x8000800' end='0x8001000' /><slave name='LT24_CTRL_0.avalon_slave_0' start='0x8001000' end='0x8001020' /><slave name='Camera_Interface_0.Camera_Slave' start='0x8001020' end='0x8001040' /><slave name='pio_leds.s1' start='0x8001040' end='0x8001060' /><slave name='pll.pll_slave' start='0x8001060' end='0x8001070' /><slave name='pio_switches.s1' start='0x8001070' end='0x8001080' /><slave name='pio_buttons.s1' start='0x8001080' end='0x8001090' /><slave name='sysid.control_slave' start='0x8001090' end='0x8001098' /><slave name='jtag_uart.avalon_jtag_slave' start='0x8001098' end='0x80010A0' /></address-map>]]></parameter>
+  <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='sdram_controller.s1' start='0x2000000' end='0x4000000' /><slave name='nios2.jtag_debug_module' start='0x4000800' end='0x4001000' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sdram_controller.s1' start='0x2000000' end='0x4000000' /><slave name='nios2.jtag_debug_module' start='0x4000800' end='0x4001000' /><slave name='LT24_CTRL_0.avalon_slave_0' start='0x4001000' end='0x4001020' /><slave name='Camera_Interface_0.Camera_Slave' start='0x4001020' end='0x4001040' /><slave name='pio_leds.s1' start='0x4001040' end='0x4001060' /><slave name='pll.pll_slave' start='0x4001060' end='0x4001070' /><slave name='pio_switches.s1' start='0x4001070' end='0x4001080' /><slave name='pio_buttons.s1' start='0x4001080' end='0x4001090' /><slave name='sysid.control_slave' start='0x4001090' end='0x4001098' /><slave name='jtag_uart.avalon_jtag_slave' start='0x4001098' end='0x40010A0' /></address-map>]]></parameter>
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="deviceFamilyName" value="Cyclone IV E" />
   <parameter name="internalIrqMaskSystemInfo" value="7" />
@@ -727,7 +727,7 @@
    start="nios2.instruction_master"
    end="nios2.jtag_debug_module">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x08000800" />
+  <parameter name="baseAddress" value="0x04000800" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -736,7 +736,7 @@
    start="nios2.data_master"
    end="nios2.jtag_debug_module">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x08000800" />
+  <parameter name="baseAddress" value="0x04000800" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="reset" version="14.0" start="clk.clk_reset" end="nios2.reset_n" />
@@ -751,7 +751,7 @@
    start="nios2.data_master"
    end="jtag_uart.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x08001098" />
+  <parameter name="baseAddress" value="0x04001098" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -778,7 +778,7 @@
    start="nios2.data_master"
    end="sysid.control_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x08001090" />
+  <parameter name="baseAddress" value="0x04001090" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -797,7 +797,7 @@
    start="nios2.data_master"
    end="pio_leds.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x08001040" />
+  <parameter name="baseAddress" value="0x04001040" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -811,7 +811,7 @@
    start="nios2.data_master"
    end="pio_buttons.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x08001080" />
+  <parameter name="baseAddress" value="0x04001080" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -832,7 +832,7 @@
    start="nios2.data_master"
    end="pio_switches.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x08001070" />
+  <parameter name="baseAddress" value="0x04001070" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -880,7 +880,7 @@
    start="nios2.data_master"
    end="pll.pll_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x08001060" />
+  <parameter name="baseAddress" value="0x04001060" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -894,7 +894,7 @@
    start="nios2.instruction_master"
    end="sdram_controller.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x04000000" />
+  <parameter name="baseAddress" value="0x02000000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -903,7 +903,7 @@
    start="nios2.data_master"
    end="sdram_controller.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x04000000" />
+  <parameter name="baseAddress" value="0x02000000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -933,7 +933,7 @@
    start="nios2.data_master"
    end="Camera_Interface_0.Camera_Slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x08001020" />
+  <parameter name="baseAddress" value="0x04001020" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -942,7 +942,7 @@
    start="Camera_Interface_0.Camera_Master"
    end="sdram_controller.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x04000000" />
+  <parameter name="baseAddress" value="0x02000000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="14.0" start="clk.clk" end="LT24_CTRL_0.clock" />
@@ -962,7 +962,7 @@
    start="nios2.data_master"
    end="LT24_CTRL_0.avalon_slave_0">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x08001000" />
+  <parameter name="baseAddress" value="0x04001000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -971,7 +971,7 @@
    start="LT24_CTRL_0.avalon_master"
    end="sdram_controller.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x04000000" />
+  <parameter name="baseAddress" value="0x02000000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />

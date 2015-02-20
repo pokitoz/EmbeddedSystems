@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="system" kind="system" version="1.0" fabric="QSYS">
  <!-- Format version 14.1 186 (Future versions may contain additional information.) -->
- <!-- 2015.02.20.12:41:56 -->
+ <!-- 2015.02.20.13:50:08 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1424432516</value>
+  <value>1424436608</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -1953,7 +1953,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.CPU_IMPLEMENTATION</name>
-   <value>"fast"</value>
+   <value>"tiny"</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_ADDR_WIDTH</name>
@@ -1961,15 +1961,15 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DCACHE_LINE_SIZE</name>
-   <value>32</value>
+   <value>0</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DCACHE_LINE_SIZE_LOG2</name>
-   <value>5</value>
+   <value>0</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DCACHE_SIZE</name>
-   <value>2048</value>
+   <value>0</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.EXCEPTION_ADDR</name>
@@ -1985,7 +1985,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.HARDWARE_MULTIPLY_PRESENT</name>
-   <value>1</value>
+   <value>0</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.HARDWARE_MULX_PRESENT</name>
@@ -2005,27 +2005,19 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.ICACHE_LINE_SIZE</name>
-   <value>32</value>
+   <value>0</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.ICACHE_LINE_SIZE_LOG2</name>
-   <value>5</value>
+   <value>0</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.ICACHE_SIZE</name>
-   <value>4096</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.INITDA_SUPPORTED</name>
-   <value></value>
+   <value>0</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.INST_ADDR_WIDTH</name>
    <value>26</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.NUM_OF_SHADOW_REG_SETS</name>
-   <value>0</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.RESET_ADDR</name>
@@ -2080,16 +2072,8 @@ the requested settings for a module instance. -->
    <value>0x00000020</value>
   </assignment>
   <assignment>
-   <name>embeddedsw.dts.params.ALTR,has-initda</name>
-   <value>1</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.dts.params.ALTR,has-mul</name>
-   <value>1</value>
-  </assignment>
-  <assignment>
    <name>embeddedsw.dts.params.ALTR,implementation</name>
-   <value>"fast"</value>
+   <value>"tiny"</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.ALTR,reset-addr</name>
@@ -2101,19 +2085,19 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.dcache-line-size</name>
-   <value>32</value>
+   <value>0</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.dcache-size</name>
-   <value>2048</value>
+   <value>0</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.icache-line-size</name>
-   <value>32</value>
+   <value>0</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.icache-size</name>
-   <value>4096</value>
+   <value>0</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -2147,7 +2131,7 @@ the requested settings for a module instance. -->
    <type>boolean</type>
    <value>false</value>
    <derived>false</derived>
-   <enabled>true</enabled>
+   <enabled>false</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -2195,7 +2179,7 @@ the requested settings for a module instance. -->
    <type>boolean</type>
    <value>false</value>
    <derived>false</derived>
-   <enabled>true</enabled>
+   <enabled>false</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -2379,7 +2363,7 @@ the requested settings for a module instance. -->
    <type>boolean</type>
    <value>false</value>
    <derived>false</derived>
-   <enabled>true</enabled>
+   <enabled>false</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -2395,7 +2379,7 @@ the requested settings for a module instance. -->
    <type>boolean</type>
    <value>false</value>
    <derived>false</derived>
-   <enabled>true</enabled>
+   <enabled>false</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -2403,7 +2387,7 @@ the requested settings for a module instance. -->
    <type>boolean</type>
    <value>false</value>
    <derived>false</derived>
-   <enabled>true</enabled>
+   <enabled>false</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -2459,7 +2443,7 @@ the requested settings for a module instance. -->
    <type>boolean</type>
    <value>false</value>
    <derived>false</derived>
-   <enabled>true</enabled>
+   <enabled>false</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -2491,7 +2475,7 @@ the requested settings for a module instance. -->
    <type>int</type>
    <value>0</value>
    <derived>false</derived>
-   <enabled>true</enabled>
+   <enabled>false</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -2619,7 +2603,7 @@ the requested settings for a module instance. -->
    <type>java.lang.String</type>
    <value>Internal</value>
    <derived>false</derived>
-   <enabled>true</enabled>
+   <enabled>false</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -2643,7 +2627,7 @@ the requested settings for a module instance. -->
    <type>java.lang.String</type>
    <value>EmbeddedMulFast</value>
    <derived>false</derived>
-   <enabled>true</enabled>
+   <enabled>false</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -2705,7 +2689,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="impl">
    <type>java.lang.String</type>
-   <value>Fast</value>
+   <value>Tiny</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -2715,7 +2699,7 @@ the requested settings for a module instance. -->
    <type>int</type>
    <value>4096</value>
    <derived>false</derived>
-   <enabled>true</enabled>
+   <enabled>false</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -2739,7 +2723,7 @@ the requested settings for a module instance. -->
    <type>int</type>
    <value>0</value>
    <derived>false</derived>
-   <enabled>true</enabled>
+   <enabled>false</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -2747,7 +2731,7 @@ the requested settings for a module instance. -->
    <type>java.lang.String</type>
    <value>None</value>
    <derived>false</derived>
-   <enabled>true</enabled>
+   <enabled>false</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -2755,7 +2739,7 @@ the requested settings for a module instance. -->
    <type>java.lang.String</type>
    <value>false</value>
    <derived>false</derived>
-   <enabled>true</enabled>
+   <enabled>false</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -2763,7 +2747,7 @@ the requested settings for a module instance. -->
    <type>java.lang.String</type>
    <value>ram</value>
    <derived>false</derived>
-   <enabled>true</enabled>
+   <enabled>false</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -2787,7 +2771,7 @@ the requested settings for a module instance. -->
    <type>int</type>
    <value>2048</value>
    <derived>false</derived>
-   <enabled>true</enabled>
+   <enabled>false</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -2811,7 +2795,7 @@ the requested settings for a module instance. -->
    <type>int</type>
    <value>0</value>
    <derived>false</derived>
-   <enabled>true</enabled>
+   <enabled>false</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -2819,7 +2803,7 @@ the requested settings for a module instance. -->
    <type>int</type>
    <value>32</value>
    <derived>false</derived>
-   <enabled>true</enabled>
+   <enabled>false</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -2835,7 +2819,7 @@ the requested settings for a module instance. -->
    <type>boolean</type>
    <value>false</value>
    <derived>false</derived>
-   <enabled>true</enabled>
+   <enabled>false</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -3577,7 +3561,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="registerIncomingSignals">
     <type>boolean</type>
-    <value>false</value>
+    <value>true</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -3674,12 +3658,6 @@ parameters are a RESULT of the module parameters. -->
     <direction>Output</direction>
     <width>32</width>
     <role>writedata</role>
-   </port>
-   <port>
-    <name>d_readdatavalid</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>readdatavalid</role>
    </port>
    <port>
     <name>jtag_debug_module_debugaccess_to_roms</name>
@@ -4013,12 +3991,6 @@ parameters are a RESULT of the module parameters. -->
     <direction>Input</direction>
     <width>1</width>
     <role>waitrequest</role>
-   </port>
-   <port>
-    <name>i_readdatavalid</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>readdatavalid</role>
    </port>
    <memoryBlock>
     <isBridge>false</isBridge>

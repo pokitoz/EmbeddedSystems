@@ -144,6 +144,7 @@ ELF := Timer.elf
 # Paths to C, C++, and assembly source files.
 C_SRCS += hello_world.c
 C_SRCS += leds.c
+C_SRCS += timer.c
 CXX_SRCS :=
 ASM_SRCS :=
 

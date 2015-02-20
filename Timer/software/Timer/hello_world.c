@@ -17,12 +17,23 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "leds.h"
+#include "timer.h"
+#include "limits.h"
 
 int main() {
 	printf("Hello from Nios II!\n");
 	leds(1);
 
-	while (1) {
+	timer_init(UINT_MAX);
+	timer_reset();
+	timer_start();
+
+	while(1) {
+		printf("%u\n", timer_read());
+		usleep(100000);
+	}
+
+	/*while (1) {
 		int i = 0;
 		for (i = 1; i < 8; ++i) {
 			leds(1 << i);
@@ -33,7 +44,7 @@ int main() {
 			leds(1 << i);
 			usleep(100000 / 8);
 		}
-	}
+	}*/
 
 	return 0;
 }

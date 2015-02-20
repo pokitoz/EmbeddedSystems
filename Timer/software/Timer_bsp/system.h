@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_qsys_0' in SOPC Builder design 'system'
  * SOPC Builder design path: ../../system.sopcinfo
  *
- * Generated: Fri Feb 20 13:55:20 CET 2015
+ * Generated: Fri Feb 20 16:43:11 CET 2015
  */
 
 /*
@@ -128,6 +128,7 @@
 #define __ALTERA_AVALON_PIO
 #define __ALTERA_NIOS2_QSYS
 #define __ALTPLL
+#define __TIMER
 
 
 /*
@@ -146,19 +147,19 @@
 #define ALT_NUM_INTERNAL_INTERRUPT_CONTROLLERS 1
 #define ALT_NUM_INTERRUPT_CONTROLLERS 1
 #define ALT_STDERR "/dev/jtag_uart_0"
-#define ALT_STDERR_BASE 0x2001020
+#define ALT_STDERR_BASE 0x2001040
 #define ALT_STDERR_DEV jtag_uart_0
 #define ALT_STDERR_IS_JTAG_UART
 #define ALT_STDERR_PRESENT
 #define ALT_STDERR_TYPE "altera_avalon_jtag_uart"
 #define ALT_STDIN "/dev/jtag_uart_0"
-#define ALT_STDIN_BASE 0x2001020
+#define ALT_STDIN_BASE 0x2001040
 #define ALT_STDIN_DEV jtag_uart_0
 #define ALT_STDIN_IS_JTAG_UART
 #define ALT_STDIN_PRESENT
 #define ALT_STDIN_TYPE "altera_avalon_jtag_uart"
 #define ALT_STDOUT "/dev/jtag_uart_0"
-#define ALT_STDOUT_BASE 0x2001020
+#define ALT_STDOUT_BASE 0x2001040
 #define ALT_STDOUT_DEV jtag_uart_0
 #define ALT_STDOUT_IS_JTAG_UART
 #define ALT_STDOUT_PRESENT
@@ -182,7 +183,7 @@
  */
 
 #define ALT_MODULE_CLASS_jtag_uart_0 altera_avalon_jtag_uart
-#define JTAG_UART_0_BASE 0x2001020
+#define JTAG_UART_0_BASE 0x2001040
 #define JTAG_UART_0_IRQ 5
 #define JTAG_UART_0_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define JTAG_UART_0_NAME "/dev/jtag_uart_0"
@@ -200,7 +201,7 @@
  */
 
 #define ALT_MODULE_CLASS_leds altera_avalon_pio
-#define LEDS_BASE 0x2001000
+#define LEDS_BASE 0x2001020
 #define LEDS_BIT_CLEARING_EDGE_REGISTER 0
 #define LEDS_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define LEDS_CAPTURE 0
@@ -227,7 +228,7 @@
  */
 
 #define ALT_MODULE_CLASS_pll altpll
-#define PLL_BASE 0x2001010
+#define PLL_BASE 0x2001030
 #define PLL_IRQ -1
 #define PLL_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define PLL_NAME "/dev/pll"
@@ -272,5 +273,19 @@
 #define SDRAM_T_RFC 70.0
 #define SDRAM_T_RP 20.0
 #define SDRAM_T_WR 14.0
+
+
+/*
+ * timer configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_timer Timer
+#define TIMER_BASE 0x2001000
+#define TIMER_IRQ -1
+#define TIMER_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define TIMER_NAME "/dev/timer"
+#define TIMER_SPAN 32
+#define TIMER_TYPE "Timer"
 
 #endif /* __SYSTEM_H_ */

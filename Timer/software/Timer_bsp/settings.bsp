@@ -2,10 +2,10 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>20 févr. 2015 13:55:17</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1424436917651</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>20 févr. 2015 17:04:44</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1424448284940</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\Users\andy\EmbeddedSystems\Timer\software\Timer_bsp</BspGeneratedLocation>
-        <BspSettingsFile>.\settings.bsp</BspSettingsFile>
+        <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\system.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>
         <Cpu>nios2_qsys_0</Cpu>
@@ -893,20 +893,26 @@
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>timer</slaveDescriptor>
+                <addressRange>0x02001000 - 0x0200101F</addressRange>
+                <addressSpan>32</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>leds</slaveDescriptor>
-                <addressRange>0x02001000 - 0x0200100F</addressRange>
+                <addressRange>0x02001020 - 0x0200102F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>pll</slaveDescriptor>
-                <addressRange>0x02001010 - 0x0200101F</addressRange>
+                <addressRange>0x02001030 - 0x0200103F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>jtag_uart_0</slaveDescriptor>
-                <addressRange>0x02001020 - 0x02001027</addressRange>
+                <addressRange>0x02001040 - 0x02001047</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes>printable</attributes>
         </MemoryMap>

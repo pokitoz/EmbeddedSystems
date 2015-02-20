@@ -67,7 +67,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   </table>
   <table class="blueBar">
    <tr>
-    <td class="l">2015.02.20.13:50:09</td>
+    <td class="l">2015.02.20.16:37:01</td>
     <td class="r">Datasheet</td>
    </tr>
   </table>
@@ -104,7 +104,10 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </a> altpll 14.1
      <br/>&#160;&#160;
      <a href="#module_sdram"><b>sdram</b>
-     </a> altera_avalon_new_sdram_controller 14.1</span>
+     </a> altera_avalon_new_sdram_controller 14.1
+     <br/>&#160;&#160;
+     <a href="#module_timer"><b>timer</b>
+     </a> Timer 1.0</span>
    </div>
   </div>
   <div style="width:100% ;  height:10px"> </div>
@@ -131,7 +134,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
    </tr>
    <tr>
     <td class="slaveb">avalon_jtag_slave&#160;</td>
-    <td class="addr"><span style="color:#989898">0x</span>02001020</td>
+    <td class="addr"><span style="color:#989898">0x</span>02001040</td>
     <td class="empty"></td>
    </tr>
    <tr>
@@ -144,7 +147,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
    </tr>
    <tr>
     <td class="slaveb">s1&#160;</td>
-    <td class="addr"><span style="color:#989898">0x</span>02001000</td>
+    <td class="addr"><span style="color:#989898">0x</span>02001020</td>
     <td class="empty"></td>
    </tr>
    <tr>
@@ -170,7 +173,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
    </tr>
    <tr>
     <td class="slaveb">pll_slave&#160;</td>
-    <td class="addr"><span style="color:#989898">0x</span>02001010</td>
+    <td class="addr"><span style="color:#989898">0x</span>02001030</td>
     <td class="empty"></td>
    </tr>
    <tr>
@@ -185,6 +188,19 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="slaveb">s1&#160;</td>
     <td class="addr"><span style="color:#989898">0x</span>00000000</td>
     <td class="addr"><span style="color:#989898">0x</span>00000000</td>
+   </tr>
+   <tr>
+    <td class="slavemodule">&#160;
+     <a href="#module_timer"><b>timer</b>
+     </a>
+    </td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slaveb">timer_slave_0&#160;</td>
+    <td class="addr"><span style="color:#989898">0x</span>02001000</td>
+    <td class="empty"></td>
    </tr>
   </table>
   <a name="module_clk"> </a>
@@ -620,7 +636,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_pll">pll</a>
       </td>
       <td class="from">c0&#160;&#160;</td>
-      <td class="main" rowspan="28">nios2_qsys_0</td>
+      <td class="main" rowspan="33">nios2_qsys_0</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clk</td>
@@ -757,6 +773,32 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="to">&#160;&#160;reset</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">data_master&#160;&#160;</td>
+      <td class="neighbor" rowspan="4">
+       <a href="#module_timer">timer</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;timer_slave_0</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">d_irq&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;interrupt_sender</td>
      </tr>
     </table>
    </div>
@@ -1249,7 +1291,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">dataSlaveMapParam</td>
-        <td class="parametervalue">&lt;address-map&gt;&lt;slave name='sdram.s1' start='0x0' end='0x2000000' /&gt;&lt;slave name='nios2_qsys_0.jtag_debug_module' start='0x2000800' end='0x2001000' /&gt;&lt;slave name='leds.s1' start='0x2001000' end='0x2001010' /&gt;&lt;slave name='pll.pll_slave' start='0x2001010' end='0x2001020' /&gt;&lt;slave name='jtag_uart_0.avalon_jtag_slave' start='0x2001020' end='0x2001028' /&gt;&lt;/address-map&gt;</td>
+        <td class="parametervalue">&lt;address-map&gt;&lt;slave name='sdram.s1' start='0x0' end='0x2000000' /&gt;&lt;slave name='nios2_qsys_0.jtag_debug_module' start='0x2000800' end='0x2001000' /&gt;&lt;slave name='timer.timer_slave_0' start='0x2001000' end='0x2001020' /&gt;&lt;slave name='leds.s1' start='0x2001020' end='0x2001030' /&gt;&lt;slave name='pll.pll_slave' start='0x2001030' end='0x2001040' /&gt;&lt;slave name='jtag_uart_0.avalon_jtag_slave' start='0x2001040' end='0x2001048' /&gt;&lt;/address-map&gt;</td>
        </tr>
        <tr>
         <td class="parametername">clockFrequency</td>
@@ -1261,7 +1303,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">internalIrqMaskSystemInfo</td>
-        <td class="parametervalue">32</td>
+        <td class="parametervalue">34</td>
        </tr>
        <tr>
         <td class="parametername">customInstSlavesSystemInfo</td>
@@ -1429,7 +1471,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_nios2_qsys_0">nios2_qsys_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="20">pll</td>
+      <td class="main" rowspan="23">pll</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;pll_slave</td>
@@ -1518,6 +1560,22 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="to">&#160;&#160;clk</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">c0&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_timer">timer</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;clock</td>
      </tr>
     </table>
    </div>
@@ -2495,10 +2553,85 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     </tr>
    </table>
   </div>
+  <a name="module_timer"> </a>
+  <div>
+   <hr/>
+   <h2>timer</h2>Timer v1.0
+   <br/>
+   <div class="greydiv">
+    <table class="connectionboxes">
+     <tr>
+      <td class="neighbor" rowspan="4">
+       <a href="#module_nios2_qsys_0">nios2_qsys_0</a>
+      </td>
+      <td class="from">data_master&#160;&#160;</td>
+      <td class="main" rowspan="10">timer</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;timer_slave_0</td>
+     </tr>
+     <tr>
+      <td class="from">d_irq&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;interrupt_sender</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_pll">pll</a>
+      </td>
+      <td class="from">c0&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;clock</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_clk">clk</a>
+      </td>
+      <td class="from">clk_reset&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;reset</td>
+     </tr>
+    </table>
+   </div>
+   <br/>
+   <br/>
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Parameters</h2>
+      <table>
+       <tr>
+        <td class="parametername">deviceFamily</td>
+        <td class="parametervalue">UNKNOWN</td>
+       </tr>
+       <tr>
+        <td class="parametername">generateLegacySim</td>
+        <td class="parametervalue">false</td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+   </table>&#160;&#160;
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Software Assignments</h2>(none)</td>
+    </tr>
+   </table>
+  </div>
   <table class="blueBar">
    <tr>
     <td class="l">generation took 0.01 seconds</td>
-    <td class="r">rendering took 0.13 seconds</td>
+    <td class="r">rendering took 0.12 seconds</td>
    </tr>
   </table>
  </body>

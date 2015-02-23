@@ -19,13 +19,18 @@ entity ParallelPort is
 		Read       : in  std_logic;
 		Write      : in  std_logic;
 		ReadData   : out std_logic_vector(portWidth - 1 downto 0);
-		WriteData  : in  std_logic_vector(portWidth - 1 downto 0)
+		WriteData  : in  std_logic_vector(portWidth - 1 downto 0);
+		
+		output_port : out std_logic_vector(portWidth - 1 downto 0)
 	);
 end entity ParallelPort;
 
 architecture RTL of ParallelPort is
 	signal ports : std_logic_vector(portWidth - 1 downto 0);
 begin
+
+	output_port <= ports;
+
 	proc_read : process(Clk) is
 	begin
 		if rising_edge(Clk) then

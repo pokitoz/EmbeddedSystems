@@ -28,23 +28,20 @@ int main() {
 	timer_reset();
 	timer_start();
 
-	while(1) {
-		printf("%u\n", timer_read());
-		usleep(1000000);
-	}
-
-/*	while (1) {
+	while (1) {
 		int i = 0;
 		for (i = 1; i < 8; ++i) {
 			leds(1 << i);
-			usleep(100000 / 8);
+			usleep(500000 / 8);
 		}
+
+		printf("%u\n", timer_read());
 
 		for (i = 6; i >= 0; --i) {
 			leds(1 << i);
-			usleep(100000 / 8);
+			usleep(500000 / 8);
 		}
-	}*/
+	}
 
 	return 0;
 }

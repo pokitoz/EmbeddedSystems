@@ -17,6 +17,22 @@
          type = "String";
       }
    }
+   element ParallelPort_0
+   {
+      datum _sortIndex
+      {
+         value = "7";
+         type = "int";
+      }
+   }
+   element ParallelPort_0.avalon_slave_0
+   {
+      datum baseAddress
+      {
+         value = "33558560";
+         type = "String";
+      }
+   }
    element clk
    {
       datum _sortIndex
@@ -37,7 +53,7 @@
    {
       datum baseAddress
       {
-         value = "33558592";
+         value = "33558608";
          type = "String";
       }
    }
@@ -53,7 +69,7 @@
    {
       datum baseAddress
       {
-         value = "33558560";
+         value = "33558576";
          type = "String";
       }
    }
@@ -85,7 +101,7 @@
    {
       datum baseAddress
       {
-         value = "33558576";
+         value = "33558592";
          type = "String";
       }
    }
@@ -148,6 +164,11 @@
    type="conduit"
    dir="end" />
  <interface
+   name="parallelport"
+   internal="ParallelPort_0.conduit_end"
+   type="conduit"
+   dir="end" />
+ <interface
    name="pll_areset_conduit"
    internal="pll.areset_conduit"
    type="conduit"
@@ -165,6 +186,9 @@
  <interface name="pll_sdram_clk" internal="pll.c1" type="clock" dir="start" />
  <interface name="reset" internal="clk.clk_in_reset" type="reset" dir="end" />
  <interface name="sdram_wire" internal="sdram.wire" type="conduit" dir="end" />
+ <module name="ParallelPort_0" kind="ParallelPort" version="1.0" enabled="1">
+  <parameter name="portWidth" value="32" />
+ </module>
  <module name="clk" kind="clock_source" version="14.1" enabled="1">
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="clockFrequencyKnown" value="true" />
@@ -218,7 +242,7 @@
   <parameter name="cpuReset" value="false" />
   <parameter name="customInstSlavesSystemInfo" value="&lt;info/&gt;" />
   <parameter name="dataAddrWidth" value="26" />
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sdram.s1' start='0x0' end='0x2000000' /><slave name='nios2_qsys_0.jtag_debug_module' start='0x2000800' end='0x2001000' /><slave name='timer.timer_slave_0' start='0x2001000' end='0x2001020' /><slave name='leds.s1' start='0x2001020' end='0x2001030' /><slave name='pll.pll_slave' start='0x2001030' end='0x2001040' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x2001040' end='0x2001048' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sdram.s1' start='0x0' end='0x2000000' /><slave name='nios2_qsys_0.jtag_debug_module' start='0x2000800' end='0x2001000' /><slave name='timer.timer_slave_0' start='0x2001000' end='0x2001020' /><slave name='ParallelPort_0.avalon_slave_0' start='0x2001020' end='0x2001030' /><slave name='leds.s1' start='0x2001030' end='0x2001040' /><slave name='pll.pll_slave' start='0x2001040' end='0x2001050' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x2001050' end='0x2001058' /></address-map>]]></parameter>
   <parameter name="dcache_bursts" value="false" />
   <parameter name="dcache_lineSize" value="32" />
   <parameter name="dcache_numTCDM" value="0" />
@@ -243,7 +267,7 @@
   <parameter name="icache_ramBlockType" value="Automatic" />
   <parameter name="icache_size" value="4096" />
   <parameter name="icache_tagramBlockType" value="Automatic" />
-  <parameter name="impl" value="Small" />
+  <parameter name="impl" value="Fast" />
   <parameter name="instAddrWidth" value="26" />
   <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='sdram.s1' start='0x0' end='0x2000000' /><slave name='nios2_qsys_0.jtag_debug_module' start='0x2000800' end='0x2001000' /></address-map>]]></parameter>
   <parameter name="internalIrqMaskSystemInfo" value="34" />
@@ -538,7 +562,16 @@
    start="nios2_qsys_0.data_master"
    end="jtag_uart_0.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x02001040" />
+  <parameter name="baseAddress" value="0x02001050" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="14.1"
+   start="nios2_qsys_0.data_master"
+   end="ParallelPort_0.avalon_slave_0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x02001020" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -556,7 +589,7 @@
    start="nios2_qsys_0.data_master"
    end="pll.pll_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x02001030" />
+  <parameter name="baseAddress" value="0x02001040" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -574,7 +607,7 @@
    start="nios2_qsys_0.data_master"
    end="leds.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x02001020" />
+  <parameter name="baseAddress" value="0x02001030" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -609,6 +642,7 @@
  <connection kind="clock" version="14.1" start="pll.c0" end="jtag_uart_0.clk" />
  <connection kind="clock" version="14.1" start="pll.c0" end="leds.clk" />
  <connection kind="clock" version="14.1" start="pll.c0" end="timer.clock" />
+ <connection kind="clock" version="14.1" start="pll.c0" end="ParallelPort_0.clock" />
  <connection kind="clock" version="14.1" start="clk.clk" end="pll.inclk_interface" />
  <connection
    kind="interrupt"
@@ -637,6 +671,11 @@
    end="jtag_uart_0.reset" />
  <connection kind="reset" version="14.1" start="clk.clk_reset" end="leds.reset" />
  <connection kind="reset" version="14.1" start="clk.clk_reset" end="timer.reset" />
+ <connection
+   kind="reset"
+   version="14.1"
+   start="clk.clk_reset"
+   end="ParallelPort_0.reset" />
  <connection
    kind="reset"
    version="14.1"

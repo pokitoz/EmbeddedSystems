@@ -15,7 +15,8 @@ module system (
 	sdram_wire_dq,
 	sdram_wire_dqm,
 	sdram_wire_ras_n,
-	sdram_wire_we_n);	
+	sdram_wire_we_n,
+	parallelport_export);	
 
 	input		clk_clk;
 	output	[7:0]	leds_export;
@@ -33,4 +34,5 @@ module system (
 	output	[1:0]	sdram_wire_dqm;
 	output		sdram_wire_ras_n;
 	output		sdram_wire_we_n;
+	output	[31:0]	parallelport_export;
 endmodule

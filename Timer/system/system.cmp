@@ -2,6 +2,7 @@
 		port (
 			clk_clk                      : in    std_logic                     := 'X';             -- clk
 			leds_export                  : out   std_logic_vector(7 downto 0);                     -- export
+			parallelport_export          : out   std_logic_vector(31 downto 0);                    -- export
 			pll_areset_conduit_export    : in    std_logic                     := 'X';             -- export
 			pll_locked_conduit_export    : out   std_logic;                                        -- export
 			pll_phasedone_conduit_export : out   std_logic;                                        -- export

@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_qsys_0' in SOPC Builder design 'system'
  * SOPC Builder design path: ../../system.sopcinfo
  *
- * Generated: Mon Feb 23 10:56:26 CET 2015
+ * Generated: Mon Feb 23 11:33:35 CET 2015
  */
 
 /*
@@ -66,11 +66,11 @@
 #define ALT_CPU_CPU_FREQ 50000000u
 #define ALT_CPU_CPU_ID_SIZE 1
 #define ALT_CPU_CPU_ID_VALUE 0x00000000
-#define ALT_CPU_CPU_IMPLEMENTATION "small"
+#define ALT_CPU_CPU_IMPLEMENTATION "fast"
 #define ALT_CPU_DATA_ADDR_WIDTH 0x1a
-#define ALT_CPU_DCACHE_LINE_SIZE 0
-#define ALT_CPU_DCACHE_LINE_SIZE_LOG2 0
-#define ALT_CPU_DCACHE_SIZE 0
+#define ALT_CPU_DCACHE_LINE_SIZE 32
+#define ALT_CPU_DCACHE_LINE_SIZE_LOG2 5
+#define ALT_CPU_DCACHE_SIZE 2048
 #define ALT_CPU_EXCEPTION_ADDR 0x00000020
 #define ALT_CPU_FLUSHDA_SUPPORTED
 #define ALT_CPU_FREQ 50000000
@@ -83,8 +83,10 @@
 #define ALT_CPU_ICACHE_LINE_SIZE 32
 #define ALT_CPU_ICACHE_LINE_SIZE_LOG2 5
 #define ALT_CPU_ICACHE_SIZE 4096
+#define ALT_CPU_INITDA_SUPPORTED
 #define ALT_CPU_INST_ADDR_WIDTH 0x1a
 #define ALT_CPU_NAME "nios2_qsys_0"
+#define ALT_CPU_NUM_OF_SHADOW_REG_SETS 0
 #define ALT_CPU_RESET_ADDR 0x00000000
 
 
@@ -98,11 +100,11 @@
 #define NIOS2_CPU_FREQ 50000000u
 #define NIOS2_CPU_ID_SIZE 1
 #define NIOS2_CPU_ID_VALUE 0x00000000
-#define NIOS2_CPU_IMPLEMENTATION "small"
+#define NIOS2_CPU_IMPLEMENTATION "fast"
 #define NIOS2_DATA_ADDR_WIDTH 0x1a
-#define NIOS2_DCACHE_LINE_SIZE 0
-#define NIOS2_DCACHE_LINE_SIZE_LOG2 0
-#define NIOS2_DCACHE_SIZE 0
+#define NIOS2_DCACHE_LINE_SIZE 32
+#define NIOS2_DCACHE_LINE_SIZE_LOG2 5
+#define NIOS2_DCACHE_SIZE 2048
 #define NIOS2_EXCEPTION_ADDR 0x00000020
 #define NIOS2_FLUSHDA_SUPPORTED
 #define NIOS2_HARDWARE_DIVIDE_PRESENT 0
@@ -114,7 +116,9 @@
 #define NIOS2_ICACHE_LINE_SIZE 32
 #define NIOS2_ICACHE_LINE_SIZE_LOG2 5
 #define NIOS2_ICACHE_SIZE 4096
+#define NIOS2_INITDA_SUPPORTED
 #define NIOS2_INST_ADDR_WIDTH 0x1a
+#define NIOS2_NUM_OF_SHADOW_REG_SETS 0
 #define NIOS2_RESET_ADDR 0x00000000
 
 
@@ -128,7 +132,22 @@
 #define __ALTERA_AVALON_PIO
 #define __ALTERA_NIOS2_QSYS
 #define __ALTPLL
+#define __PARALLELPORT
 #define __TIMER
+
+
+/*
+ * ParallelPort_0 configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_ParallelPort_0 ParallelPort
+#define PARALLELPORT_0_BASE 0x2001020
+#define PARALLELPORT_0_IRQ -1
+#define PARALLELPORT_0_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define PARALLELPORT_0_NAME "/dev/ParallelPort_0"
+#define PARALLELPORT_0_SPAN 16
+#define PARALLELPORT_0_TYPE "ParallelPort"
 
 
 /*
@@ -147,19 +166,19 @@
 #define ALT_NUM_INTERNAL_INTERRUPT_CONTROLLERS 1
 #define ALT_NUM_INTERRUPT_CONTROLLERS 1
 #define ALT_STDERR "/dev/jtag_uart_0"
-#define ALT_STDERR_BASE 0x2001040
+#define ALT_STDERR_BASE 0x2001050
 #define ALT_STDERR_DEV jtag_uart_0
 #define ALT_STDERR_IS_JTAG_UART
 #define ALT_STDERR_PRESENT
 #define ALT_STDERR_TYPE "altera_avalon_jtag_uart"
 #define ALT_STDIN "/dev/jtag_uart_0"
-#define ALT_STDIN_BASE 0x2001040
+#define ALT_STDIN_BASE 0x2001050
 #define ALT_STDIN_DEV jtag_uart_0
 #define ALT_STDIN_IS_JTAG_UART
 #define ALT_STDIN_PRESENT
 #define ALT_STDIN_TYPE "altera_avalon_jtag_uart"
 #define ALT_STDOUT "/dev/jtag_uart_0"
-#define ALT_STDOUT_BASE 0x2001040
+#define ALT_STDOUT_BASE 0x2001050
 #define ALT_STDOUT_DEV jtag_uart_0
 #define ALT_STDOUT_IS_JTAG_UART
 #define ALT_STDOUT_PRESENT
@@ -183,7 +202,7 @@
  */
 
 #define ALT_MODULE_CLASS_jtag_uart_0 altera_avalon_jtag_uart
-#define JTAG_UART_0_BASE 0x2001040
+#define JTAG_UART_0_BASE 0x2001050
 #define JTAG_UART_0_IRQ 5
 #define JTAG_UART_0_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define JTAG_UART_0_NAME "/dev/jtag_uart_0"
@@ -201,7 +220,7 @@
  */
 
 #define ALT_MODULE_CLASS_leds altera_avalon_pio
-#define LEDS_BASE 0x2001020
+#define LEDS_BASE 0x2001030
 #define LEDS_BIT_CLEARING_EDGE_REGISTER 0
 #define LEDS_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define LEDS_CAPTURE 0
@@ -228,7 +247,7 @@
  */
 
 #define ALT_MODULE_CLASS_pll altpll
-#define PLL_BASE 0x2001030
+#define PLL_BASE 0x2001040
 #define PLL_IRQ -1
 #define PLL_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define PLL_NAME "/dev/pll"

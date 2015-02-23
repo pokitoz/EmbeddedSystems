@@ -2,9 +2,9 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>20 févr. 2015 17:04:44</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1424448284940</BspGeneratedUnixTimeStamp>
-        <BspGeneratedLocation>C:\Users\andy\EmbeddedSystems\Timer\software\Timer_bsp</BspGeneratedLocation>
+        <BspGeneratedTimeStamp>23 févr. 2015 10:56:26</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1424685386158</BspGeneratedUnixTimeStamp>
+        <BspGeneratedLocation>C:\Users\aroulin\Desktop\EmbeddedSystems\Timer\software\Timer_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\system.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>

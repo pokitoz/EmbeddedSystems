@@ -30,10 +30,10 @@ int main() {
 
 	while(1) {
 		printf("%u\n", timer_read());
-		usleep(100000);
+		usleep(1000000);
 	}
 
-	/*while (1) {
+/*	while (1) {
 		int i = 0;
 		for (i = 1; i < 8; ++i) {
 			leds(1 << i);

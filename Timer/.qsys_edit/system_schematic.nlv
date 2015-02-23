@@ -1,24 +1,25 @@
 # # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
 # 
-preplace inst system.nios2_qsys_0 -pg 1 -lvl 1 -y 40
-preplace inst system.jtag_uart_0 -pg 1 -lvl 2 -y 70
-preplace inst system.sdram -pg 1 -lvl 2 -y 300
-preplace inst system.leds -pg 1 -lvl 2 -y 180
-preplace inst system.clk -pg 1 -lvl 1 -y 420
-preplace inst system.pll -pg 1 -lvl 2 -y 420
+preplace inst system.nios2_qsys_0 -pg 1 -lvl 1 -y 30
+preplace inst system.jtag_uart_0 -pg 1 -lvl 2 -y 90
+preplace inst system.sdram -pg 1 -lvl 2 -y 330
+preplace inst system.leds -pg 1 -lvl 2 -y 210
+preplace inst system.clk -pg 1 -lvl 1 -y 450
+preplace inst system.pll -pg 1 -lvl 2 -y 450
 preplace inst system -pg 1 -lvl 1 -y 40 -regy -20
-preplace netloc EXPORT<net_container>system</net_container>(MASTER)pll.c1,(MASTER)system.pll_sdram_clk) 1 2 1 N
-preplace netloc EXPORT<net_container>system</net_container>(SLAVE)leds.external_connection,(SLAVE)system.leds) 1 0 2 NJ 210 NJ
-preplace netloc POINT_TO_POINT<net_container>system</net_container>(SLAVE)jtag_uart_0.irq,(MASTER)nios2_qsys_0.d_irq) 1 1 1 460
-preplace netloc POINT_TO_POINT<net_container>system</net_container>(MASTER)clk.clk,(SLAVE)pll.inclk_interface) 1 1 1 460
-preplace netloc FAN_OUT<net_container>system</net_container>(SLAVE)jtag_uart_0.clk,(SLAVE)sdram.clk,(SLAVE)leds.clk,(MASTER)pll.c0,(SLAVE)nios2_qsys_0.clk) 1 0 3 170 30 520 290 760
-preplace netloc INTERCONNECT<net_container>system</net_container>(SLAVE)sdram.s1,(SLAVE)leds.s1,(SLAVE)nios2_qsys_0.jtag_debug_module,(MASTER)nios2_qsys_0.data_master,(MASTER)nios2_qsys_0.instruction_master,(SLAVE)jtag_uart_0.avalon_jtag_slave,(SLAVE)pll.pll_slave) 1 0 2 170 170 500
-preplace netloc EXPORT<net_container>system</net_container>(SLAVE)pll.phasedone_conduit,(SLAVE)system.pll_phasedone_conduit) 1 0 2 NJ 510 NJ
-preplace netloc EXPORT<net_container>system</net_container>(SLAVE)clk.clk_in,(SLAVE)system.clk) 1 0 1 NJ
-preplace netloc EXPORT<net_container>system</net_container>(SLAVE)sdram.wire,(SLAVE)system.sdram_wire) 1 0 2 NJ 370 NJ
-preplace netloc EXPORT<net_container>system</net_container>(SLAVE)pll.locked_conduit,(SLAVE)system.pll_locked_conduit) 1 0 2 NJ 490 NJ
+preplace inst system.timer -pg 1 -lvl 3 -y 30
+preplace netloc EXPORT<net_container>system</net_container>(SLAVE)system.leds,(SLAVE)leds.external_connection) 1 0 2 NJ 240 NJ
+preplace netloc POINT_TO_POINT<net_container>system</net_container>(MASTER)clk.clk,(SLAVE)pll.inclk_interface) 1 1 1 500
+preplace netloc EXPORT<net_container>system</net_container>(SLAVE)system.pll_areset_conduit,(SLAVE)pll.areset_conduit) 1 0 2 NJ 520 NJ
+preplace netloc FAN_OUT<net_container>system</net_container>(SLAVE)nios2_qsys_0.clk,(SLAVE)leds.clk,(SLAVE)timer.clock,(MASTER)pll.c0,(SLAVE)jtag_uart_0.clk,(SLAVE)sdram.clk) 1 0 3 170 180 520 320 820
+preplace netloc INTERCONNECT<net_container>system</net_container>(MASTER)nios2_qsys_0.instruction_master,(SLAVE)sdram.s1,(MASTER)nios2_qsys_0.data_master,(SLAVE)timer.timer_slave_0,(SLAVE)jtag_uart_0.avalon_jtag_slave,(SLAVE)leds.s1,(SLAVE)nios2_qsys_0.jtag_debug_module,(SLAVE)pll.pll_slave) 1 0 3 210 160 460 200 NJ
+preplace netloc EXPORT<net_container>system</net_container>(SLAVE)system.sdram_wire,(SLAVE)sdram.wire) 1 0 2 NJ 400 NJ
+preplace netloc EXPORT<net_container>system</net_container>(MASTER)system.pll_sdram_clk,(MASTER)pll.c1) 1 2 2 NJ 520 NJ
+preplace netloc EXPORT<net_container>system</net_container>(SLAVE)system.pll_phasedone_conduit,(SLAVE)pll.phasedone_conduit) 1 0 2 NJ 560 NJ
+preplace netloc EXPORT<net_container>system</net_container>(SLAVE)system.clk,(SLAVE)clk.clk_in) 1 0 1 NJ
+preplace netloc INTERCONNECT<net_container>system</net_container>(SLAVE)jtag_uart_0.reset,(SLAVE)sdram.reset,(MASTER)clk.clk_reset,(SLAVE)nios2_qsys_0.reset_n,(SLAVE)timer.reset,(SLAVE)leds.reset,(MASTER)nios2_qsys_0.jtag_debug_module_reset,(SLAVE)pll.inclk_interface_reset) 1 0 3 190 200 480 80 NJ
+preplace netloc EXPORT<net_container>system</net_container>(SLAVE)pll.locked_conduit,(SLAVE)system.pll_locked_conduit) 1 0 2 NJ 540 NJ
 preplace netloc EXPORT<net_container>system</net_container>(SLAVE)clk.clk_in_reset,(SLAVE)system.reset) 1 0 1 NJ
-preplace netloc INTERCONNECT<net_container>system</net_container>(SLAVE)nios2_qsys_0.reset_n,(MASTER)clk.clk_reset,(SLAVE)sdram.reset,(MASTER)nios2_qsys_0.jtag_debug_module_reset,(SLAVE)pll.inclk_interface_reset,(SLAVE)jtag_uart_0.reset,(SLAVE)leds.reset) 1 0 2 190 190 440
-preplace netloc EXPORT<net_container>system</net_container>(SLAVE)pll.areset_conduit,(SLAVE)system.pll_areset_conduit) 1 0 2 NJ 410 NJ
-levelinfo -pg 1 0 140 900
-levelinfo -hier system 150 220 570 780
+preplace netloc FAN_OUT<net_container>system</net_container>(SLAVE)jtag_uart_0.irq,(SLAVE)timer.interrupt_sender,(MASTER)nios2_qsys_0.d_irq) 1 1 2 500 60 NJ
+levelinfo -pg 1 0 140 1140
+levelinfo -hier system 150 240 630 890 1020

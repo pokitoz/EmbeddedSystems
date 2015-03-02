@@ -32,6 +32,13 @@ agreement for further details.
 		(line (pt 0 72)(pt 160 72)(line_width 1))
 	)
 	(port
+		(pt 0 112)
+		(input)
+		(text "inputs_export[7..0]" (rect 0 0 73 12)(font "Arial" (font_size 8)))
+		(text "inputs_export[7..0]" (rect 4 101 118 112)(font "Arial" (font_size 8)))
+		(line (pt 0 112)(pt 160 112)(line_width 3))
+	)
+	(port
 		(pt 0 192)
 		(input)
 		(text "pll_areset_conduit_export" (rect 0 0 101 12)(font "Arial" (font_size 8)))
@@ -46,17 +53,10 @@ agreement for further details.
 		(line (pt 0 312)(pt 160 312)(line_width 1))
 	)
 	(port
-		(pt 0 112)
-		(output)
-		(text "leds_export[7..0]" (rect 0 0 66 12)(font "Arial" (font_size 8)))
-		(text "leds_export[7..0]" (rect 4 101 106 112)(font "Arial" (font_size 8)))
-		(line (pt 0 112)(pt 160 112)(line_width 3))
-	)
-	(port
 		(pt 0 152)
 		(output)
-		(text "parallelport_export[31..0]" (rect 0 0 95 12)(font "Arial" (font_size 8)))
-		(text "parallelport_export[31..0]" (rect 4 141 160 152)(font "Arial" (font_size 8)))
+		(text "leds_export[7..0]" (rect 0 0 66 12)(font "Arial" (font_size 8)))
+		(text "leds_export[7..0]" (rect 4 141 106 152)(font "Arial" (font_size 8)))
 		(line (pt 0 152)(pt 160 152)(line_width 3))
 	)
 	(port
@@ -146,9 +146,9 @@ agreement for further details.
 	(drawing
 		(text "clk" (rect 145 43 308 99)(font "Arial" (color 128 0 0)(font_size 9)))
 		(text "clk" (rect 165 67 348 144)(font "Arial" (color 0 0 0)))
-		(text "leds" (rect 137 83 298 179)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "inputs" (rect 126 83 288 179)(font "Arial" (color 128 0 0)(font_size 9)))
 		(text "export" (rect 165 107 366 224)(font "Arial" (color 0 0 0)))
-		(text "parallelport" (rect 96 123 264 259)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "leds" (rect 137 123 298 259)(font "Arial" (color 128 0 0)(font_size 9)))
 		(text "export" (rect 165 147 366 304)(font "Arial" (color 0 0 0)))
 		(text "pll_areset_conduit" (rect 54 163 216 339)(font "Arial" (color 128 0 0)(font_size 9)))
 		(text "export" (rect 165 187 366 384)(font "Arial" (color 0 0 0)))

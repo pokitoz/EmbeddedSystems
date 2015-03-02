@@ -9,7 +9,7 @@ use ieee.numeric_std.all;
 entity TimerTest is
 	port(
 		CLOCK_50              : in    std_logic;
-		KEY                   : in    std_logic_vector(0 downto 0);
+		KEY                   : in    std_logic_vector(1 downto 0);
 		LED                   : out   std_logic_vector(7 downto 0);
 
 		-- DRAM wires
@@ -29,7 +29,7 @@ architecture Structural of TimerTest is
 			clk_clk                      : in    std_logic;
 			reset_reset_n                : in    std_logic;
 			leds_export                  : out   std_logic_vector(7 downto 0);
-			parallelport_export			  : out 	 std_logic_vector(31 downto 0);
+			inputs_export					  : in 	 std_logic_vector(7 downto 0);
 			pll_sdram_clk_clk            : out   std_logic;
 			pll_areset_conduit_export    : in    std_logic;
 			pll_locked_conduit_export    : out   std_logic;
@@ -49,7 +49,9 @@ begin
 		port map(clk_clk                      		=> CLOCK_50,
 			     reset_reset_n                		=> KEY(0),
 			     leds_export                  		=> open,
-				  parallelport_export(7 downto 0)	=> LED,
+				  leds_export(7 downto 0)				=> LED,
+				  inputs_export(7 downto 1)			=> (others => '0'),
+				  inputs_export(0)						=> KEY(1),
 			     pll_sdram_clk_clk            		=> DRAM_CLK,
 			     pll_areset_conduit_export    		=> '0',
 			     pll_locked_conduit_export    		=> open,

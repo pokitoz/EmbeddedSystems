@@ -1,6 +1,7 @@
 
 module system (
 	clk_clk,
+	inputs_export,
 	leds_export,
 	pll_areset_conduit_export,
 	pll_locked_conduit_export,
@@ -15,10 +16,10 @@ module system (
 	sdram_wire_dq,
 	sdram_wire_dqm,
 	sdram_wire_ras_n,
-	sdram_wire_we_n,
-	parallelport_export);	
+	sdram_wire_we_n);	
 
 	input		clk_clk;
+	input	[7:0]	inputs_export;
 	output	[7:0]	leds_export;
 	input		pll_areset_conduit_export;
 	output		pll_locked_conduit_export;
@@ -34,5 +35,4 @@ module system (
 	output	[1:0]	sdram_wire_dqm;
 	output		sdram_wire_ras_n;
 	output		sdram_wire_we_n;
-	output	[31:0]	parallelport_export;
 endmodule

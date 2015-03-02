@@ -44,7 +44,7 @@
 
 module system_mm_interconnect_0_router_default_decode
   #(
-     parameter DEFAULT_CHANNEL = 4,
+     parameter DEFAULT_CHANNEL = 3,
                DEFAULT_WR_CHANNEL = -1,
                DEFAULT_RD_CHANNEL = -1,
                DEFAULT_DESTID = 5 
@@ -196,13 +196,13 @@ module system_mm_interconnect_0_router
 
     // ( 0x0 .. 0x2000000 )
     if ( {address[RG:PAD0],{PAD0{1'b0}}} == 26'h0   ) begin
-            src_channel = 7'b0010000;
+            src_channel = 7'b0001000;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 5;
     end
 
     // ( 0x2000800 .. 0x2001000 )
     if ( {address[RG:PAD1],{PAD1{1'b0}}} == 26'h2000800   ) begin
-            src_channel = 7'b0000100;
+            src_channel = 7'b0000010;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 3;
     end
 
@@ -214,19 +214,19 @@ module system_mm_interconnect_0_router
 
     // ( 0x2001020 .. 0x2001030 )
     if ( {address[RG:PAD3],{PAD3{1'b0}}} == 26'h2001020   ) begin
-            src_channel = 7'b0000010;
+            src_channel = 7'b0100000;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 0;
     end
 
     // ( 0x2001030 .. 0x2001040 )
     if ( {address[RG:PAD4],{PAD4{1'b0}}} == 26'h2001030   ) begin
-            src_channel = 7'b0100000;
+            src_channel = 7'b0010000;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 2;
     end
 
     // ( 0x2001040 .. 0x2001050 )
     if ( {address[RG:PAD5],{PAD5{1'b0}}} == 26'h2001040   ) begin
-            src_channel = 7'b0001000;
+            src_channel = 7'b0000100;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 4;
     end
 

@@ -1,5 +1,6 @@
 	system u0 (
 		.clk_clk                      (<connected-to-clk_clk>),                      //                   clk.clk
+		.inputs_export                (<connected-to-inputs_export>),                //                inputs.export
 		.leds_export                  (<connected-to-leds_export>),                  //                  leds.export
 		.pll_areset_conduit_export    (<connected-to-pll_areset_conduit_export>),    //    pll_areset_conduit.export
 		.pll_locked_conduit_export    (<connected-to-pll_locked_conduit_export>),    //    pll_locked_conduit.export
@@ -14,7 +15,6 @@
 		.sdram_wire_dq                (<connected-to-sdram_wire_dq>),                //                      .dq
 		.sdram_wire_dqm               (<connected-to-sdram_wire_dqm>),               //                      .dqm
 		.sdram_wire_ras_n             (<connected-to-sdram_wire_ras_n>),             //                      .ras_n
-		.sdram_wire_we_n              (<connected-to-sdram_wire_we_n>),              //                      .we_n
-		.parallelport_export          (<connected-to-parallelport_export>)           //          parallelport.export
+		.sdram_wire_we_n              (<connected-to-sdram_wire_we_n>)               //                      .we_n
 	);
 

@@ -17,7 +17,15 @@
          type = "String";
       }
    }
-   element ParallelPort_0
+   element clk
+   {
+      datum _sortIndex
+      {
+         value = "0";
+         type = "int";
+      }
+   }
+   element inputs
    {
       datum _sortIndex
       {
@@ -25,20 +33,12 @@
          type = "int";
       }
    }
-   element ParallelPort_0.avalon_slave_0
+   element inputs.s1
    {
       datum baseAddress
       {
          value = "33558560";
          type = "String";
-      }
-   }
-   element clk
-   {
-      datum _sortIndex
-      {
-         value = "0";
-         type = "int";
       }
    }
    element jtag_uart_0
@@ -159,13 +159,13 @@
  <instanceScript></instanceScript>
  <interface name="clk" internal="clk.clk_in" type="clock" dir="end" />
  <interface
-   name="leds"
-   internal="leds.external_connection"
+   name="inputs"
+   internal="inputs.external_connection"
    type="conduit"
    dir="end" />
  <interface
-   name="parallelport"
-   internal="ParallelPort_0.conduit_end"
+   name="leds"
+   internal="leds.external_connection"
    type="conduit"
    dir="end" />
  <interface
@@ -186,14 +186,25 @@
  <interface name="pll_sdram_clk" internal="pll.c1" type="clock" dir="start" />
  <interface name="reset" internal="clk.clk_in_reset" type="reset" dir="end" />
  <interface name="sdram_wire" internal="sdram.wire" type="conduit" dir="end" />
- <module name="ParallelPort_0" kind="ParallelPort" version="1.0" enabled="1">
-  <parameter name="portWidth" value="32" />
- </module>
  <module name="clk" kind="clock_source" version="14.1" enabled="1">
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="clockFrequencyKnown" value="true" />
   <parameter name="inputClockFrequency" value="0" />
   <parameter name="resetSynchronousEdges" value="NONE" />
+ </module>
+ <module name="inputs" kind="altera_avalon_pio" version="14.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="true" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="true" />
+  <parameter name="clockRate" value="50000000" />
+  <parameter name="direction" value="Input" />
+  <parameter name="edgeType" value="FALLING" />
+  <parameter name="generateIRQ" value="true" />
+  <parameter name="irqType" value="EDGE" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="8" />
  </module>
  <module
    name="jtag_uart_0"
@@ -242,7 +253,7 @@
   <parameter name="cpuReset" value="false" />
   <parameter name="customInstSlavesSystemInfo" value="&lt;info/&gt;" />
   <parameter name="dataAddrWidth" value="26" />
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sdram.s1' start='0x0' end='0x2000000' /><slave name='nios2_qsys_0.jtag_debug_module' start='0x2000800' end='0x2001000' /><slave name='timer.timer_slave_0' start='0x2001000' end='0x2001020' /><slave name='ParallelPort_0.avalon_slave_0' start='0x2001020' end='0x2001030' /><slave name='leds.s1' start='0x2001030' end='0x2001040' /><slave name='pll.pll_slave' start='0x2001040' end='0x2001050' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x2001050' end='0x2001058' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sdram.s1' start='0x0' end='0x2000000' /><slave name='nios2_qsys_0.jtag_debug_module' start='0x2000800' end='0x2001000' /><slave name='timer.timer_slave_0' start='0x2001000' end='0x2001020' /><slave name='inputs.s1' start='0x2001020' end='0x2001030' /><slave name='leds.s1' start='0x2001030' end='0x2001040' /><slave name='pll.pll_slave' start='0x2001040' end='0x2001050' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x2001050' end='0x2001058' /></address-map>]]></parameter>
   <parameter name="dcache_bursts" value="false" />
   <parameter name="dcache_lineSize" value="32" />
   <parameter name="dcache_numTCDM" value="0" />
@@ -270,7 +281,7 @@
   <parameter name="impl" value="Fast" />
   <parameter name="instAddrWidth" value="26" />
   <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='sdram.s1' start='0x0' end='0x2000000' /><slave name='nios2_qsys_0.jtag_debug_module' start='0x2000800' end='0x2001000' /></address-map>]]></parameter>
-  <parameter name="internalIrqMaskSystemInfo" value="34" />
+  <parameter name="internalIrqMaskSystemInfo" value="35" />
   <parameter name="manuallyAssignCpuID" value="true" />
   <parameter name="mmu_TLBMissExcOffset" value="0" />
   <parameter name="mmu_TLBMissExcSlave" value="None" />
@@ -569,15 +580,6 @@
    kind="avalon"
    version="14.1"
    start="nios2_qsys_0.data_master"
-   end="ParallelPort_0.avalon_slave_0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x02001020" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="14.1"
-   start="nios2_qsys_0.data_master"
    end="nios2_qsys_0.jtag_debug_module">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x02000800" />
@@ -614,6 +616,15 @@
    kind="avalon"
    version="14.1"
    start="nios2_qsys_0.data_master"
+   end="inputs.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x02001020" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="14.1"
+   start="nios2_qsys_0.data_master"
    end="timer.timer_slave_0">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x02001000" />
@@ -641,15 +652,15 @@
  <connection kind="clock" version="14.1" start="pll.c0" end="sdram.clk" />
  <connection kind="clock" version="14.1" start="pll.c0" end="jtag_uart_0.clk" />
  <connection kind="clock" version="14.1" start="pll.c0" end="leds.clk" />
+ <connection kind="clock" version="14.1" start="pll.c0" end="inputs.clk" />
  <connection kind="clock" version="14.1" start="pll.c0" end="timer.clock" />
- <connection kind="clock" version="14.1" start="pll.c0" end="ParallelPort_0.clock" />
  <connection kind="clock" version="14.1" start="clk.clk" end="pll.inclk_interface" />
  <connection
    kind="interrupt"
    version="14.1"
    start="nios2_qsys_0.d_irq"
    end="timer.interrupt_sender">
-  <parameter name="irqNumber" value="1" />
+  <parameter name="irqNumber" value="0" />
  </connection>
  <connection
    kind="interrupt"
@@ -657,6 +668,13 @@
    start="nios2_qsys_0.d_irq"
    end="jtag_uart_0.irq">
   <parameter name="irqNumber" value="5" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="14.1"
+   start="nios2_qsys_0.d_irq"
+   end="inputs.irq">
+  <parameter name="irqNumber" value="1" />
  </connection>
  <connection
    kind="reset"
@@ -671,11 +689,7 @@
    end="jtag_uart_0.reset" />
  <connection kind="reset" version="14.1" start="clk.clk_reset" end="leds.reset" />
  <connection kind="reset" version="14.1" start="clk.clk_reset" end="timer.reset" />
- <connection
-   kind="reset"
-   version="14.1"
-   start="clk.clk_reset"
-   end="ParallelPort_0.reset" />
+ <connection kind="reset" version="14.1" start="clk.clk_reset" end="inputs.reset" />
  <connection
    kind="reset"
    version="14.1"
@@ -701,6 +715,16 @@
    version="14.1"
    start="nios2_qsys_0.jtag_debug_module_reset"
    end="leds.reset" />
+ <connection
+   kind="reset"
+   version="14.1"
+   start="nios2_qsys_0.jtag_debug_module_reset"
+   end="inputs.reset" />
+ <connection
+   kind="reset"
+   version="14.1"
+   start="nios2_qsys_0.jtag_debug_module_reset"
+   end="timer.reset" />
  <connection
    kind="reset"
    version="14.1"

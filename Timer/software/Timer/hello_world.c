@@ -16,13 +16,60 @@
 
 #include <stdio.h>
 #include <unistd.h>
+
+#include "system.h"
+#include "altera_avalon_pio_regs.h"
+#include "alt_types.h"
+#include "sys/alt_irq.h"
+
 #include "leds.h"
 #include "timer.h"
 #include "limits.h"
 
+volatile int edge_capture;
+
+static void handle_button_interrupts(void* context) {
+	/* Cast context to edge_capture's type. It is important that this
+	 be declared volatile to avoid unwanted compiler optimization. */
+	volatile int* edge_capture_ptr = (volatile int*) context;
+	/*
+	 * Read the edge capture register on the button PIO.
+	 * Store value.
+	 */
+	*edge_capture_ptr = IORD_ALTERA_AVALON_PIO_EDGE_CAP(INPUTS_BASE);
+	/* Write to the edge capture register to reset it
+	 * Using bit-clearing (write 1 to a particular bit to clear it */
+	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(INPUTS_BASE, 0xF);
+
+	/*
+	 * Indicate interrupt
+	 */
+	leds_set(1 << 7);
+
+	/* Read the PIO to delay ISR exit. This is done to prevent a
+	 spurious interrupt in systems with high processor -> pio
+	 latency and fast interrupts. */
+	IORD_ALTERA_AVALON_PIO_EDGE_CAP(INPUTS_BASE);
+}
+
+void setup_irq_inputs(void) {
+	void* edge_capture_ptr = (void*) edge_capture;
+	/* Reset the edge capture register */
+	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(INPUTS_BASE, 0);
+	/* Enable interrupt on KEY(1) which is on inputs(0) */
+	IOWR_ALTERA_AVALON_PIO_IRQ_MASK(INPUTS_BASE, 1);
+	/* Register the ISR */
+	alt_ic_isr_register(INPUTS_IRQ_INTERRUPT_CONTROLLER_ID,
+	INPUTS_IRQ, handle_button_interrupts, edge_capture_ptr, 0);
+
+	alt_ic_irq_enable(INPUTS_IRQ_INTERRUPT_CONTROLLER_ID, INPUTS_IRQ);
+}
+
 int main() {
-	printf("Hello from Nios II!\n");
+	printf("Hello from Nios II Timer!\n");
 	leds(1);
+
+	setup_irq_inputs();
 
 	timer_init(UINT_MAX);
 	timer_reset();
@@ -30,14 +77,14 @@ int main() {
 
 	while (1) {
 		int i = 0;
-		for (i = 1; i < 8; ++i) {
+		for (i = 1; i < 6; ++i) {
 			leds(1 << i);
 			usleep(500000 / 8);
 		}
 
 		printf("%u\n", timer_read());
 
-		for (i = 6; i >= 0; --i) {
+		for (i = 4; i >= 0; --i) {
 			leds(1 << i);
 			usleep(500000 / 8);
 		}

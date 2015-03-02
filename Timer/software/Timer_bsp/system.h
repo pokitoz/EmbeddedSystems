@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_qsys_0' in SOPC Builder design 'system'
  * SOPC Builder design path: ../../system.sopcinfo
  *
- * Generated: Mon Feb 23 11:33:35 CET 2015
+ * Generated: Mon Mar 02 09:49:27 CET 2015
  */
 
 /*
@@ -132,22 +132,7 @@
 #define __ALTERA_AVALON_PIO
 #define __ALTERA_NIOS2_QSYS
 #define __ALTPLL
-#define __PARALLELPORT
 #define __TIMER
-
-
-/*
- * ParallelPort_0 configuration
- *
- */
-
-#define ALT_MODULE_CLASS_ParallelPort_0 ParallelPort
-#define PARALLELPORT_0_BASE 0x2001020
-#define PARALLELPORT_0_IRQ -1
-#define PARALLELPORT_0_IRQ_INTERRUPT_CONTROLLER_ID -1
-#define PARALLELPORT_0_NAME "/dev/ParallelPort_0"
-#define PARALLELPORT_0_SPAN 16
-#define PARALLELPORT_0_TYPE "ParallelPort"
 
 
 /*
@@ -194,6 +179,33 @@
 #define ALT_MAX_FD 32
 #define ALT_SYS_CLK none
 #define ALT_TIMESTAMP_CLK none
+
+
+/*
+ * inputs configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_inputs altera_avalon_pio
+#define INPUTS_BASE 0x2001020
+#define INPUTS_BIT_CLEARING_EDGE_REGISTER 1
+#define INPUTS_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define INPUTS_CAPTURE 1
+#define INPUTS_DATA_WIDTH 8
+#define INPUTS_DO_TEST_BENCH_WIRING 0
+#define INPUTS_DRIVEN_SIM_VALUE 0
+#define INPUTS_EDGE_TYPE "FALLING"
+#define INPUTS_FREQ 50000000
+#define INPUTS_HAS_IN 1
+#define INPUTS_HAS_OUT 0
+#define INPUTS_HAS_TRI 0
+#define INPUTS_IRQ 1
+#define INPUTS_IRQ_INTERRUPT_CONTROLLER_ID 0
+#define INPUTS_IRQ_TYPE "EDGE"
+#define INPUTS_NAME "/dev/inputs"
+#define INPUTS_RESET_VALUE 0
+#define INPUTS_SPAN 16
+#define INPUTS_TYPE "altera_avalon_pio"
 
 
 /*

@@ -1,6 +1,7 @@
 	component system is
 		port (
 			clk_clk                      : in    std_logic                     := 'X';             -- clk
+			inputs_export                : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- export
 			leds_export                  : out   std_logic_vector(7 downto 0);                     -- export
 			pll_areset_conduit_export    : in    std_logic                     := 'X';             -- export
 			pll_locked_conduit_export    : out   std_logic;                                        -- export
@@ -15,14 +16,14 @@
 			sdram_wire_dq                : inout std_logic_vector(15 downto 0) := (others => 'X'); -- dq
 			sdram_wire_dqm               : out   std_logic_vector(1 downto 0);                     -- dqm
 			sdram_wire_ras_n             : out   std_logic;                                        -- ras_n
-			sdram_wire_we_n              : out   std_logic;                                        -- we_n
-			parallelport_export          : out   std_logic_vector(31 downto 0)                     -- export
+			sdram_wire_we_n              : out   std_logic                                         -- we_n
 		);
 	end component system;
 
 	u0 : component system
 		port map (
 			clk_clk                      => CONNECTED_TO_clk_clk,                      --                   clk.clk
+			inputs_export                => CONNECTED_TO_inputs_export,                --                inputs.export
 			leds_export                  => CONNECTED_TO_leds_export,                  --                  leds.export
 			pll_areset_conduit_export    => CONNECTED_TO_pll_areset_conduit_export,    --    pll_areset_conduit.export
 			pll_locked_conduit_export    => CONNECTED_TO_pll_locked_conduit_export,    --    pll_locked_conduit.export
@@ -37,7 +38,6 @@
 			sdram_wire_dq                => CONNECTED_TO_sdram_wire_dq,                --                      .dq
 			sdram_wire_dqm               => CONNECTED_TO_sdram_wire_dqm,               --                      .dqm
 			sdram_wire_ras_n             => CONNECTED_TO_sdram_wire_ras_n,             --                      .ras_n
-			sdram_wire_we_n              => CONNECTED_TO_sdram_wire_we_n,              --                      .we_n
-			parallelport_export          => CONNECTED_TO_parallelport_export           --          parallelport.export
+			sdram_wire_we_n              => CONNECTED_TO_sdram_wire_we_n               --                      .we_n
 		);
 

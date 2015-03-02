@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="system" kind="system" version="14.1" fabric="QSYS">
  <!-- Format version 14.1 186 (Future versions may contain additional information.) -->
- <!-- 2015.03.02.09:46:31 -->
+ <!-- 2015.03.02.10:58:33 -->
  <!-- A collection of modules and connections -->
  <parameter name="clockCrossingAdapter">
   <type>com.altera.sopcmodel.ensemble.EClockAdapter</type>
@@ -53,7 +53,7 @@
  </parameter>
  <parameter name="generationId">
   <type>int</type>
-  <value>1425285974</value>
+  <value>1425290296</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>true</visible>
@@ -8620,7 +8620,7 @@ parameters are a RESULT of the module parameters. -->
    </port>
   </interface>
  </module>
- <module name="timer" kind="Timer" version="1.0" path="timer">
+ <module name="timer" kind="Timer" version="1.2" path="timer">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
   <parameter name="deviceFamily">
@@ -8673,6 +8673,22 @@ parameters are a RESULT of the module parameters. -->
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="clockRateKnown">
+    <type>java.lang.Boolean</type>
+    <value>true</value>
+    <derived>true</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="clockRate">
+    <type>java.lang.Long</type>
+    <value>50000000</value>
+    <derived>true</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
     <valid>true</valid>
    </parameter>
    <type>clock</type>
@@ -15654,7 +15670,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>Timer</displayName>
-  <version>1.0</version>
+  <version>1.2</version>
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>
@@ -15729,5 +15745,5 @@ parameters are a RESULT of the module parameters. -->
   <version>14.1</version>
  </plugin>
  <reportVersion>14.1 186</reportVersion>
- <uniqueIdentifier>00000000000000E00000014BD9AA1349</uniqueIdentifier>
+ <uniqueIdentifier>00000000000000E00000014BD9EC04D5</uniqueIdentifier>
 </EnsembleReport>

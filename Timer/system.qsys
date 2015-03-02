@@ -29,7 +29,7 @@
    {
       datum _sortIndex
       {
-         value = "7";
+         value = "6";
          type = "int";
       }
    }
@@ -125,7 +125,7 @@
    {
       datum _sortIndex
       {
-         value = "6";
+         value = "7";
          type = "int";
       }
    }
@@ -566,7 +566,7 @@
   <parameter name="registerDataIn" value="true" />
   <parameter name="rowWidth" value="13" />
  </module>
- <module name="timer" kind="Timer" version="1.0" enabled="1" />
+ <module name="timer" kind="Timer" version="1.2" enabled="1" />
  <connection
    kind="avalon"
    version="14.1"
@@ -688,8 +688,8 @@
    start="clk.clk_reset"
    end="jtag_uart_0.reset" />
  <connection kind="reset" version="14.1" start="clk.clk_reset" end="leds.reset" />
- <connection kind="reset" version="14.1" start="clk.clk_reset" end="timer.reset" />
  <connection kind="reset" version="14.1" start="clk.clk_reset" end="inputs.reset" />
+ <connection kind="reset" version="14.1" start="clk.clk_reset" end="timer.reset" />
  <connection
    kind="reset"
    version="14.1"

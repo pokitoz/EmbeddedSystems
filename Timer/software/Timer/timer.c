@@ -32,3 +32,18 @@ void timer_reset(void)
 {
 	return IOWR_32DIRECT(TIMER_BASE, 1*4, 1);
 }
+
+void timer_enable_irq(void)
+{
+	IOWR_32DIRECT(TIMER_BASE, 4*4, 1);
+}
+
+void timer_clear_irq(void)
+{
+	IOWR_32DIRECT(TIMER_BASE, 5*4, 1);
+}
+
+int timer_read_irq(void)
+{
+	return IORD_32DIRECT(TIMER_BASE, 4*4);
+}

@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_qsys_0' in SOPC Builder design 'system'
  * SOPC Builder design path: ../../system.sopcinfo
  *
- * Generated: Mon Mar 02 09:49:27 CET 2015
+ * Generated: Mon Mar 02 11:00:51 CET 2015
  */
 
 /*
@@ -313,8 +313,8 @@
 
 #define ALT_MODULE_CLASS_timer Timer
 #define TIMER_BASE 0x2001000
-#define TIMER_IRQ -1
-#define TIMER_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define TIMER_IRQ 0
+#define TIMER_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define TIMER_NAME "/dev/timer"
 #define TIMER_SPAN 32
 #define TIMER_TYPE "Timer"

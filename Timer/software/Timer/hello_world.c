@@ -28,6 +28,8 @@
 
 volatile int edge_capture;
 
+volatile int response_time;
+
 static void handle_button_interrupts(void* context) {
 	/* Cast context to edge_capture's type. It is important that this
 	 be declared volatile to avoid unwanted compiler optimization. */
@@ -52,6 +54,13 @@ static void handle_button_interrupts(void* context) {
 	IORD_ALTERA_AVALON_PIO_EDGE_CAP(INPUTS_BASE);
 }
 
+static void handle_timer_irq(void* context) {
+	response_time = timer_read();
+	/* Indicate interrupt */
+	leds_set(1 << 6);
+	timer_clear_irq();
+}
+
 void setup_irq_inputs(void) {
 	void* edge_capture_ptr = (void*) edge_capture;
 	/* Reset the edge capture register */
@@ -65,13 +74,23 @@ void setup_irq_inputs(void) {
 	alt_ic_irq_enable(INPUTS_IRQ_INTERRUPT_CONTROLLER_ID, INPUTS_IRQ);
 }
 
+void setup_irq_timer(void) {
+	timer_enable_irq();
+	if (alt_ic_isr_register(TIMER_IRQ_INTERRUPT_CONTROLLER_ID, TIMER_IRQ,
+			handle_timer_irq, (void*) edge_capture, 0))
+		printf("Fail register");
+	if (alt_ic_irq_enable(TIMER_IRQ_INTERRUPT_CONTROLLER_ID, TIMER_IRQ))
+		printf("Fail enable");
+}
+
 int main() {
 	printf("Hello from Nios II Timer!\n");
 	leds(1);
 
 	setup_irq_inputs();
+	setup_irq_timer();
 
-	timer_init(UINT_MAX);
+	timer_init(500000000);
 	timer_reset();
 	timer_start();
 
@@ -83,6 +102,7 @@ int main() {
 		}
 
 		printf("%u\n", timer_read());
+		printf("response time = %d\n", response_time);
 
 		for (i = 4; i >= 0; --i) {
 			leds(1 << i);

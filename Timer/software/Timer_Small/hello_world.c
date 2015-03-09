@@ -91,7 +91,7 @@ int main() {
 	setup_irq_inputs();
 //	setup_irq_timer();
 
-	init_timer_interrupt();
+	init_alt_timer_0();
 /*
 	timer_init(500000000);
 	timer_reset();

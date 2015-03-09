@@ -8,23 +8,18 @@
 
 static void handle_timer_interrupts(void* context);
 
-void init_timer_interrupt(void);
-
 unsigned int count;
 extern int response_time;
-void init_timer_interrupt(void) {
+extern int recovery;
+void init_timer_interrupt(alt_u32 timer_base, alt_u32 irq_number, alt_u32 irq_controller_id, alt_u32 period, char start, char enable_irq, alt_isr_func isr ) {
 	count = 0;
 	int* ptr;
-	IOWR_ALTERA_AVALON_TIMER_CONTROL(ALT_TIMER_0_BASE,
-			(1 << 3) | (1 << 1) | (1 << 0));
-	IOWR_ALTERA_AVALON_TIMER_STATUS(ALT_TIMER_0_BASE, 0); // Clear TO Bit(Reaching 0)
-	IOWR_ALTERA_AVALON_TIMER_PERIODL(ALT_TIMER_0_BASE, (alt_u16 )(50000000));
-	IOWR_ALTERA_AVALON_TIMER_PERIODH(ALT_TIMER_0_BASE,
-			(alt_u16 )((50000000) >> 16));
-	alt_ic_isr_register(ALT_TIMER_0_IRQ_INTERRUPT_CONTROLLER_ID,
-			ALT_TIMER_0_IRQ, handle_timer_interrupts, ptr, 0x0); //Register Interrupt
-	IOWR_ALTERA_AVALON_TIMER_CONTROL(ALT_TIMER_0_BASE,
-			(1 << 2) | (1 << 1) | (1 << 0)); //Start Timer, IRQ enable, Continuous enable
+	IOWR_ALTERA_AVALON_TIMER_CONTROL(timer_base, (1 << 3) | (1 << 1) | ((!!enable_irq) << 0));
+	IOWR_ALTERA_AVALON_TIMER_STATUS(timer_base, 0); // Clear TO Bit(Reaching 0)
+	IOWR_ALTERA_AVALON_TIMER_PERIODL(timer_base, (alt_u16 )(period));
+	IOWR_ALTERA_AVALON_TIMER_PERIODH(timer_base, (alt_u16 )((period) >> 16));
+	alt_ic_isr_register(irq_controller_id, irq_number, isr, ptr, 0x0); //Register Interrupt
+	IOWR_ALTERA_AVALON_TIMER_CONTROL(timer_base, ((!!start) << 2) | (1 << 1) | ((!!enable_irq) << 0)); //Start Timer, IRQ enable, Continuous enable
 }
 
 __attribute__((section(".int")))
@@ -38,4 +33,12 @@ static void handle_timer_interrupts(void* context) {
 	//  return;
 	//count = 0;
 	leds_set(1 << 6);
+}
+
+void init_alt_timer_0(void){
+	init_timer_interrupt(ALT_TIMER_0_BASE, ALT_TIMER_0_IRQ, ALT_TIMER_0_IRQ_INTERRUPT_CONTROLLER_ID, 50000000, 1, 1, handle_timer_interrupts);
+}
+
+void init_alt_timer_1(void){
+	init_timer_interrupt(ALT_TIMER_1_BASE, ALT_TIMER_1_IRQ, ALT_TIMER_1_IRQ_INTERRUPT_CONTROLLER_ID, 50000000, 1, 0, NULL);
 }

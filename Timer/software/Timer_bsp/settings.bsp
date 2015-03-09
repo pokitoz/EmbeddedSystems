@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>2 mars 2015 11:00:51</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1425290451067</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>9 mars 2015 10:27:57</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1425893277136</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\Users\aroulin\Desktop\EmbeddedSystems\Timer\software\Timer_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\system.sopcinfo</SopcDesignFile>
@@ -893,32 +893,44 @@
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>timer</slaveDescriptor>
-                <addressRange>0x02001000 - 0x0200101F</addressRange>
+                <slaveDescriptor>onchip_memory2_0</slaveDescriptor>
+                <addressRange>0x02004000 - 0x02007FFF</addressRange>
+                <addressSpan>16384</addressSpan>
+                <attributes>memory</attributes>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>timer_0</slaveDescriptor>
+                <addressRange>0x02009000 - 0x0200901F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>alt_timer_0</slaveDescriptor>
+                <addressRange>0x02009020 - 0x0200903F</addressRange>
+                <addressSpan>32</addressSpan>
+                <attributes>timer</attributes>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>inputs</slaveDescriptor>
-                <addressRange>0x02001020 - 0x0200102F</addressRange>
+                <addressRange>0x02009040 - 0x0200904F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>leds</slaveDescriptor>
-                <addressRange>0x02001030 - 0x0200103F</addressRange>
+                <addressRange>0x02009050 - 0x0200905F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>pll</slaveDescriptor>
-                <addressRange>0x02001040 - 0x0200104F</addressRange>
+                <addressRange>0x02009060 - 0x0200906F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>jtag_uart_0</slaveDescriptor>
-                <addressRange>0x02001050 - 0x02001057</addressRange>
+                <addressRange>0x02009070 - 0x02009077</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes>printable</attributes>
         </MemoryMap>

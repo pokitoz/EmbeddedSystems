@@ -145,6 +145,7 @@ ELF := Timer.elf
 C_SRCS += hello_world.c
 C_SRCS += leds.c
 C_SRCS += timer.c
+C_SRCS += alt_timer.c
 CXX_SRCS :=
 ASM_SRCS :=
 

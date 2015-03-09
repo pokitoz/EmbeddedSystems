@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_qsys_0' in SOPC Builder design 'system'
  * SOPC Builder design path: ../../system.sopcinfo
  *
- * Generated: Fri Feb 20 13:55:20 CET 2015
+ * Generated: Mon Mar 09 10:27:57 CET 2015
  */
 
 /*
@@ -52,10 +52,12 @@ MEMORY
 {
     reset : ORIGIN = 0x0, LENGTH = 32
     sdram : ORIGIN = 0x20, LENGTH = 33554400
+    onchip_memory2_0 : ORIGIN = 0x2004000, LENGTH = 16384
 }
 
 /* Define symbols for each memory base-address */
 __alt_mem_sdram = 0x0;
+__alt_mem_onchip_memory2_0 = 0x2004000;
 
 OUTPUT_FORMAT( "elf32-littlenios2",
                "elf32-littlenios2",
@@ -319,6 +321,23 @@ SECTIONS
     } > sdram
 
     PROVIDE (_alt_partition_sdram_load_addr = LOADADDR(.sdram));
+
+    /*
+     *
+     * This section's LMA is set to the .text region.
+     * crt0 will copy to this section's specified mapped region virtual memory address (VMA)
+     *
+     */
+
+    .onchip_memory2_0 : AT ( LOADADDR (.sdram) + SIZEOF (.sdram) )
+    {
+        PROVIDE (_alt_partition_onchip_memory2_0_start = ABSOLUTE(.));
+        *(.onchip_memory2_0 .onchip_memory2_0. onchip_memory2_0.*)
+        . = ALIGN(4);
+        PROVIDE (_alt_partition_onchip_memory2_0_end = ABSOLUTE(.));
+    } > onchip_memory2_0
+
+    PROVIDE (_alt_partition_onchip_memory2_0_load_addr = LOADADDR(.onchip_memory2_0));
 
     /*
      * Stabs debugging sections.

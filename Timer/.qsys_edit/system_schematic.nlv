@@ -1,27 +1,29 @@
 # # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
 # 
-preplace inst system.nios2_qsys_0 -pg 1 -lvl 1 -y 60
-preplace inst system.jtag_uart_0 -pg 1 -lvl 2 -y 30
-preplace inst system.sdram -pg 1 -lvl 2 -y 370
-preplace inst system.leds -pg 1 -lvl 2 -y 230
+preplace inst system.nios2_qsys_0 -pg 1 -lvl 1 -y 30
+preplace inst system.jtag_uart_0 -pg 1 -lvl 2 -y 60
+preplace inst system.timer_0 -pg 1 -lvl 3 -y 60
+preplace inst system.sdram -pg 1 -lvl 2 -y 400
+preplace inst system.onchip_memory2_0 -pg 1 -lvl 3 -y 410
+preplace inst system.leds -pg 1 -lvl 2 -y 180
 preplace inst system.clk -pg 1 -lvl 1 -y 480
-preplace inst system.pll -pg 1 -lvl 2 -y 480
+preplace inst system.alt_timer_0 -pg 1 -lvl 3 -y 170
+preplace inst system.pll -pg 1 -lvl 2 -y 510
 preplace inst system -pg 1 -lvl 1 -y 40 -regy -20
-preplace inst system.inputs -pg 1 -lvl 3 -y 170
-preplace inst system.Timer_0 -pg 1 -lvl 3 -y 60
-preplace netloc FAN_OUT<net_container>system</net_container>(SLAVE)jtag_uart_0.irq,(SLAVE)inputs.irq,(MASTER)nios2_qsys_0.d_irq,(SLAVE)Timer_0.interrupt_sender) 1 1 2 480 140 840
-preplace netloc EXPORT<net_container>system</net_container>(SLAVE)leds.external_connection,(SLAVE)system.leds) 1 0 2 NJ 260 NJ
-preplace netloc POINT_TO_POINT<net_container>system</net_container>(MASTER)clk.clk,(SLAVE)pll.inclk_interface) 1 1 1 520
-preplace netloc FAN_OUT<net_container>system</net_container>(SLAVE)nios2_qsys_0.clk,(SLAVE)inputs.clk,(SLAVE)leds.clk,(MASTER)pll.c0,(SLAVE)Timer_0.clock,(SLAVE)sdram.clk,(SLAVE)jtag_uart_0.clk) 1 0 3 170 50 440 360 820
+preplace inst system.inputs -pg 1 -lvl 3 -y 280
+preplace netloc EXPORT<net_container>system</net_container>(SLAVE)system.leds,(SLAVE)leds.external_connection) 1 0 2 NJ 220 NJ
+preplace netloc INTERCONNECT<net_container>system</net_container>(SLAVE)jtag_uart_0.avalon_jtag_slave,(MASTER)nios2_qsys_0.data_master,(SLAVE)pll.pll_slave,(SLAVE)nios2_qsys_0.jtag_debug_module,(SLAVE)leds.s1,(SLAVE)sdram.s1,(SLAVE)timer_0.timer_slave_0,(MASTER)nios2_qsys_0.instruction_master,(SLAVE)inputs.s1,(SLAVE)alt_timer_0.s1,(SLAVE)onchip_memory2_0.s1) 1 0 3 210 160 520 370 900
+preplace netloc EXPORT<net_container>system</net_container>(MASTER)pll.c1,(MASTER)system.pll_sdram_clk) 1 2 2 NJ 580 NJ
+preplace netloc POINT_TO_POINT<net_container>system</net_container>(MASTER)clk.clk,(SLAVE)pll.inclk_interface) 1 1 1 500
+preplace netloc FAN_OUT<net_container>system</net_container>(SLAVE)nios2_qsys_0.clk,(SLAVE)leds.clk,(SLAVE)inputs.clk,(MASTER)pll.c0,(SLAVE)onchip_memory2_0.clk1,(SLAVE)jtag_uart_0.clk,(SLAVE)alt_timer_0.clk,(SLAVE)sdram.clk,(SLAVE)timer_0.clock) 1 0 3 170 180 560 290 840
 preplace netloc EXPORT<net_container>system</net_container>(SLAVE)system.reset,(SLAVE)clk.clk_in_reset) 1 0 1 NJ
-preplace netloc EXPORT<net_container>system</net_container>(SLAVE)pll.phasedone_conduit,(SLAVE)system.pll_phasedone_conduit) 1 0 2 NJ 590 NJ
-preplace netloc INTERCONNECT<net_container>system</net_container>(SLAVE)inputs.s1,(SLAVE)Timer_0.timer_slave_0,(SLAVE)nios2_qsys_0.jtag_debug_module,(MASTER)nios2_qsys_0.data_master,(MASTER)nios2_qsys_0.instruction_master,(SLAVE)sdram.s1,(SLAVE)leds.s1,(SLAVE)jtag_uart_0.avalon_jtag_slave,(SLAVE)pll.pll_slave) 1 0 3 170 190 460 160 860
-preplace netloc EXPORT<net_container>system</net_container>(MASTER)system.pll_sdram_clk,(MASTER)pll.c1) 1 2 2 NJ 550 NJ
+preplace netloc EXPORT<net_container>system</net_container>(SLAVE)system.sdram_wire,(SLAVE)sdram.wire) 1 0 2 NJ 470 NJ
+preplace netloc EXPORT<net_container>system</net_container>(SLAVE)system.pll_phasedone_conduit,(SLAVE)pll.phasedone_conduit) 1 0 2 NJ 600 NJ
 preplace netloc EXPORT<net_container>system</net_container>(SLAVE)system.clk,(SLAVE)clk.clk_in) 1 0 1 NJ
-preplace netloc INTERCONNECT<net_container>system</net_container>(SLAVE)sdram.reset,(SLAVE)Timer_0.reset,(MASTER)clk.clk_reset,(SLAVE)nios2_qsys_0.reset_n,(SLAVE)jtag_uart_0.reset,(SLAVE)pll.inclk_interface_reset,(SLAVE)inputs.reset,(SLAVE)leds.reset,(MASTER)nios2_qsys_0.jtag_debug_module_reset) 1 0 3 190 210 500 180 800
-preplace netloc EXPORT<net_container>system</net_container>(SLAVE)system.inputs,(SLAVE)inputs.external_connection) 1 0 3 NJ 230 NJ 200 NJ
-preplace netloc EXPORT<net_container>system</net_container>(SLAVE)sdram.wire,(SLAVE)system.sdram_wire) 1 0 2 NJ 440 NJ
-preplace netloc EXPORT<net_container>system</net_container>(SLAVE)system.pll_locked_conduit,(SLAVE)pll.locked_conduit) 1 0 2 NJ 570 NJ
+preplace netloc FAN_OUT<net_container>system</net_container>(SLAVE)timer_0.timer_irq,(SLAVE)jtag_uart_0.irq,(SLAVE)inputs.irq,(SLAVE)alt_timer_0.irq,(MASTER)nios2_qsys_0.d_irq) 1 1 2 480 50 860
+preplace netloc EXPORT<net_container>system</net_container>(SLAVE)system.inputs,(SLAVE)inputs.external_connection) 1 0 3 NJ 310 NJ 310 NJ
+preplace netloc EXPORT<net_container>system</net_container>(SLAVE)system.pll_locked_conduit,(SLAVE)pll.locked_conduit) 1 0 2 NJ 580 NJ
 preplace netloc EXPORT<net_container>system</net_container>(SLAVE)pll.areset_conduit,(SLAVE)system.pll_areset_conduit) 1 0 2 NJ 550 NJ
-levelinfo -pg 1 0 140 1160
-levelinfo -hier system 150 220 610 890 1040
+preplace netloc INTERCONNECT<net_container>system</net_container>(MASTER)nios2_qsys_0.jtag_debug_module_reset,(SLAVE)jtag_uart_0.reset,(SLAVE)leds.reset,(SLAVE)pll.inclk_interface_reset,(SLAVE)onchip_memory2_0.reset1,(SLAVE)inputs.reset,(SLAVE)timer_0.reset,(SLAVE)nios2_qsys_0.reset_n,(SLAVE)sdram.reset,(SLAVE)alt_timer_0.reset,(MASTER)clk.clk_reset) 1 0 3 190 200 460 350 880
+levelinfo -pg 1 0 140 1240
+levelinfo -hier system 150 240 650 970 1120

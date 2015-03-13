@@ -19,3 +19,5 @@
 output_files/
 db/
 incremental_db/
+nios2_system/
+.qsys_edit/

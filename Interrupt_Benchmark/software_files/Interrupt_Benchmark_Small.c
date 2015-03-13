@@ -12,12 +12,12 @@ int main(void)
   		int i = 0;
   		for (i = 1; i < 6; ++i) {
   			leds(1 << i);
-  			usleep(500000 / 8);
+  			usleep(200000 / 8);
   		}
 
   		for (i = 4; i >= 0; --i) {
   			leds(1 << i);
-  			usleep(500000 / 8);
+  			usleep(200000 / 8);
   		}
   	}
 

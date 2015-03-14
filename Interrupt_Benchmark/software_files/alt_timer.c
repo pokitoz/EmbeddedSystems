@@ -61,7 +61,7 @@ void alt_timer_clr_irq(const struct alt_timer* alt_timer)
             (0 << ALTERA_AVALON_TIMER_STATUS_TO_OFST));
 }
 
-inline alt_u32 alt_timer_read(const struct alt_timer* alt_timer)
+alt_u32 alt_timer_read(const struct alt_timer* alt_timer)
 {
     IOWR_ALTERA_AVALON_TIMER_SNAPL(alt_timer->base, 0);
     alt_u32 counter = IORD_ALTERA_AVALON_TIMER_SNAPL(alt_timer->base) &

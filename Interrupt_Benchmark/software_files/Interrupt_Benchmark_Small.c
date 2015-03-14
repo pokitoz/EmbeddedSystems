@@ -1,8 +1,10 @@
-#include "sys/alt_stdio.h"
-#include "system.h"
+#include "sys/alt_stdio.h"      // alt_printf
+#include "system.h"             // system memory map constants
 
-#include "leds.h"
-#include "alt_timer.h"
+#include "leds.h"               // leds API
+#include "alt_timer.h"          // Altera timer API
+
+#include "altera_avalon_timer_regs.h"   // Altera timer low-level API
 
 #define FIVE_SECONDS 250000000
 #define ONE_MILLISECOND 50000
@@ -18,11 +20,19 @@ volatile double response_time_avg = 0;
 volatile alt_u32 response_time_cnt = 0;
 void isr_timer0(void* context)
 {
-    alt_u32 response_time = RESPONSE_TIME_PERIOD - alt_timer_read(&timer0);
+    // Do not use our timer API read function to avoid overhead of call
+    IOWR_ALTERA_AVALON_TIMER_SNAPL(timer0.base, 0);
+    alt_u32 response_time = IORD_ALTERA_AVALON_TIMER_SNAPL(timer0.base) &
+                ALTERA_AVALON_TIMER_SNAPL_MSK;
+    response_time |= IORD_ALTERA_AVALON_TIMER_SNAPH(timer0.base) << 16;
+    response_time = RESPONSE_TIME_PERIOD - response_time;
+
     // Cumulative average; uses double in irq but we don't care
     response_time_avg = (response_time + response_time_cnt * response_time_avg)
             / (response_time_cnt + 1);
     response_time_cnt++;
+
+    // signal irq
     leds(1);
     // Clear irq flag TO
     alt_timer_clr_irq(&timer0);
@@ -42,6 +52,7 @@ int main(void)
             break;
     }
 
+    alt_timer_stop(&timer0);
     alt_printf("Response Time: #0x%x:0x%x\n", response_time_cnt, (int) response_time_avg);
 
     // Dead end

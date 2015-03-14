@@ -7,13 +7,13 @@
 #define FIVE_SECONDS 250000000
 #define TEN_MILLISECONDS 500000
 #define RESPONSE_TIME_PERIOD TEN_MILLISECONDS
-#define RECOVERY_TIME_PERIOD TEN_MILLISECONDS
+#define RECOVERY_TIME_PERIOD FIVE_SECONDS
 
 const struct alt_timer timer0 = { .base = TIMER0_BASE, .irq_ctrl_id =
-TIMER0_IRQ_INTERRUPT_CONTROLLER_ID, .irq_no = TIMER0_IRQ };
+        TIMER0_IRQ_INTERRUPT_CONTROLLER_ID, .irq_no = TIMER0_IRQ };
 
 const struct alt_timer timer1 = { .base = TIMER1_BASE, .irq_ctrl_id =
-TIMER1_IRQ_INTERRUPT_CONTROLLER_ID, .irq_no = TIMER1_IRQ };
+        TIMER1_IRQ_INTERRUPT_CONTROLLER_ID, .irq_no = TIMER1_IRQ };
 
 volatile double response_time_avg = 0;
 volatile alt_u32 response_time_cnt = 0;
@@ -61,8 +61,17 @@ int main(void)
         // block while recovery timer has not started
         while(alt_timer_read(&timer1) == RECOVERY_TIME_PERIOD);
 
+        // inlining alt_timer_stop with early stop
+        alt_u32 control_reg = IORD_ALTERA_AVALON_TIMER_CONTROL(timer1.base);
+        // early stop
+        IOWR_ALTERA_AVALON_TIMER_CONTROL(timer1.base, 1 << ALTERA_AVALON_TIMER_CONTROL_STOP_OFST);
+        // Set stop bit
+        control_reg |= (1 << ALTERA_AVALON_TIMER_CONTROL_STOP_OFST);
+        // Clear start bit
+        control_reg &= ~(1 << ALTERA_AVALON_TIMER_CONTROL_START_OFST);
+        IOWR_ALTERA_AVALON_TIMER_CONTROL(timer1.base, control_reg);
+
         // Recovery time measurement and cumulative average
-        alt_timer_stop(&timer1);
         alt_u32 recovery_time = RECOVERY_TIME_PERIOD - alt_timer_read(&timer1);
         recovery_time_avg = (recovery_time + recovery_time_cnt * recovery_time_avg)
                 / (recovery_time_cnt + 1);

@@ -24,4 +24,6 @@ void alt_timer_stop(const struct alt_timer* alt_timer);
 
 void alt_timer_clr_irq(const struct alt_timer* alt_timer);
 
+alt_u32 alt_timer_read(const struct alt_timer* alt_timer);
+
 #endif /* ALT_TIMER_H_ */

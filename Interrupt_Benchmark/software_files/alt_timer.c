@@ -2,7 +2,7 @@
 #include "altera_avalon_timer_regs.h"
 
 void alt_timer_init(const struct alt_timer* alt_timer, alt_u32 period,
-        bool enable_irq, alt_isr_func isr)
+bool enable_irq, alt_isr_func isr)
 {
 
     // Stop the timer, set continuous mode and enable or not irq
@@ -23,7 +23,8 @@ void alt_timer_init(const struct alt_timer* alt_timer, alt_u32 period,
 
     // Register the isr for this irq
     if (isr)
-        alt_ic_isr_register(alt_timer->irq_ctrl_id, alt_timer->irq_no, isr, 0, 0);
+        alt_ic_isr_register(alt_timer->irq_ctrl_id, alt_timer->irq_no, isr, 0,
+                0);
 }
 
 void alt_timer_reset(const struct alt_timer* alt_timer)
@@ -58,4 +59,13 @@ void alt_timer_clr_irq(const struct alt_timer* alt_timer)
 {
     IOWR_ALTERA_AVALON_TIMER_STATUS(alt_timer->base,
             (0 << ALTERA_AVALON_TIMER_STATUS_TO_OFST));
+}
+
+inline alt_u32 alt_timer_read(const struct alt_timer* alt_timer)
+{
+    IOWR_ALTERA_AVALON_TIMER_SNAPL(alt_timer->base, 0);
+    alt_u32 counter = IORD_ALTERA_AVALON_TIMER_SNAPL(alt_timer->base) &
+            ALTERA_AVALON_TIMER_SNAPL_MSK;
+    counter |= IORD_ALTERA_AVALON_TIMER_SNAPH(alt_timer->base) << 16;
+    return counter;
 }

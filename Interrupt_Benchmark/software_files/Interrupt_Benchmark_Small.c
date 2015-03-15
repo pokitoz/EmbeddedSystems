@@ -16,6 +16,8 @@ const struct alt_timer timer1 = { .base = TIMER1_BASE, .irq_ctrl_id =
         TIMER1_IRQ_INTERRUPT_CONTROLLER_ID, .irq_no = TIMER1_IRQ };
 
 volatile double response_time_avg = 0;
+volatile double response_time_best = 0;
+volatile double response_time_worst = 0;
 volatile alt_u32 response_time_cnt = 0;
 void isr_timer0(void* context)
 {
@@ -30,6 +32,12 @@ void isr_timer0(void* context)
     response_time_avg = (response_time + response_time_cnt * response_time_avg)
             / (response_time_cnt + 1);
     response_time_cnt++;
+
+    // best and worst
+    if(response_time_best == 0 || response_time_best > response_time_worst)
+    	response_time_best = response_time;
+    if(response_time_worst == 0 || response_time_worst < response_time)
+    	response_time_worst = response_time;
 
     // signal irq
     leds(1);
@@ -46,6 +54,8 @@ int main(void)
     alt_putstr("Interrupt Benchmarking Go!\n");
 
     double recovery_time_avg = 0;
+    double recovery_time_best = 0;
+    double recovery_time_worst = 0;
     alt_u32 recovery_time_cnt = 0;
 
     double recovery_time_without_cache = 0;
@@ -77,6 +87,12 @@ int main(void)
                 / (recovery_time_cnt + 1);
         recovery_time_cnt++;
 
+        // best and worst recovery time
+        if(recovery_time_best == 0 || recovery_time_best > recovery_time)
+        	recovery_time_best = recovery_time;
+        if(recovery_time_worst == 0 || recovery_time_worst < recovery_time)
+        	recovery_time_worst = recovery_time;
+
         alt_timer_reset(&timer1);
 
         if(response_time_cnt == 1) {
@@ -84,15 +100,20 @@ int main(void)
             recovery_time_without_cache = recovery_time_avg;
         }
 
-        if(response_time_cnt >= 10)
+        if(response_time_cnt >= 100)
             break;
     }
 
     alt_timer_stop(&timer0);
-    alt_printf("Response Time: #0x%x:0x%x\n", 1, (int) response_time_without_cache);
-    alt_printf("Recovery Time: #0x%x:0x%x\n\n", 1, (int) recovery_time_without_cache);
-    alt_printf("Response Time: #0x%x:0x%x\n", response_time_cnt, (int) response_time_avg);
-    alt_printf("Recovery Time: #0x%x:0x%x\n\n", recovery_time_cnt, (int) recovery_time_avg);
+    alt_printf("Response Time (1st): #0x%x:0x%x\n", 1, (int) response_time_without_cache);
+    alt_printf("Response Time (bst): #0x%x:0x%x\n", response_time_cnt, (int) response_time_best);
+    alt_printf("Response Time (wst): #0x%x:0x%x\n", response_time_cnt, (int) response_time_worst);
+    alt_printf("Response Time (avg): #0x%x:0x%x\n\n", response_time_cnt, (int) response_time_avg);
+
+    alt_printf("Recovery Time (1st): #0x%x:0x%x\n", 1, (int) recovery_time_without_cache);
+    alt_printf("Recovery Time (bst): #0x%x:0x%x\n", recovery_time_cnt, (int) recovery_time_best);
+    alt_printf("Recovery Time (wst): #0x%x:0x%x\n", recovery_time_cnt, (int) recovery_time_worst);
+    alt_printf("Recovery Time (avg): #0x%x:0x%x\n\n", recovery_time_cnt, (int) recovery_time_avg);
 
     // Dead end
     while(1) {

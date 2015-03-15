@@ -1,0 +1,44 @@
+count-down timer from altera
+
+best_case, worst_case, avg_case in TICKS
+100 measurements
+-O3
+Hello World small base
+
+Manipulation 3
+==============
+nios_type, is_onchip, best_case, worst_case, avg_case
+   nios/e,         1,       437,        444,      438 -- OK
+   nios/s,         1,       130,        144,      136 -- OK
+   nios/f,         1,       115,        188,      128 -- OK
+   nios/e,         0,      1363,       1399,     1380 -- OK
+   nios/s,         0,       470,        575,      503 -- OK
+   nios/f,         0,       226,        609,      255 -- OK
+   mixed/e         0.5,     
+   mixed/f         0.5,     
+
+Manipulation 4
+==============
+nios_type, is_onchip, best_case, worst_case, avg_case
+   nios/e,         1,       329,        353,      341 -- OK
+   nios/s,         1,       200,        208,      201 -- OK
+   nios/f,         1,       122,        132,      124 -- OK
+   nios/e,         0,      1146,       1219,     1182 -- OK
+   nios/s,         0,       582,        613,      595 -- OK
+   nios/f,         0,       266,        283,      272 -- OK
+   mixed/e         0.5,
+   mixed/f         0.5,     
+
+Manipulation 5
+==============
+
+interrupt measurements done in microseconds (us)
+set_clr and xor measurements done in nanoseconds (ns)
+
+nios_type, is_onchip, latency, response, recovery,  set_clr,       xor
+   nios/e,         1,    5.31,     8.34,     6.38,   180 ns,  658.3 ns
+   nios/s,         1,    1.92,     3.00,     2.98,    20 ns,  180.0 ns
+   nios/f,         1,    2.48,     3.42,     1.62,    40 ns,  240.0 ns
+   nios/e,         0,   21.00,    31.80,    29.62,   480 ns, 1860.0 ns
+   nios/s,         0,   11.44,    15.76,    10.04,    20 ns,  180.0 ns
+   nios/f,         0,   13.00,    16.20,     3.92,    40 ns,  240.0 ns

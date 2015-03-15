@@ -7,7 +7,7 @@
 #define FIVE_SECONDS 250000000
 #define TEN_MILLISECONDS 500000
 #define RESPONSE_TIME_PERIOD TEN_MILLISECONDS
-#define RECOVERY_TIME_PERIOD FIVE_SECONDS
+#define RECOVERY_TIME_PERIOD 10000
 
 const struct alt_timer timer0 = { .base = TIMER0_BASE, .irq_ctrl_id =
         TIMER0_IRQ_INTERRUPT_CONTROLLER_ID, .irq_no = TIMER0_IRQ };
@@ -69,7 +69,12 @@ int main(void)
     while (1) {
         leds(0);
         // block while recovery timer has not started
-        while(alt_timer_read(&timer1) == RECOVERY_TIME_PERIOD);
+        alt_u32 timer1_value = RECOVERY_TIME_PERIOD;
+        while(timer1_value == RECOVERY_TIME_PERIOD) {
+        	IOWR_ALTERA_AVALON_TIMER_SNAPL(timer1.base, 0);
+        	timer1_value = IORD_ALTERA_AVALON_TIMER_SNAPL(timer1.base) &
+        			ALTERA_AVALON_TIMER_SNAPL_MSK;
+        }
 
         // inlining alt_timer_stop with early stop
         alt_u32 control_reg = IORD_ALTERA_AVALON_TIMER_CONTROL(timer1.base);

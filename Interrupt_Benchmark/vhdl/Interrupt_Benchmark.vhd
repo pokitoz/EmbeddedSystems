@@ -12,6 +12,8 @@ entity Interrupt_Benchmark is
 		KEY                   : in    std_logic_vector(1 downto 0);
 		LED                   : out   std_logic_vector(7 downto 0);
 		
+		GPIO_1			    	 : out std_logic_vector(0 downto 0);
+		
 		-- DRAM wires
 		DRAM_CLK, DRAM_CKE    : out   std_logic;
 		DRAM_ADDR             : out   std_logic_vector(12 downto 0);
@@ -49,7 +51,8 @@ begin
 	system_inst : component nios2_system
 		port map(clk_clk                      		=> CLOCK_50,
 			     reset_reset_n                		=> KEY(0),
-				  leds_export(7 downto 0)				=> LED,
+				  leds_export(0)							=> GPIO_1(0),
+				  leds_export(7 downto 1)				=> LED(7 downto 1),
 				  inputs_export(7 downto 1)			=> (others => '0'),
 				  inputs_export(0)						=> KEY(1),
 			     pll_areset_export    					=> '0',

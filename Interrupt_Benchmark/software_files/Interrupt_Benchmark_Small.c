@@ -5,124 +5,38 @@
 #include "altera_avalon_timer_regs.h"   // Altera timer low-level API
 
 #define FIVE_SECONDS 250000000
-#define TEN_MILLISECONDS 500000
+#define TEN_MILLISECONDS 1000
 #define RESPONSE_TIME_PERIOD TEN_MILLISECONDS
-#define RECOVERY_TIME_PERIOD 10000
 
 const struct alt_timer timer0 = { .base = TIMER0_BASE, .irq_ctrl_id =
         TIMER0_IRQ_INTERRUPT_CONTROLLER_ID, .irq_no = TIMER0_IRQ };
 
-const struct alt_timer timer1 = { .base = TIMER1_BASE, .irq_ctrl_id =
-        TIMER1_IRQ_INTERRUPT_CONTROLLER_ID, .irq_no = TIMER1_IRQ };
-
-volatile double response_time_avg = 0;
-volatile double response_time_best = 0;
-volatile double response_time_worst = 0;
-volatile alt_u32 response_time_cnt = 0;
 void isr_timer0(void* context)
 {
-    // Do not use our timer API read function to avoid overhead of call
-    IOWR_ALTERA_AVALON_TIMER_SNAPL(timer0.base, 0);
-    alt_u32 response_time = IORD_ALTERA_AVALON_TIMER_SNAPL(timer0.base) &
-                ALTERA_AVALON_TIMER_SNAPL_MSK;
-    response_time |= IORD_ALTERA_AVALON_TIMER_SNAPH(timer0.base) << 16;
-    response_time = RESPONSE_TIME_PERIOD - response_time;
+    // response time
+	char value = IORD_8DIRECT(LEDS_BASE, 0);
+	IOWR_8DIRECT(LEDS_BASE, 0, !value);
 
-    // Cumulative average; uses double in irq but we don't care
-    response_time_avg = (response_time + response_time_cnt * response_time_avg)
-            / (response_time_cnt + 1);
-    response_time_cnt++;
-
-    // best and worst
-    if(response_time_best == 0 || response_time_best > response_time_worst)
-    	response_time_best = response_time;
-    if(response_time_worst == 0 || response_time_worst < response_time)
-    	response_time_worst = response_time;
-
-    // signal irq
-    leds(1);
     // Clear irq flag TO
     alt_timer_clr_irq(&timer0);
 
-    // recovery time: start timer1
-    alt_timer_reset(&timer1);
-    alt_timer_start(&timer1);
+    // recovery time
+    IOWR_8DIRECT(LEDS_BASE, 0, value);
 }
 
 int main(void)
 {
     alt_putstr("Interrupt Benchmarking Go!\n");
 
-    double recovery_time_avg = 0;
-    double recovery_time_best = 0;
-    double recovery_time_worst = 0;
-    alt_u32 recovery_time_cnt = 0;
-
-    double recovery_time_without_cache = 0;
-    double response_time_without_cache = 0;
-
     alt_timer_init(&timer0, RESPONSE_TIME_PERIOD, true, isr_timer0);
-    alt_timer_init(&timer1, RECOVERY_TIME_PERIOD, false, 0);
     alt_timer_start(&timer0);
-
-    /* Event loop never exits. */
-    while (1) {
-        leds(0);
-        // block while recovery timer has not started
-        alt_u32 timer1_value = RECOVERY_TIME_PERIOD;
-        while(timer1_value == RECOVERY_TIME_PERIOD) {
-        	IOWR_ALTERA_AVALON_TIMER_SNAPL(timer1.base, 0);
-        	timer1_value = IORD_ALTERA_AVALON_TIMER_SNAPL(timer1.base) &
-        			ALTERA_AVALON_TIMER_SNAPL_MSK;
-        }
-
-        // inlining alt_timer_stop with early stop
-        alt_u32 control_reg = IORD_ALTERA_AVALON_TIMER_CONTROL(timer1.base);
-        // early stop
-        IOWR_ALTERA_AVALON_TIMER_CONTROL(timer1.base, 1 << ALTERA_AVALON_TIMER_CONTROL_STOP_OFST);
-        // Set stop bit
-        control_reg |= (1 << ALTERA_AVALON_TIMER_CONTROL_STOP_OFST);
-        // Clear start bit
-        control_reg &= ~(1 << ALTERA_AVALON_TIMER_CONTROL_START_OFST);
-        IOWR_ALTERA_AVALON_TIMER_CONTROL(timer1.base, control_reg);
-
-        // Recovery time measurement and cumulative average
-        alt_u32 recovery_time = RECOVERY_TIME_PERIOD - alt_timer_read(&timer1);
-        recovery_time_avg = (recovery_time + recovery_time_cnt * recovery_time_avg)
-                / (recovery_time_cnt + 1);
-        recovery_time_cnt++;
-
-        // best and worst recovery time
-        if(recovery_time_best == 0 || recovery_time_best > recovery_time)
-        	recovery_time_best = recovery_time;
-        if(recovery_time_worst == 0 || recovery_time_worst < recovery_time)
-        	recovery_time_worst = recovery_time;
-
-        alt_timer_reset(&timer1);
-
-        if(response_time_cnt == 1) {
-            response_time_without_cache = response_time_avg;
-            recovery_time_without_cache = recovery_time_avg;
-        }
-
-        if(response_time_cnt >= 100)
-            break;
-    }
-
-    alt_timer_stop(&timer0);
-    alt_printf("Response Time (1st): #0x%x:0x%x\n", 1, (int) response_time_without_cache);
-    alt_printf("Response Time (bst): #0x%x:0x%x\n", response_time_cnt, (int) response_time_best);
-    alt_printf("Response Time (wst): #0x%x:0x%x\n", response_time_cnt, (int) response_time_worst);
-    alt_printf("Response Time (avg): #0x%x:0x%x\n\n", response_time_cnt, (int) response_time_avg);
-
-    alt_printf("Recovery Time (1st): #0x%x:0x%x\n", 1, (int) recovery_time_without_cache);
-    alt_printf("Recovery Time (bst): #0x%x:0x%x\n", recovery_time_cnt, (int) recovery_time_best);
-    alt_printf("Recovery Time (wst): #0x%x:0x%x\n", recovery_time_cnt, (int) recovery_time_worst);
-    alt_printf("Recovery Time (avg): #0x%x:0x%x\n\n", recovery_time_cnt, (int) recovery_time_avg);
 
     // Dead end
     while(1) {
-        leds(0);
+    	IOWR_8DIRECT(LEDS_BASE, 0, 1);
+    	IOWR_8DIRECT(LEDS_BASE, 0, 0);
+    	IOWR_8DIRECT(LEDS_BASE, 0, 1);
+    	IOWR_8DIRECT(LEDS_BASE, 0, 0);
     }
 
     return 0;

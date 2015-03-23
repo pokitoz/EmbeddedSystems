@@ -1,0 +1,31 @@
+//	int value = IORD_8DIRECT(LEDS_BASE, 0);
+// Load the value of the leds into r2
+movui r1,36928
+ldbuio r1,0(r1)
+//	IOWR_8DIRECT(LEDS_BASE, 0, value ^ 0x1);
+xori ra,r1,1
+movui r1,36928
+stbio ra,0(r1)
+
+
+Modify the file 
+alt_exception_entries.S
+
+	stw   ra,  0(sp)
+        stw   r1,   8(sp)
+
+//	int value = IORD_8DIRECT(LEDS_BASE, 0);
+// Load the value of the leds into r2
+		movui r1,36928
+		ldbuio r1,0(r1)
+//	IOWR_8DIRECT(LEDS_BASE, 0, value ^ 0x1);
+		xori ra,r1,1
+		movui r1,36928
+		stbio ra,0(r1)
+
+        stw   r2,  12(sp)
+        stw   r3,  16(sp9
+        stw   r4,  20(sp)
+        stw   r5,  24(sp)
+
+	...

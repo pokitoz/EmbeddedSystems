@@ -35,10 +35,14 @@ Manipulation 5
 interrupt measurements done in microseconds (us)
 set_clr and xor measurements done in nanoseconds (ns)
 
-nios_type, is_onchip, latency, response, recovery,  set_clr,       xor
-   nios/e,         1,    5.31,     8.34,     6.38,   180 ns,  658.3 ns
-   nios/s,         1,    1.92,     3.00,     2.98,    20 ns,  180.0 ns
-   nios/f,         1,    2.48,     3.42,     1.62,    40 ns,  240.0 ns
-   nios/e,         0,   21.00,    31.80,    29.62,   480 ns, 1860.0 ns
-   nios/s,         0,   11.44,    15.76,    10.04,    20 ns,  180.0 ns
-   nios/f,         0,   13.00,    16.20,     3.92,    40 ns,  240.0 ns
+interrupt measurements done in microseconds (us)
+set_clr and xor measurements done in nanoseconds (ns)
+
+nios_type, is_onchip, latency, response, recovery,  set_clr, 
+   nios/e,         1,    1.52,    10.48,     6.86,   460 ns, OK
+   nios/s,         1,    0.39,     2.06,     2.85,    50 ns, OK
+   nios/f,         1,    0.46,     1.86,     1.04,    80 ns, OK
+   nios/e,         0,    4.52,    31.34,    24.18,  1060 ns, OK
+   nios/s,         0,    0.49,     3.82,     7.21,    50 ns, OK
+   nios/f,         0,    0.38,     1.78,     1.08,    80 ns, OK -- Normal to have a 80ns instead of something less than 50ns
+

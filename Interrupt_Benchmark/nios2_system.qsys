@@ -230,14 +230,14 @@
   <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
  <module name="inputs" kind="altera_avalon_pio" version="14.1" enabled="1">
-  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitClearingEdgeCapReg" value="true" />
   <parameter name="bitModifyingOutReg" value="false" />
-  <parameter name="captureEdge" value="false" />
+  <parameter name="captureEdge" value="true" />
   <parameter name="clockRate" value="50000000" />
   <parameter name="direction" value="Input" />
-  <parameter name="edgeType" value="RISING" />
-  <parameter name="generateIRQ" value="false" />
-  <parameter name="irqType" value="LEVEL" />
+  <parameter name="edgeType" value="FALLING" />
+  <parameter name="generateIRQ" value="true" />
+  <parameter name="irqType" value="EDGE" />
   <parameter name="resetValue" value="0" />
   <parameter name="simDoTestBenchWiring" value="true" />
   <parameter name="simDrivenValue" value="0" />
@@ -314,7 +314,7 @@
   <parameter name="impl" value="Tiny" />
   <parameter name="instAddrWidth" value="26" />
   <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='onchip_memory.s1' start='0x4000' end='0x8000' /><slave name='nios2.jtag_debug_module' start='0x8800' end='0x9000' /><slave name='sdram.s1' start='0x2000000' end='0x4000000' /></address-map>]]></parameter>
-  <parameter name="internalIrqMaskSystemInfo" value="35" />
+  <parameter name="internalIrqMaskSystemInfo" value="39" />
   <parameter name="manuallyAssignCpuID" value="true" />
   <parameter name="mmu_TLBMissExcOffset" value="0" />
   <parameter name="mmu_TLBMissExcSlave" value="None" />
@@ -771,6 +771,9 @@
  </connection>
  <connection kind="interrupt" version="14.1" start="nios2.d_irq" end="timer1.irq">
   <parameter name="irqNumber" value="1" />
+ </connection>
+ <connection kind="interrupt" version="14.1" start="nios2.d_irq" end="inputs.irq">
+  <parameter name="irqNumber" value="2" />
  </connection>
  <connection
    kind="reset"

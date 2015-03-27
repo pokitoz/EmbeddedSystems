@@ -17,14 +17,25 @@ void sem_task(void* pdata) {
 	while (1) {
 		OSSemPend(sem_task_sem, 0, &sem_task_sem_err);
 		printf("sem_task: Button_n[0] was pressed\n");
+		OSTimeDlyHMSM(0, 0, 0, 500);
 	}
 }
 
 void isr_buttons(void* context) {
+	INT8U buttons_value = IORD_ALTERA_AVALON_PIO_DATA(INPUTS_BASE);
+	INT8U buttons[4];
+	int i = 0;
+	for (i = 0; i < 4; ++i) {
+		buttons[i] = (buttons_value >> i) & 0x1;
+	}
+
+	// sem_task
 	OS_SEM_DATA sem_task_sem_data;
 	OSSemQuery(sem_task_sem, &sem_task_sem_data);
-	if(sem_task_sem_data.OSEventGrp > 0)
-		OSSemPost(sem_task_sem);
+	if(sem_task_sem_data.OSEventGrp > 0) {
+		if(!buttons[0]) // falling edge
+			OSSemPost(sem_task_sem);
+	}
 	// Clear All IRQ
 	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(INPUTS_BASE, 0xF);
 }

@@ -1,9 +1,16 @@
 #include <stdio.h>
 #include "includes.h"
 #include "altera_avalon_pio_regs.h"
+#include "alt_timer.h"
 
-#define SEMAPHORE
-#define ALL_BUTTONS 0xF
+#define MAILBOX
+#define ALL_BUTTONS 0xFF
+
+struct alt_timer timer = {
+		.base = TIMER_0_BASE,
+		.irq_no = TIMER_0_IRQ,
+		.irq_ctrl_id = TIMER_0_IRQ_INTERRUPT_CONTROLLER_ID
+};
 
 /* Definition of Task Stacks */
 #define   TASK_STACKSIZE       2048
@@ -14,14 +21,20 @@ OS_STK sem_task_stk[TASK_STACKSIZE];
 OS_STK flags_task_and_stk[TASK_STACKSIZE];
 OS_STK flags_task_or_stk[TASK_STACKSIZE];
 #endif
+#ifdef MAILBOX
+OS_STK mbox_task_stk[TASK_STACKSIZE];
+#endif
 
 /* Definition of Task Priorities */
 #ifdef SEMAPHORE
-#define SEM_TASK_PRIORITY      1
+#define SEM_TASK_PRIORITY          1
 #endif
 #ifdef FLAGS
 #define FLAGS_TASK_AND_PRIORITY    2
 #define FLAGS_TASK_OR_PRIORITY     3
+#endif
+#ifdef MAILBOX
+#define MBOX_TASK_PRIORITY         4
 #endif
 
 
@@ -72,12 +85,48 @@ void flags_task_or(void* pdata) {
 }
 #endif
 
+#ifdef MAILBOX
+OS_EVENT* mbox;
+INT8U mbox_err;
+
+struct button_event {
+	INT8U buttons; /* RISING(1)/FALLING(0) + Buttons number*/
+	INT32U time;   /* Time of the event */
+};
+
+void mbox_task(void* pdata) {
+	while(1) {
+		struct button_event* be = OSMboxPend(mbox, 0, &mbox_err);
+		printf("mbox event on buttons: ");
+
+		int i = 0;
+		for (i = 0; i < 4; ++i) {
+			if(be->buttons & (1 << i)) {
+				printf("%d ", i);
+				if(be->buttons & (16 << i))
+					printf("(rising) ");
+				else
+					printf("(falling) ");
+			}
+		}
+		printf("at time %u\n", (unsigned int) (-1) - (unsigned int) be->time);
+		//OSTimeDlyHMSM(0, 0, 0, 500);
+	}
+}
+#endif
+
 void isr_buttons(void* context) {
 	INT8U buttons_value = IORD_ALTERA_AVALON_PIO_DATA(INPUTS_BASE) & ALL_BUTTONS;
 	INT8U buttons[4];
 	int i = 0;
 	for (i = 0; i < 4; ++i) {
 		buttons[i] = (buttons_value >> i) & 0x1;
+	}
+
+	INT8U edge_value = IORD_ALTERA_AVALON_PIO_EDGE_CAP(INPUTS_BASE) & ALL_BUTTONS;
+	INT8U edge[4];
+	for (i = 0; i < 4; ++i) {
+		edge[i] = (edge_value >> i) & 0x1;
 	}
 
 #ifdef SEMAPHORE
@@ -100,11 +149,32 @@ void isr_buttons(void* context) {
 				&flags_task_flags_err);
 #endif
 
+#ifdef MAILBOX
+	OS_MBOX_DATA mbox_data;
+	OSMboxQuery(mbox, &mbox_data);
+	if(mbox_data.OSEventGrp > 0) {
+		static struct button_event be;
+		be.buttons = 0;
+		for (i = 0; i < 4; ++i) {
+			if(edge[i]) {
+				be.buttons |= (1 << i);
+				if(buttons[i])
+					be.buttons |= (16 << i);
+			}
+		}
+		be.time = alt_timer_read(&timer);
+		OSMboxPost(mbox, &be);
+	}
+#endif
+
 	// Clear All IRQ
 	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(INPUTS_BASE, 0xF);
 }
 
 int main(void) {
+
+	alt_timer_init(&timer, (alt_u32) -1, 0, NULL);
+	alt_timer_start(&timer);
 
 #ifdef SEMAPHORE
 	sem_task_sem = OSSemCreate(0);
@@ -140,6 +210,19 @@ int main(void) {
 				TASK_STACKSIZE,
 				NULL,
 				0);
+#endif
+
+#ifdef MAILBOX
+	mbox = OSMboxCreate(NULL);
+	OSTaskCreateExt(mbox_task,
+			NULL,
+			(void *) &mbox_task_stk[TASK_STACKSIZE - 1],
+			MBOX_TASK_PRIORITY,
+			MBOX_TASK_PRIORITY,
+			mbox_task_stk,
+			TASK_STACKSIZE,
+			NULL,
+			0);
 #endif
 
 	// Enable Buttons' IRQ

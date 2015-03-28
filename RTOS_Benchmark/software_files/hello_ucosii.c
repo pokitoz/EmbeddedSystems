@@ -3,7 +3,7 @@
 #include "altera_avalon_pio_regs.h"
 #include "alt_timer.h"
 
-#define MAILBOX
+#define QUEUE
 #define ALL_BUTTONS 0xFF
 
 struct alt_timer timer = {
@@ -24,6 +24,9 @@ OS_STK flags_task_or_stk[TASK_STACKSIZE];
 #ifdef MAILBOX
 OS_STK mbox_task_stk[TASK_STACKSIZE];
 #endif
+#ifdef QUEUE
+OS_STK queue_task_stk[TASK_STACKSIZE];
+#endif
 
 /* Definition of Task Priorities */
 #ifdef SEMAPHORE
@@ -35,6 +38,9 @@ OS_STK mbox_task_stk[TASK_STACKSIZE];
 #endif
 #ifdef MAILBOX
 #define MBOX_TASK_PRIORITY         4
+#endif
+#ifdef QUEUE
+#define	QUEUE_TASK_PRIORITY        5
 #endif
 
 
@@ -97,7 +103,39 @@ struct button_event {
 void mbox_task(void* pdata) {
 	while(1) {
 		struct button_event* be = OSMboxPend(mbox, 0, &mbox_err);
-		printf("mbox event on buttons: ");
+		printf("mbox: event on buttons: ");
+
+		int i = 0;
+		for (i = 0; i < 4; ++i) {
+			if(be->buttons & (1 << i)) {
+				printf("%d ", i);
+				if(be->buttons & (16 << i))
+					printf("(rising) ");
+				else
+					printf("(falling) ");
+			}
+		}
+		printf("at time %u\n", (unsigned int) (-1) - (unsigned int) be->time);
+		//OSTimeDlyHMSM(0, 0, 0, 500);
+	}
+}
+#endif
+
+#ifdef QUEUE
+OS_EVENT* queue;
+INT8U queue_err;
+
+struct button_event {
+	INT8U buttons; /* RISING(1)/FALLING(0) + Buttons number*/
+	INT32U time;   /* Time of the event */
+};
+
+void* storage[10];
+
+void queue_task(void* pdata) {
+	while(1) {
+		struct button_event* be = OSQPend(queue, 0, &queue_err);
+		printf("queue: event on buttons: ");
 
 		int i = 0;
 		for (i = 0; i < 4; ++i) {
@@ -167,6 +205,24 @@ void isr_buttons(void* context) {
 	}
 #endif
 
+#ifdef QUEUE
+	OS_Q_DATA queue_data;
+	OSQQuery(queue, &queue_data);
+	if(queue_data.OSEventGrp > 0) {
+		static struct button_event be;
+		be.buttons = 0;
+		for (i = 0; i < 4; ++i) {
+			if(edge[i]) {
+				be.buttons |= (1 << i);
+				if(buttons[i])
+					be.buttons |= (16 << i);
+			}
+		}
+		be.time = alt_timer_read(&timer);
+		OSQPost(queue, &be);
+	}
+#endif
+
 	// Clear All IRQ
 	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(INPUTS_BASE, 0xF);
 }
@@ -220,6 +276,19 @@ int main(void) {
 			MBOX_TASK_PRIORITY,
 			MBOX_TASK_PRIORITY,
 			mbox_task_stk,
+			TASK_STACKSIZE,
+			NULL,
+			0);
+#endif
+
+#ifdef QUEUE
+	queue = OSQCreate(&storage[0], 10);
+	OSTaskCreateExt(queue_task,
+			NULL,
+			(void *) &queue_task_stk[TASK_STACKSIZE - 1],
+			QUEUE_TASK_PRIORITY,
+			QUEUE_TASK_PRIORITY,
+			queue_task_stk,
 			TASK_STACKSIZE,
 			NULL,
 			0);

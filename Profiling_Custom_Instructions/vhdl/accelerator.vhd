@@ -28,14 +28,15 @@ end entity accelerator;
 
 architecture behavior of accelerator is
 	signal addressStart_reg      : std_logic_vector(31 downto 0);
-	signal length_reg            : std_logic_vector(13 downto 0);
+	signal length_reg            : std_logic_vector(31 downto 0);
 	signal data_reg              : std_logic_vector(31 downto 0);
-	signal start_reg, finish_reg : std_logic;
+	signal start_reg				  : std_logic;
+	signal finish_reg 			  : std_logic;
 
 	signal addressCurrent_reg : unsigned(31 downto 0);
-	signal lengthCurrent_reg  : unsigned(13 downto 0); -- 16384
+	signal lengthCurrent_reg  : unsigned(31 downto 0);
 
-	type States is (Idle, LoadParam, ReadAcc, WaitRead, WriteData, Ending);
+	type States is (Idle, LoadParameters, ReadMemory, WaitRead, WriteData, Ending);
 
 	signal StateMaster : States;
 
@@ -50,8 +51,8 @@ begin
 			start_reg <= '0';
 			if ChipSelect_s = '1' and Write_s = '1' then
 				case Address_s is
-					when "00"   => addressStart_reg <= WriteData_s;
-					when "01"   => length_reg <= WriteData_s(15 downto 0);
+					when "01"   => addressStart_reg <= WriteData_s;
+					when "00"   => length_reg <= WriteData_s;
 					when "10"   => start_reg <= WriteData_s(0);
 					when others => null;
 				end case;
@@ -65,8 +66,8 @@ begin
 			if ChipSelect_s = '1' and Read_s = '1' then
 				ReadData_s <= (others => '0');
 				case Address_s is
-					when "00"   => ReadData_s <= std_logic_vector(addressCurrent_reg);
-					when "01"   => ReadData_s(13 downto 0) <= std_logic_vector(lengthCurrent_reg);
+					when "00"   => ReadData_s <= std_logic_vector(addressStart_reg);
+					when "01"   => ReadData_s <= std_logic_vector(length_reg);
 					when "10"   => ReadData_s(0) <= start_reg;
 					when "11"   => ReadData_s(0) <= finish_reg;
 					when others => null;
@@ -82,28 +83,33 @@ begin
 			addressCurrent_reg <= (others => '0');
 			lengthCurrent_reg  <= (others => '0');
 			StateMaster        <= Idle;
+			data_reg <= (others => '0');
 		elsif rising_edge(clk) then
 			case StateMaster is
 				when Idle =>
-					Address_m    <= (others => '0');
-					ByteEnable_m <= "0000";
-					Write_m      <= '0';
-					Read_m       <= '0';
+						Address_m    <= (others => '0');
+						ByteEnable_m <= "0000";
+						Write_m      <= '0';
+						Read_m       <= '0';
+						data_reg <= (others => '0');
 					-- Wait until the start bit
 					if start_reg = '1' then
 						-- Start the accelerator
-						StateMaster <= LoadParam;
+						StateMaster <= LoadParameters;
 						finish_reg  <= '0';
 					end if;
-				when LoadParam =>
-					addressCurrent_reg <= unsigned(addressStart_reg) - 4;
-					lengthCurrent_reg  <= unsigned(length_reg) + 1;
-					StateMaster        <= ReadAcc;
-				when ReadAcc =>
-					Address_m    <= std_logic_vector(addressCurrent_reg);
-					ByteEnable_m <= "1111";
-					Read_m       <= '1';
-					StateMaster  <= WaitRead;
+				when LoadParameters =>
+						addressCurrent_reg <= unsigned(addressStart_reg);
+						lengthCurrent_reg  <= unsigned(length_reg);
+						StateMaster        <= ReadMemory;
+				when ReadMemory =>
+					StateMaster  <= ReadMemory;
+					if WaitRequest_m = '0' then
+						Address_m    <= std_logic_vector(addressCurrent_reg);
+						ByteEnable_m <= "1111";
+						Read_m       <= '1';
+						StateMaster  <= WaitRead;
+					end if ;
 				when WaitRead =>
 					-- Wait until the data is read.
 
@@ -112,7 +118,6 @@ begin
 						data_reg(7 downto 0)   <= ReadData_m(31 downto 24);
 						data_reg(31 downto 24) <= ReadData_m(7 downto 0);
 
-
 						for i in 8 to 23 loop
 								 data_reg(i) <= ReadData_m(31 - i);			
 						end loop;
@@ -120,36 +125,35 @@ begin
 						Read_m      <= '0';
 						StateMaster <= WriteData;
 					
-						lengthCurrent_reg  <= lengthCurrent_reg - 1;
-						addressCurrent_reg <= addressCurrent_reg + 4;
-					
 					end if ;
 						
 					when WriteData =>
 					
-						 StateMaster <= WriteData;
-					-- Replace the value by the new one
-					Address_m        <= std_logic_vector(addressCurrent_reg);
-					ByteEnable_m     <= "1111";
-					Write_m          <= '1';
-					WriteData_m      <= data_reg;
+						-- Replace the value by the new one
+						Address_m        <= std_logic_vector(addressCurrent_reg);
+						ByteEnable_m     <= "1111";
+						Write_m          <= '1';
+						WriteData_m      <= data_reg;
 
-					--Should we keep reading?
-					if lengthcurrent_reg > 1 then
-						StateMaster        <= ReadAcc;
-					else
-						StateMaster <= Ending;
-					end if;
+						--Should we keep reading?
+						if lengthCurrent_reg > 1 then
+							StateMaster        <= ReadMemory;
+							lengthCurrent_reg  <= lengthCurrent_reg - 1;
+							addressCurrent_reg <= addressCurrent_reg + 4;
+						
+						else
+							StateMaster <= Ending;
+						end if;
 
 				when Ending =>
-					StateMaster <= Ending;
-					-- Wait for the last write to be done.
-					if WaitRequest_m = '0' then
-						ByteEnable_m <= "0000";
-						Write_m      <= '0';
-						finish_reg   <= '1';
-						StateMaster  <= Idle;
-					end if;
+						StateMaster <= Ending;
+						-- Wait for the last write to be done.
+						if WaitRequest_m = '0' then
+							ByteEnable_m <= "0000";
+							Write_m      <= '0';
+							finish_reg   <= '1';
+							StateMaster  <= Idle;
+						end if;
 				when others => null;
 			end case;
 		end if;

@@ -81,8 +81,10 @@
 #include "sys/alt_stdio.h"
 #include "system.h"
 #include "alt_types.h"
+#include "io.h"
+
 #define SIZE (5)
-long array[SIZE] = {0,0xFFFFFFFF, 0xFF111100, 0x00123400, 0x12345678};
+long array[SIZE] = {0xFF123400,0xFFFFFFFF, 0xFF111100, 0x00123400, 0x12345678};
 //0x00000000 0xffffffff 0x2c4800 0x786a2c12
 
 
@@ -118,6 +120,22 @@ void shuffle_with_custom_instruction(long* array, int size){
 
 }
 
+
+void shuffle_with_accelerator(long* array, int size){
+
+	IOWR_32DIRECT(ACCELERATOR_0_BASE, 0x4, array);
+	IOWR_32DIRECT(ACCELERATOR_0_BASE, 0x0, 1);
+	alt_printf("0x%x", IORD_32DIRECT(ACCELERATOR_0_BASE, 0x0));
+
+	IOWR_32DIRECT(ACCELERATOR_0_BASE, 0x8, 1);
+
+	while(IORD_32DIRECT(ACCELERATOR_0_BASE, 0xC) != 1){
+		  alt_printf("Done");
+	}
+
+}
+
+
 void print_array(long* array, int size){
 
 	int i = 0;
@@ -136,7 +154,8 @@ int main(void)
   /* Event loop never exits. */
 
   //shuffle_in_c(array, SIZE);
-  shuffle_with_custom_instruction(array, SIZE);
+  //shuffle_with_custom_instruction(array, SIZE);
+  shuffle_with_accelerator(array, SIZE);
   print_array(array, SIZE);
 
   while (1);

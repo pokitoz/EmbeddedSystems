@@ -17,6 +17,14 @@
          type = "String";
       }
    }
+   element Shuffle_0
+   {
+      datum _sortIndex
+      {
+         value = "4";
+         type = "int";
+      }
+   }
    element clk
    {
       datum _sortIndex
@@ -95,6 +103,7 @@
  <instanceScript></instanceScript>
  <interface name="clk" internal="clk.clk_in" type="clock" dir="end" />
  <interface name="reset" internal="clk.clk_in_reset" type="reset" dir="end" />
+ <module name="Shuffle_0" kind="Shuffle" version="1.0" enabled="1" />
  <module name="clk" kind="clock_source" version="14.1" enabled="1">
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="clockFrequencyKnown" value="true" />
@@ -128,7 +137,7 @@
   <parameter name="cpuID" value="0" />
   <parameter name="cpuID_stored" value="0" />
   <parameter name="cpuReset" value="false" />
-  <parameter name="customInstSlavesSystemInfo" value="&lt;info/&gt;" />
+  <parameter name="customInstSlavesSystemInfo"><![CDATA[<info><slave name="shuffle_0" baseAddress="0" addressSpan="1" clockCycleType="COMBINATORIAL" /></info>]]></parameter>
   <parameter name="dataAddrWidth" value="16" />
   <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sram.s1' start='0x4000' end='0x8000' /><slave name='nios2.jtag_debug_module' start='0x8800' end='0x9000' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x9000' end='0x9008' /></address-map>]]></parameter>
   <parameter name="dcache_bursts" value="false" />
@@ -253,7 +262,7 @@
    version="14.1"
    enabled="1">
   <parameter name="allowInSystemMemoryContentEditor" value="false" />
-  <parameter name="autoInitializationFileName" value="$${FILENAME}_sram" />
+  <parameter name="autoInitializationFileName" value="nios2_system_sram" />
   <parameter name="blockType" value="AUTO" />
   <parameter name="copyInitFile" value="false" />
   <parameter name="dataWidth" value="32" />
@@ -326,6 +335,15 @@
    start="nios2.d_irq"
    end="jtag_uart_0.irq">
   <parameter name="irqNumber" value="5" />
+ </connection>
+ <connection
+   kind="nios_custom_instruction"
+   version="14.1"
+   start="nios2.custom_instruction_master"
+   end="Shuffle_0.nios_custom_instruction_slave">
+  <parameter name="CIName" value="shuffle_0" />
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0" />
  </connection>
  <connection
    kind="reset"

@@ -36,7 +36,7 @@ architecture behavior of accelerator is
 	signal addressCurrent_reg : unsigned(31 downto 0);
 	signal lengthCurrent_reg  : unsigned(31 downto 0);
 
-	type States is (Idle, LoadParameters, ReadMemory, WaitRead, WriteData, Ending);
+	type States is (Idle, LoadParameters, ReadMemory, WaitRead, WriteData, WaitWrite, Ending);
 
 	signal StateMaster : States;
 
@@ -68,8 +68,8 @@ begin
 				case Address_s is
 					when "00"   => ReadData_s <= std_logic_vector(addressStart_reg);
 					when "01"   => ReadData_s <= std_logic_vector(length_reg);
-					when "10"   => ReadData_s(0) <= start_reg;
-					when "11"   => ReadData_s(0) <= finish_reg;
+					when "10"   => ReadData_s <= (31 downto 1 => '0') & start_reg;
+					when "11"   => ReadData_s <= (31 downto 1 => '0') & finish_reg;
 					when others => null;
 				end case;
 			end if;
@@ -100,21 +100,18 @@ begin
 					end if;
 				when LoadParameters =>
 						addressCurrent_reg <= unsigned(addressStart_reg);
-						lengthCurrent_reg  <= unsigned(length_reg);
+						lengthCurrent_reg  <= unsigned(length_reg) - 1;
 						StateMaster        <= ReadMemory;
 				when ReadMemory =>
-					StateMaster  <= ReadMemory;
-					if WaitRequest_m = '0' then
 						Address_m    <= std_logic_vector(addressCurrent_reg);
 						ByteEnable_m <= "1111";
 						Read_m       <= '1';
 						StateMaster  <= WaitRead;
-					end if ;
 				when WaitRead =>
 					-- Wait until the data is read.
-
 					StateMaster <= WaitRead;
 					if WaitRequest_m = '0' then
+						
 						data_reg(7 downto 0)   <= ReadData_m(31 downto 24);
 						data_reg(31 downto 24) <= ReadData_m(7 downto 0);
 
@@ -130,30 +127,30 @@ begin
 					when WriteData =>
 					
 						-- Replace the value by the new one
-						Address_m        <= std_logic_vector(addressCurrent_reg);
+						--Address_m        <= std_logic_vector(addressCurrent_reg);
 						ByteEnable_m     <= "1111";
 						Write_m          <= '1';
 						WriteData_m      <= data_reg;
-
+						StateMaster 	  <= WaitWrite;
+						
+				when WaitWrite =>
+					StateMaster <= WaitWrite;
+					if WaitRequest_m = '0' then
+						write_m <= '0';
 						--Should we keep reading?
 						if lengthCurrent_reg > 1 then
 							StateMaster        <= ReadMemory;
 							lengthCurrent_reg  <= lengthCurrent_reg - 1;
 							addressCurrent_reg <= addressCurrent_reg + 4;
-						
 						else
 							StateMaster <= Ending;
 						end if;
+					end if;
 
 				when Ending =>
-						StateMaster <= Ending;
-						-- Wait for the last write to be done.
-						if WaitRequest_m = '0' then
-							ByteEnable_m <= "0000";
-							Write_m      <= '0';
-							finish_reg   <= '1';
-							StateMaster  <= Idle;
-						end if;
+					ByteEnable_m <= "0000";
+					finish_reg   <= '1';
+					StateMaster  <= Idle;
 				when others => null;
 			end case;
 		end if;

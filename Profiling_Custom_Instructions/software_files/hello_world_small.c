@@ -84,7 +84,6 @@
 #include "io.h"
 
 #define SIZE (5)
-long array[SIZE] = {0xFF123400,0xFFFFFFFF, 0xFF111100, 0x00123400, 0x12345678};
 //0x00000000 0xffffffff 0x2c4800 0x786a2c12
 
 
@@ -123,14 +122,14 @@ void shuffle_with_custom_instruction(long* array, int size){
 
 void shuffle_with_accelerator(long* array, int size){
 
-	IOWR_32DIRECT(ACCELERATOR_0_BASE, 0x4, array);
-	IOWR_32DIRECT(ACCELERATOR_0_BASE, 0x0, 1);
-	alt_printf("0x%x", IORD_32DIRECT(ACCELERATOR_0_BASE, 0x0));
+	IOWR_32DIRECT(ACCELERATOR_0_BASE, 0x4, &array);
+	IOWR_32DIRECT(ACCELERATOR_0_BASE, 0x0, 4);
+	//alt_printf("0x%x", IORD_32DIRECT(ACCELERATOR_0_BASE, 0x0));
 
 	IOWR_32DIRECT(ACCELERATOR_0_BASE, 0x8, 1);
 
 	while(IORD_32DIRECT(ACCELERATOR_0_BASE, 0xC) != 1){
-		  alt_printf("Done");
+		  //alt_printf("Done");
 	}
 
 }
@@ -150,6 +149,8 @@ void print_array(long* array, int size){
 int main(void)
 { 
   alt_putstr("Hello from Nios II!\n");
+
+  long array[SIZE] = {0xFFFFFFFF, 0xFF111100, 0x00123400, 0x12345678, 0};
 
   /* Event loop never exits. */
 

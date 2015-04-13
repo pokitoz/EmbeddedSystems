@@ -17,6 +17,27 @@
          type = "String";
       }
    }
+   element Accelerator_0
+   {
+      datum _sortIndex
+      {
+         value = "5";
+         type = "int";
+      }
+   }
+   element Accelerator_0.avalon_slave_0
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "0";
+         type = "String";
+      }
+   }
    element Shuffle_0
    {
       datum _sortIndex
@@ -45,7 +66,7 @@
    {
       datum baseAddress
       {
-         value = "36864";
+         value = "36880";
          type = "String";
       }
    }
@@ -103,6 +124,7 @@
  <instanceScript></instanceScript>
  <interface name="clk" internal="clk.clk_in" type="clock" dir="end" />
  <interface name="reset" internal="clk.clk_in_reset" type="reset" dir="end" />
+ <module name="Accelerator_0" kind="Accelerator" version="1.1" enabled="1" />
  <module name="Shuffle_0" kind="Shuffle" version="1.0" enabled="1" />
  <module name="clk" kind="clock_source" version="14.1" enabled="1">
   <parameter name="clockFrequency" value="50000000" />
@@ -139,7 +161,7 @@
   <parameter name="cpuReset" value="false" />
   <parameter name="customInstSlavesSystemInfo"><![CDATA[<info><slave name="shuffle_0" baseAddress="0" addressSpan="1" clockCycleType="COMBINATORIAL" /></info>]]></parameter>
   <parameter name="dataAddrWidth" value="16" />
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sram.s1' start='0x4000' end='0x8000' /><slave name='nios2.jtag_debug_module' start='0x8800' end='0x9000' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x9000' end='0x9008' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='Accelerator_0.avalon_slave_0' start='0x0' end='0x10' /><slave name='sram.s1' start='0x4000' end='0x8000' /><slave name='nios2.jtag_debug_module' start='0x8800' end='0x9000' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x9010' end='0x9018' /></address-map>]]></parameter>
   <parameter name="dcache_bursts" value="false" />
   <parameter name="dcache_lineSize" value="32" />
   <parameter name="dcache_numTCDM" value="0" />
@@ -164,7 +186,7 @@
   <parameter name="icache_ramBlockType" value="Automatic" />
   <parameter name="icache_size" value="4096" />
   <parameter name="icache_tagramBlockType" value="Automatic" />
-  <parameter name="impl" value="Fast" />
+  <parameter name="impl" value="Tiny" />
   <parameter name="instAddrWidth" value="16" />
   <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='sram.s1' start='0x4000' end='0x8000' /><slave name='nios2.jtag_debug_module' start='0x8800' end='0x9000' /></address-map>]]></parameter>
   <parameter name="internalIrqMaskSystemInfo" value="32" />
@@ -262,7 +284,7 @@
    version="14.1"
    enabled="1">
   <parameter name="allowInSystemMemoryContentEditor" value="false" />
-  <parameter name="autoInitializationFileName" value="nios2_system_sram" />
+  <parameter name="autoInitializationFileName" value="$${FILENAME}_sram" />
   <parameter name="blockType" value="AUTO" />
   <parameter name="copyInitFile" value="false" />
   <parameter name="dataWidth" value="32" />
@@ -288,10 +310,28 @@
  <connection
    kind="avalon"
    version="14.1"
+   start="Accelerator_0.avalon_master"
+   end="Accelerator_0.avalon_slave_0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="14.1"
    start="nios2.data_master"
    end="jtag_uart_0.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x9000" />
+  <parameter name="baseAddress" value="0x9010" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="14.1"
+   start="nios2.data_master"
+   end="Accelerator_0.avalon_slave_0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -329,6 +369,7 @@
  <connection kind="clock" version="14.1" start="clk.clk" end="nios2.clk" />
  <connection kind="clock" version="14.1" start="clk.clk" end="jtag_uart_0.clk" />
  <connection kind="clock" version="14.1" start="clk.clk" end="sram.clk1" />
+ <connection kind="clock" version="14.1" start="clk.clk" end="Accelerator_0.clock" />
  <connection
    kind="interrupt"
    version="14.1"
@@ -355,6 +396,11 @@
  <connection
    kind="reset"
    version="14.1"
+   start="clk.clk_reset"
+   end="Accelerator_0.reset_sink" />
+ <connection
+   kind="reset"
+   version="14.1"
    start="nios2.jtag_debug_module_reset"
    end="jtag_uart_0.reset" />
  <connection
@@ -367,6 +413,11 @@
    version="14.1"
    start="nios2.jtag_debug_module_reset"
    end="nios2.reset_n" />
+ <connection
+   kind="reset"
+   version="14.1"
+   start="nios2.jtag_debug_module_reset"
+   end="Accelerator_0.reset_sink" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />

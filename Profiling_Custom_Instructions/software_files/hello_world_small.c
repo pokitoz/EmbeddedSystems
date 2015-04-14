@@ -120,7 +120,7 @@ void shuffle_with_custom_instruction(long* array, int size){
 }
 
 
-void shuffle_with_accelerator(long* array, int size){
+void shuffle_with_accelerator(volatile long* array, int size){
 
 	IOWR_32DIRECT(ACCELERATOR_0_BASE, 0x0, array);
 	IOWR_32DIRECT(ACCELERATOR_0_BASE, 0x4, 5);
@@ -135,7 +135,7 @@ void shuffle_with_accelerator(long* array, int size){
 }
 
 
-void print_array(long* array, int size){
+void print_array(volatile long* array, int size){
 
 	int i = 0;
 	for (i = 0; i < size; ++i) {
@@ -146,11 +146,11 @@ void print_array(long* array, int size){
 
 }
 
+volatile long array[SIZE] = {0x12345678,0xFFFFFFFF, 0xFF111100, 0x00123400, 0x12345678};
+
 int main(void)
 { 
   alt_putstr("Hello from Nios II!\n");
-
-  int volatile array[SIZE] = {0x12345678,0xFFFFFFFF, 0xFF111100, 0x00123400, 0x12345678};
 
   /* Event loop never exits. */
 

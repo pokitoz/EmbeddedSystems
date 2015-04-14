@@ -139,7 +139,7 @@ void print_array(long* array, int size){
 
 	int i = 0;
 	for (i = 0; i < size; ++i) {
-		alt_printf("0x%x ", array[i]);
+		alt_printf("0x%x ", ((long*)((1<<31) | (long)(array)))[i]);
 	}
 
 	alt_putstr("\n");
@@ -150,7 +150,7 @@ int main(void)
 { 
   alt_putstr("Hello from Nios II!\n");
 
-  long array[SIZE] = {0xFFFFFFFF, 0xFF111100, 0x00123400, 0x12345678, 0};
+  int volatile array[SIZE] = {0x12345678,0xFFFFFFFF, 0xFF111100, 0x00123400, 0x12345678};
 
   /* Event loop never exits. */
 

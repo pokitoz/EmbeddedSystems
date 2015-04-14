@@ -103,7 +103,7 @@ begin
 						lengthCurrent_reg  <= unsigned(length_reg);
 						StateMaster        <= ReadMemory;
 				when ReadMemory =>
-						write_m <= '0';
+						Write_m <= '0';
 						Address_m    <= std_logic_vector(addressCurrent_reg);
 						ByteEnable_m <= "1111";
 						Read_m       <= '1';

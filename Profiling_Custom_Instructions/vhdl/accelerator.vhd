@@ -51,8 +51,8 @@ begin
 			start_reg <= '0';
 			if ChipSelect_s = '1' and Write_s = '1' then
 				case Address_s is
-					when "01"   => addressStart_reg <= WriteData_s;
-					when "00"   => length_reg <= WriteData_s;
+					when "00"   => addressStart_reg <= WriteData_s;
+					when "01"   => length_reg <= WriteData_s;
 					when "10"   => start_reg <= WriteData_s(0);
 					when others => null;
 				end case;
@@ -88,7 +88,7 @@ begin
 			case StateMaster is
 				when Idle =>
 						Address_m    <= (others => '0');
-						ByteEnable_m <= "0000";
+						ByteEnable_m <= "1111";
 						Write_m      <= '0';
 						Read_m       <= '0';
 						data_reg <= (others => '0');
@@ -100,7 +100,7 @@ begin
 					end if;
 				when LoadParameters =>
 						addressCurrent_reg <= unsigned(addressStart_reg);
-						lengthCurrent_reg  <= unsigned(length_reg) - 1;
+						lengthCurrent_reg  <= unsigned(length_reg);
 						StateMaster        <= ReadMemory;
 				when ReadMemory =>
 						Address_m    <= std_logic_vector(addressCurrent_reg);
@@ -125,9 +125,7 @@ begin
 					end if ;
 						
 					when WriteData =>
-					
 						-- Replace the value by the new one
-						--Address_m        <= std_logic_vector(addressCurrent_reg);
 						ByteEnable_m     <= "1111";
 						Write_m          <= '1';
 						WriteData_m      <= data_reg;

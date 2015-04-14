@@ -122,8 +122,8 @@ void shuffle_with_custom_instruction(long* array, int size){
 
 void shuffle_with_accelerator(long* array, int size){
 
-	IOWR_32DIRECT(ACCELERATOR_0_BASE, 0x4, &array);
-	IOWR_32DIRECT(ACCELERATOR_0_BASE, 0x0, 4);
+	IOWR_32DIRECT(ACCELERATOR_0_BASE, 0x0, array);
+	IOWR_32DIRECT(ACCELERATOR_0_BASE, 0x4, 5);
 	//alt_printf("0x%x", IORD_32DIRECT(ACCELERATOR_0_BASE, 0x0));
 
 	IOWR_32DIRECT(ACCELERATOR_0_BASE, 0x8, 1);

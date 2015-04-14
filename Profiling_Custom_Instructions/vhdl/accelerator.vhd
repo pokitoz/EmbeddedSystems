@@ -103,6 +103,7 @@ begin
 						lengthCurrent_reg  <= unsigned(length_reg);
 						StateMaster        <= ReadMemory;
 				when ReadMemory =>
+						write_m <= '0';
 						Address_m    <= std_logic_vector(addressCurrent_reg);
 						ByteEnable_m <= "1111";
 						Read_m       <= '1';
@@ -134,7 +135,6 @@ begin
 				when WaitWrite =>
 					StateMaster <= WaitWrite;
 					if WaitRequest_m = '0' then
-						write_m <= '0';
 						--Should we keep reading?
 						if lengthCurrent_reg > 1 then
 							StateMaster        <= ReadMemory;
@@ -148,6 +148,7 @@ begin
 				when Ending =>
 					ByteEnable_m <= "0000";
 					finish_reg   <= '1';
+					write_m <= '0';
 					StateMaster  <= Idle;
 				when others => null;
 			end case;

@@ -136,6 +136,7 @@ begin
 					StateMaster <= WaitWrite;
 					if WaitRequest_m = '0' then
 						--Should we keep reading?
+						write_m <= '0';
 						if lengthCurrent_reg > 1 then
 							StateMaster        <= ReadMemory;
 							lengthCurrent_reg  <= lengthCurrent_reg - 1;

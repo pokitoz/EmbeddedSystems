@@ -34,7 +34,7 @@
       }
       datum baseAddress
       {
-         value = "33558560";
+         value = "33558640";
          type = "String";
       }
    }
@@ -66,7 +66,7 @@
    {
       datum baseAddress
       {
-         value = "33558592";
+         value = "33558656";
          type = "String";
       }
    }
@@ -86,6 +86,22 @@
          type = "String";
       }
    }
+   element performance_counter_0
+   {
+      datum _sortIndex
+      {
+         value = "8";
+         type = "int";
+      }
+   }
+   element performance_counter_0.control_slave
+   {
+      datum baseAddress
+      {
+         value = "33558528";
+         type = "String";
+      }
+   }
    element pll
    {
       datum _sortIndex
@@ -98,7 +114,7 @@
    {
       datum baseAddress
       {
-         value = "33558576";
+         value = "33558624";
          type = "String";
       }
    }
@@ -130,7 +146,7 @@
    {
       datum baseAddress
       {
-         value = "33558528";
+         value = "33558592";
          type = "String";
       }
    }
@@ -210,7 +226,7 @@
   <parameter name="cpuReset" value="false" />
   <parameter name="customInstSlavesSystemInfo"><![CDATA[<info><slave name="shuffle_0" baseAddress="0" addressSpan="1" clockCycleType="COMBINATORIAL" /></info>]]></parameter>
   <parameter name="dataAddrWidth" value="26" />
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sdram.s1' start='0x0' end='0x2000000' /><slave name='nios2.jtag_debug_module' start='0x2000800' end='0x2001000' /><slave name='timer_0.s1' start='0x2001000' end='0x2001020' /><slave name='Accelerator_0.avalon_slave_0' start='0x2001020' end='0x2001030' /><slave name='pll.pll_slave' start='0x2001030' end='0x2001040' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x2001040' end='0x2001048' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sdram.s1' start='0x0' end='0x2000000' /><slave name='nios2.jtag_debug_module' start='0x2000800' end='0x2001000' /><slave name='performance_counter_0.control_slave' start='0x2001000' end='0x2001040' /><slave name='timer_0.s1' start='0x2001040' end='0x2001060' /><slave name='pll.pll_slave' start='0x2001060' end='0x2001070' /><slave name='Accelerator_0.avalon_slave_0' start='0x2001070' end='0x2001080' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x2001080' end='0x2001088' /></address-map>]]></parameter>
   <parameter name="dcache_bursts" value="false" />
   <parameter name="dcache_lineSize" value="32" />
   <parameter name="dcache_numTCDM" value="0" />
@@ -326,6 +342,13 @@
   <parameter name="tightlyCoupledInstructionMaster3AddrWidth" value="1" />
   <parameter name="tightlyCoupledInstructionMaster3MapParam" value="" />
   <parameter name="userDefinedSettings" value="" />
+ </module>
+ <module
+   name="performance_counter_0"
+   kind="altera_avalon_performance_counter"
+   version="14.1"
+   enabled="1">
+  <parameter name="numberOfSections" value="3" />
  </module>
  <module name="pll" kind="altpll" version="14.1" enabled="1">
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone IV E" />
@@ -549,7 +572,7 @@
    start="nios2.data_master"
    end="jtag_uart_0.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x02001040" />
+  <parameter name="baseAddress" value="0x02001080" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -558,7 +581,16 @@
    start="nios2.data_master"
    end="Accelerator_0.avalon_slave_0">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x02001020" />
+  <parameter name="baseAddress" value="0x02001070" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="14.1"
+   start="nios2.data_master"
+   end="performance_counter_0.control_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x02001000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -576,7 +608,7 @@
    start="nios2.data_master"
    end="pll.pll_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x02001030" />
+  <parameter name="baseAddress" value="0x02001060" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="avalon" version="14.1" start="nios2.data_master" end="sdram.s1">
@@ -590,7 +622,7 @@
    start="nios2.data_master"
    end="timer_0.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x02001000" />
+  <parameter name="baseAddress" value="0x02001040" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -615,6 +647,11 @@
  <connection kind="clock" version="14.1" start="pll.c0" end="sdram.clk" />
  <connection kind="clock" version="14.1" start="pll.c0" end="jtag_uart_0.clk" />
  <connection kind="clock" version="14.1" start="pll.c0" end="timer_0.clk" />
+ <connection
+   kind="clock"
+   version="14.1"
+   start="pll.c0"
+   end="performance_counter_0.clk" />
  <connection kind="clock" version="14.1" start="pll.c0" end="Accelerator_0.clock" />
  <connection kind="clock" version="14.1" start="clk.clk" end="pll.inclk_interface" />
  <connection kind="interrupt" version="14.1" start="nios2.d_irq" end="timer_0.irq">
@@ -648,6 +685,11 @@
    start="clk.clk_reset"
    end="jtag_uart_0.reset" />
  <connection kind="reset" version="14.1" start="clk.clk_reset" end="timer_0.reset" />
+ <connection
+   kind="reset"
+   version="14.1"
+   start="clk.clk_reset"
+   end="performance_counter_0.reset" />
  <connection kind="reset" version="14.1" start="clk.clk_reset" end="nios2.reset_n" />
  <connection
    kind="reset"
@@ -674,6 +716,11 @@
    version="14.1"
    start="nios2.jtag_debug_module_reset"
    end="timer_0.reset" />
+ <connection
+   kind="reset"
+   version="14.1"
+   start="nios2.jtag_debug_module_reset"
+   end="performance_counter_0.reset" />
  <connection
    kind="reset"
    version="14.1"

@@ -2,8 +2,9 @@
 #include <stdlib.h>
 #include <sys/alt_stdio.h>
 #include <system.h>
+#include "altera_avalon_performance_counter.h"
 
-#define ARRAY_SIZE (100)
+#define ARRAY_SIZE (1000)
 #if ARRAY_SIZE <= 10
 #define SMALL_ARRAY
 #endif
@@ -68,12 +69,16 @@ void shuffle_in_c(long* array, int size)
 
 }
 
+long ci(int i, long * array) {
+	return ALT_CI_SHUFFLE_0(array[i]);
+}
+
 void shuffle_with_custom_instruction(long* array, int size)
 {
 
     int i = 0;
     for (i = 0; i < size; i++) {
-        array[i] = ALT_CI_SHUFFLE_0(array[i]);
+		array[i] = ci(i, array);
     }
 
 }
@@ -112,11 +117,28 @@ int main(void)
 
     fill_arrays_with_random_values();
 
-    shuffle_in_c(array_for_c, ARRAY_SIZE);
-    shuffle_with_custom_instruction(array_for_custom_instr, ARRAY_SIZE);
-    shuffle_with_accelerator(array_for_accelerator, ARRAY_SIZE);
+    PERF_RESET(PERFORMANCE_COUNTER_0_BASE);
+    PERF_START_MEASURING(PERFORMANCE_COUNTER_0_BASE);
 
-    verify_arrays();
+
+    PERF_BEGIN(PERFORMANCE_COUNTER_0_BASE, 1);
+    shuffle_in_c(array_for_c, ARRAY_SIZE);
+    PERF_END(PERFORMANCE_COUNTER_0_BASE, 1);
+
+    PERF_BEGIN(PERFORMANCE_COUNTER_0_BASE, 2);
+    shuffle_with_custom_instruction(array_for_custom_instr, ARRAY_SIZE);
+    PERF_END(PERFORMANCE_COUNTER_0_BASE, 2);
+
+    PERF_BEGIN(PERFORMANCE_COUNTER_0_BASE, 3);
+    shuffle_with_accelerator(array_for_accelerator, ARRAY_SIZE);
+    PERF_END(PERFORMANCE_COUNTER_0_BASE, 3);
+
+
+    PERF_STOP_MEASURING(PERFORMANCE_COUNTER_0_BASE);
+    perf_print_formatted_report((void *) PERFORMANCE_COUNTER_0_BASE, ALT_CPU_FREQ, 3, ""
+    		"shuffle_with_c", "shuffle_with_custom_instruction", "shuffle_with_accelerator");
+
+    //verify_arrays();
 
 #ifdef SMALL_ARRAY
     alt_putstr("Shuffle with C:\t\t\t");

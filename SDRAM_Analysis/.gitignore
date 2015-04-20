@@ -1,0 +1,24 @@
+*.bak
+
+# quartus
+*.rpt
+*.chg
+*.log
+*.htm
+*.eqn
+*.pin
+*.sof
+*.pof
+*.summary
+*.done
+*.smsg
+*.qws
+*.jdi
+*db
+*.sopcinfo
+quartus/output_files/
+quartus/db/
+quartus/incremental_db/
+quartus/nios2_system/
+quartus/.qsys_edit/
+quartus/software/

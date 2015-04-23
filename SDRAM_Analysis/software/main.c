@@ -15,10 +15,20 @@
  */
 
 #include <stdio.h>
+#include <inttypes.h>
+#include "system.h"
 
-int main()
+int main(void)
 {
-  printf("Hello from Nios II!\n");
+    printf("Hello from Nios II (SDRAM_Analysis)!\n");
 
-  return 0;
+    uint32_t *ptr = SDRAM_BASE;
+
+    int i = 0;
+    for (i = 0; i < 10; ++i) {
+        *ptr++ = i;
+    }
+
+    printf("Done");
+    return 0;
 }

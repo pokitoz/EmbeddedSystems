@@ -6,11 +6,16 @@
    version="1.0"
    description=""
    tags=""
-   categories="" />
+   categories="System" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
    element $${FILENAME}
    {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone IV E";
+         type = "String";
+      }
    }
    element clk
    {
@@ -32,7 +37,7 @@
    {
       datum baseAddress
       {
-         value = "67145728";
+         value = "33591312";
          type = "String";
       }
    }
@@ -48,7 +53,7 @@
    {
       datum baseAddress
       {
-         value = "67143680";
+         value = "33589248";
          type = "String";
       }
    }
@@ -58,6 +63,14 @@
       {
          value = "1";
          type = "int";
+      }
+   }
+   element pll.pll_slave
+   {
+      datum baseAddress
+      {
+         value = "33591296";
+         type = "String";
       }
    }
    element sdram
@@ -70,9 +83,14 @@
    }
    element sdram.s1
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
-         value = "33554432";
+         value = "0";
          type = "String";
       }
    }
@@ -88,7 +106,7 @@
    {
       datum baseAddress
       {
-         value = "67125248";
+         value = "33570816";
          type = "String";
       }
    }
@@ -105,7 +123,7 @@
  <parameter name="hdlLanguage" value="VERILOG" />
  <parameter name="hideFromIPCatalog" value="false" />
  <parameter name="maxAdditionalLatency" value="1" />
- <parameter name="projectName" value="" />
+ <parameter name="projectName" value="SDRAM_Analysis.qpf" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="0" />
  <parameter name="testBenchDutName" value="" />
@@ -165,8 +183,8 @@
   <parameter name="cpuID_stored" value="0" />
   <parameter name="cpuReset" value="false" />
   <parameter name="customInstSlavesSystemInfo" value="&lt;info/&gt;" />
-  <parameter name="dataAddrWidth" value="27" />
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='pll.pll_slave' start='0x0' end='0x10' /><slave name='sdram.s1' start='0x2000000' end='0x4000000' /><slave name='sram.s1' start='0x4004000' end='0x4008000' /><slave name='nios2.jtag_debug_module' start='0x4008800' end='0x4009000' /><slave name='jtag_uart.avalon_jtag_slave' start='0x4009000' end='0x4009008' /></address-map>]]></parameter>
+  <parameter name="dataAddrWidth" value="26" />
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sdram.s1' start='0x0' end='0x2000000' /><slave name='sram.s1' start='0x2004000' end='0x2008000' /><slave name='nios2.jtag_debug_module' start='0x2008800' end='0x2009000' /><slave name='pll.pll_slave' start='0x2009000' end='0x2009010' /><slave name='jtag_uart.avalon_jtag_slave' start='0x2009010' end='0x2009018' /></address-map>]]></parameter>
   <parameter name="dcache_bursts" value="false" />
   <parameter name="dcache_lineSize" value="32" />
   <parameter name="dcache_numTCDM" value="0" />
@@ -192,8 +210,8 @@
   <parameter name="icache_size" value="4096" />
   <parameter name="icache_tagramBlockType" value="Automatic" />
   <parameter name="impl" value="Tiny" />
-  <parameter name="instAddrWidth" value="27" />
-  <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='sdram.s1' start='0x2000000' end='0x4000000' /><slave name='sram.s1' start='0x4004000' end='0x4008000' /><slave name='nios2.jtag_debug_module' start='0x4008800' end='0x4009000' /></address-map>]]></parameter>
+  <parameter name="instAddrWidth" value="26" />
+  <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='sdram.s1' start='0x0' end='0x2000000' /><slave name='sram.s1' start='0x2004000' end='0x2008000' /><slave name='nios2.jtag_debug_module' start='0x2008800' end='0x2009000' /></address-map>]]></parameter>
   <parameter name="internalIrqMaskSystemInfo" value="1" />
   <parameter name="manuallyAssignCpuID" value="true" />
   <parameter name="mmu_TLBMissExcOffset" value="0" />
@@ -514,7 +532,7 @@
    start="nios2.data_master"
    end="jtag_uart.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x04009000" />
+  <parameter name="baseAddress" value="0x02009010" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -523,7 +541,7 @@
    start="nios2.data_master"
    end="nios2.jtag_debug_module">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x04008800" />
+  <parameter name="baseAddress" value="0x02008800" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -532,17 +550,17 @@
    start="nios2.data_master"
    end="pll.pll_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="baseAddress" value="0x02009000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="avalon" version="14.1" start="nios2.data_master" end="sram.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x04004000" />
+  <parameter name="baseAddress" value="0x02004000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="avalon" version="14.1" start="nios2.data_master" end="sdram.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x02000000" />
+  <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -551,7 +569,7 @@
    start="nios2.instruction_master"
    end="nios2.jtag_debug_module">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x04008800" />
+  <parameter name="baseAddress" value="0x02008800" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -560,7 +578,7 @@
    start="nios2.instruction_master"
    end="sram.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x04004000" />
+  <parameter name="baseAddress" value="0x02004000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -569,7 +587,7 @@
    start="nios2.instruction_master"
    end="sdram.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x02000000" />
+  <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="14.1" start="pll.c0" end="nios2.clk" />

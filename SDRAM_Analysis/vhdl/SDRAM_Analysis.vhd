@@ -41,7 +41,7 @@ architecture Structural of SDRAM_Analysis is
 begin
 	system_inst : component nios2_system
 		port map(clk_clk                      		=> CLOCK_50,
-			     reset_reset_n                		=> KEY(0),
+			     reset_reset_n                		=> '1',
 			     pll_areset_export    					=> '0',
 			     pll_locked_export    					=> open,
 			     pll_phasedone_export 					=> open,

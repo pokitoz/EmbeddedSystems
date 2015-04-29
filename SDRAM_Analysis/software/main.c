@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include <inttypes.h>
 #include "system.h"
+#include "sys/alt_cache.h"
 
 #define WRITE
 
@@ -24,11 +25,12 @@ int main(void)
 {
     printf("Hello from Nios II (SDRAM_Analysis)!\n");
 
+    alt_dcache_flush_all();
     volatile uint16_t *ptr = SDRAM_BASE;
-//    volatile uint16_t var = *ptr;
-//    *ptr = 0xCAFE;
+    *ptr = 0xCAFE;
+    alt_dcache_flush_all();
 
-
+/*
     int i = 0;
     for (i = 0; i < 10; ++i) {
 #ifdef READ

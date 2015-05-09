@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 entity vga_controller is
     port(
 
-        -- 21.175 MHz pixel clock
+        -- 25.175 MHz pixel clock
         pixel_clk          : in  std_logic;
         rst_n              : in  std_logic;
 

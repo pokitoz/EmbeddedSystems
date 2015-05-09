@@ -2,7 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity vga is
+entity vga_module is
     port(
         clk              : in  std_logic;
         rst_n            : in  std_logic;
@@ -41,4 +41,4 @@ entity vga is
         am_waitrequest   : in  std_logic;
         am_readdatavalid : in  std_logic
     );
-end entity vga;
+end entity vga_module;

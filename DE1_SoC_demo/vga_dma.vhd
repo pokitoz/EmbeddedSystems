@@ -55,20 +55,26 @@ begin
 		am_byteenable <= "1111";
 		am_read       <= '0';
 
+		pixels_done_next     <= pixels_done_reg;
+		remaining_next       <= remaining_reg;
+		burst_remaining_next <= burst_remaining_reg;
+
 		state_next <= state_reg;
 
 		case state_reg is
 			when IDLE =>
 				if (dma_start_fetching = '1') then
-					state_next <= START_BURST;
-					fifo_clr   <= '1';
+					state_next       <= START_BURST;
+					fifo_clr         <= '1';
+					pixels_done_next <= (others => '0');
+					remaining_next   <= 640 * 480;
 				end if;
 			when START_BURST =>
 				if (remaining_reg = 0) then
 					state_next <= IDLE;
 				elsif (fifo_half_full = '0') then
 					am_read              <= '1';
-					am_burstcount        <= std_logic_vector(to_unsigned(BURST_SIZE, am_burstcount'range));
+					am_burstcount        <= std_logic_vector(to_unsigned(BURST_SIZE, 11));
 					am_address           <= std_logic_vector(framebuffer_address_reg + unsigned((pixels_done_reg(29 downto 0) & "00")));
 					burst_remaining_next <= BURST_SIZE;
 					if (am_waitrequest = '0') then

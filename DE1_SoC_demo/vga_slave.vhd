@@ -38,14 +38,17 @@ end entity vga_slave;
 architecture rtl of vga_slave is
 	signal framebuffer_address_reg : std_logic_vector(31 downto 0);
 	signal command_reg             : std_logic_vector(31 downto 0);
+	signal clear_vsync_irq         : std_logic;
 
 begin
 	pr_read : process(clk, rst_n) is
 	begin
 		if rst_n = '0' then
-			as_readdata <= (others => '0');
+			as_readdata     <= (others => '0');
+			clear_vsync_irq <= '0';
 		elsif rising_edge(clk) then
-			as_readdata <= (others => '0');
+			as_readdata     <= (others => '0');
+			clear_vsync_irq <= '0';
 			if (as_read = '1') then
 				case as_address is
 					-- Reading framebuffer address
@@ -54,6 +57,9 @@ begin
 					-- Reading command register
 					when "001" =>
 						as_readdata <= command_reg;
+					-- Clearing vsync irq
+					when "010" =>
+						clear_vsync_irq <= '1';
 					when others => null;
 				end case;
 
@@ -96,6 +102,15 @@ begin
 			end if;
 		end if;
 	end process pr_write;
+
+	pr_vsync : process(vga_vsync, rst_n, clear_vsync_irq) is
+	begin
+		if rst_n = '0' or clear_vsync_irq = '1' then
+			vsync_irq <= '0';
+		elsif rising_edge(vga_vsync) then
+			vsync_irq <= '1';
+		end if;
+	end process pr_vsync;
 
 end architecture rtl;
 

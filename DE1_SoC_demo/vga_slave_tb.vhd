@@ -46,6 +46,7 @@ architecture testbench of vga_slave_tb is
 	constant REG_COMMAND     : std_logic_vector(as_address'range)   := "001";
 	constant COMMAND_START   : std_logic_vector(as_writedata'range) := X"00000001";
 	constant COMMAND_STOP    : std_logic_vector(as_writedata'range) := X"00000000";
+	constant REG_VSYNC       : std_logic_vector(as_address'range)   := "010";
 
 begin
 	clk   <= not clk after PERIOD / 2 when not stop else '0';
@@ -109,7 +110,7 @@ begin
 
 		-- Command register should be cleared initially
 		assert_read(REG_COMMAND, COMMAND_STOP);
-		
+
 		-- Start VGA system
 		assert vga_start = '0' report "vga_start not cleared before use" severity error;
 		write_register(REG_COMMAND, COMMAND_START);
@@ -118,7 +119,7 @@ begin
 		wait for PERIOD / 4;
 		assert vga_start = '0' report "vga_start not cleared after use" severity error;
 		assert_read(REG_COMMAND, COMMAND_START);
-		
+
 		-- Stop VGA system
 		assert vga_stop = '0' report "vga_stop not cleared before use" severity error;
 		write_register(REG_COMMAND, COMMAND_STOP);
@@ -127,6 +128,20 @@ begin
 		wait for PERIOD / 4;
 		assert vga_stop = '0' report "vga_stop not cleared after use" severity error;
 		assert_read(REG_COMMAND, COMMAND_STOP);
+
+		-- Testing IRQ coming from a slower system (long irq pulse)
+		assert vsync_irq = '0' report "vsync_irq not cleared before" severity error;
+		vga_vsync <= '1';
+		wait for period / 4;
+		assert vsync_irq = '1' report "vsync_irq not set right after vsync" severity error;
+		wait until rising_edge(clk);
+		assert vsync_irq = '1' report "vsync_irq not set right after rising edge" severity error;
+		wait for period / 4;
+		assert_read(REG_VSYNC, X"00000000");
+		assert vsync_irq = '0' report "vsync_irq not cleared after reading" severity error;
+		wait for 4 * period;
+		assert vsync_irq = '0' report "vsync_irq came back from the dead !" severity error;
+		vga_vsync <= '0';
 
 		stop <= true;
 		wait;

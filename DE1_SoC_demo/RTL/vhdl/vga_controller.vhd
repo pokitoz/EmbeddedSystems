@@ -24,7 +24,7 @@ entity vga_controller is
         -- FIFO Signals
         fifo_empty         : in  std_logic;
         fifo_read          : out std_logic;
-        fifo_data          : in  std_logic_vector(31 downto 0);
+        fifo_data          : in  std_logic_vector(15 downto 0);
 
         -- Output to VGA DAC
         vga_r              : out std_logic_vector(7 downto 0);
@@ -40,7 +40,7 @@ entity vga_controller is
     );
 end entity vga_controller;
 
-architecture rtl of vga_controller IS
+architecture rtl of vga_controller is
     signal h_pos : integer;
     signal v_pos : integer;
 
@@ -54,16 +54,16 @@ begin
         if rst_n = '0' then
             vga_r <= X"00";
             vga_g <= X"00";
-            vga_b <= X"FF";
+            vga_b <= X"00";
         elsif rising_edge(pixel_clk) then
             if (enable = '1' and fifo_empty = '0') then
-                vga_r <= fifo_data(14 downto 10);
-                vga_g <= fifo_data(9 downto 5);
-                vga_b <= fifo_data(4 downto 0);
+                vga_r <= fifo_data(14 downto 10) & "000";
+                vga_g <= fifo_data(9 downto 5) & "000";
+                vga_b <= fifo_data(4 downto 0) & "000";
             else
                 vga_r <= X"00";
                 vga_g <= X"00";
-                vga_b <= X"FF";
+                vga_b <= X"00";
             end if;
         end if;
     end process;
@@ -73,11 +73,18 @@ begin
         if rst_n = '0' then
             fifo_read <= '0';
         elsif rising_edge(pixel_clk) then
-            if (h_pos < 639 or h_pos = 799) then
-                if (v_pos < 479 or v_pos = 524) then
-                    fifo_read <= '1';
-                end if;
-            end if;
+		  
+				fifo_read <= '0';
+            
+				if(v_pos < 480) then
+					if(h_pos < 639 or h_pos = 799) then
+						fifo_read <= '1';
+					end if;
+				end if;
+				
+				if(v_pos = 524 and h_pos = 799) then
+					fifo_read <= '1';
+				end if;
         end if;
     end process;
 
@@ -120,14 +127,14 @@ begin
             end if;
 
             ---- Generate HSYNC
-            IF (659 <= h_pos AND h_pos <= 755) then
+            IF (659 <= h_pos and h_pos <= 755) then
                 vga_hs <= '0';
             else
                 vga_hs <= '1';
             end if;
 
             ------ Generate VSYNC
-            if (493 <= v_pos AND v_pos <= 494) then
+            if (493 <= v_pos and v_pos <= 494) then
                 vga_vs             <= '0';
                 vsync              <= '1';
                 dma_start_fetching <= '1';
@@ -139,7 +146,7 @@ begin
 
         end if;
     end process;
-    enable      <= '1' when (videoh = '1' AND videov = '1') else '0';
+    enable      <= '1' when (videoh = '1' and videov = '1') else '0';
     vga_clk     <= pixel_clk;
     vga_blank_n <= '1';
     vga_sync_n  <= '1';

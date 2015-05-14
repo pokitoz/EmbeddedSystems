@@ -2,12 +2,6 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
--- VGA Module: Draw 640x480 ARGB8888 frames from a memory framebuffer
--- 8 memory-mapped slave registers:
---     000: framebuffer address (R/W)
---     001: start (1), stop (0) drawing (R/W)
---     010: Vsync irq, read to assert (R)
-
 entity vga_module is
     port(
         clk            : in  std_logic;
@@ -73,7 +67,7 @@ architecture structural of vga_module is
              vsync              : out std_logic;
              fifo_empty         : in  std_logic;
              fifo_read          : out std_logic;
-             fifo_data          : in  std_logic_vector(31 downto 0);
+             fifo_data          : in  std_logic_vector(15 downto 0);
              vga_r              : out std_logic_vector(7 downto 0);
              vga_g              : out std_logic_vector(7 downto 0);
              vga_b              : out std_logic_vector(7 downto 0);

@@ -126,14 +126,14 @@ architecture rtl of DE1_SoC_top_level is
             sdram_controller_0_wire_ras_n         : out   std_logic;
             sdram_controller_0_wire_we_n          : out   std_logic;
             switches_0_external_connection_export : in    std_logic_vector(9 downto 0)  := (others => 'X');
-            vga_component_0_vga_b_export          : out   std_logic_vector(7 downto 0); -- export
-            vga_component_0_vga_blank_n_export    : out   std_logic; -- export
-            vga_component_0_vga_clk_export        : out   std_logic; -- export
-            vga_component_0_vga_g_export          : out   std_logic_vector(7 downto 0); -- export
-            vga_component_0_vga_hs_export         : out   std_logic; -- export
-            vga_component_0_vga_r_export          : out   std_logic_vector(7 downto 0); -- export
-            vga_component_0_vga_sync_n_export     : out   std_logic; -- export
-            vga_component_0_vga_vs_export         : out   std_logic -- export
+            vga_module_0_vga_b_export             : out   std_logic_vector(7 downto 0);                     -- export
+				vga_module_0_vga_blank_n_export       : out   std_logic;                                        -- export
+				vga_module_0_vga_clk_export           : out   std_logic;                                        -- export
+				vga_module_0_vga_g_export             : out   std_logic_vector(7 downto 0);                     -- export
+				vga_module_0_vga_hs_export            : out   std_logic;                                        -- export
+				vga_module_0_vga_r_export             : out   std_logic_vector(7 downto 0);                     -- export
+				vga_module_0_vga_sync_n_export        : out   std_logic;                                        -- export
+				vga_module_0_vga_vs_export            : out   std_logic                                         -- export
         );
     end component soc_system;
 
@@ -179,13 +179,13 @@ begin
                  sdram_controller_0_wire_ras_n         => DRAM_RAS_N,
                  sdram_controller_0_wire_we_n          => DRAM_WE_N,
                  switches_0_external_connection_export => SW,
-					  vga_component_0_vga_r_export 			 => VGA_R,
-					  vga_component_0_vga_g_export			 => VGA_G,
-					  vga_component_0_vga_b_export			 => VGA_B,
-					  vga_component_0_vga_hs_export			 => VGA_HS,
-					  vga_component_0_vga_vs_export			 => VGA_VS,
-					  vga_component_0_vga_clk_export			 => VGA_CLK,
-					  vga_component_0_vga_blank_n_export	 => VGA_BLANK_N,
-					  vga_component_0_vga_sync_n_export		 => VGA_SYNC_N
+					  vga_module_0_vga_r_export	 			 => VGA_R,
+					  vga_module_0_vga_g_export				 => VGA_G,
+					  vga_module_0_vga_b_export				 => VGA_B,
+					  vga_module_0_vga_hs_export				 => VGA_HS,
+					  vga_module_0_vga_vs_export				 => VGA_VS,
+					  vga_module_0_vga_clk_export				 => VGA_CLK,
+					  vga_module_0_vga_blank_n_export		 => VGA_BLANK_N,
+					  vga_module_0_vga_sync_n_export			 => VGA_SYNC_N
         );
 end;

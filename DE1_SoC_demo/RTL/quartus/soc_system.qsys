@@ -254,7 +254,7 @@
          type = "String";
       }
    }
-   element vga_component_0
+   element vga_module_0
    {
       datum _sortIndex
       {
@@ -338,43 +338,43 @@
    type="conduit"
    dir="end" />
  <interface
-   name="vga_component_0_vga_b"
-   internal="vga_component_0.vga_b"
+   name="vga_module_0_vga_b"
+   internal="vga_module_0.vga_b"
    type="conduit"
    dir="end" />
  <interface
-   name="vga_component_0_vga_blank_n"
-   internal="vga_component_0.vga_blank_n"
+   name="vga_module_0_vga_blank_n"
+   internal="vga_module_0.vga_blank_n"
    type="conduit"
    dir="end" />
  <interface
-   name="vga_component_0_vga_clk"
-   internal="vga_component_0.vga_clk"
+   name="vga_module_0_vga_clk"
+   internal="vga_module_0.vga_clk"
    type="conduit"
    dir="end" />
  <interface
-   name="vga_component_0_vga_g"
-   internal="vga_component_0.vga_g"
+   name="vga_module_0_vga_g"
+   internal="vga_module_0.vga_g"
    type="conduit"
    dir="end" />
  <interface
-   name="vga_component_0_vga_hs"
-   internal="vga_component_0.vga_hs"
+   name="vga_module_0_vga_hs"
+   internal="vga_module_0.vga_hs"
    type="conduit"
    dir="end" />
  <interface
-   name="vga_component_0_vga_r"
-   internal="vga_component_0.vga_r"
+   name="vga_module_0_vga_r"
+   internal="vga_module_0.vga_r"
    type="conduit"
    dir="end" />
  <interface
-   name="vga_component_0_vga_sync_n"
-   internal="vga_component_0.vga_sync_n"
+   name="vga_module_0_vga_sync_n"
+   internal="vga_module_0.vga_sync_n"
    type="conduit"
    dir="end" />
  <interface
-   name="vga_component_0_vga_vs"
-   internal="vga_component_0.vga_vs"
+   name="vga_module_0_vga_vs"
+   internal="vga_module_0.vga_vs"
    type="conduit"
    dir="end" />
  <module name="buttons_0" kind="altera_avalon_pio" version="14.1" enabled="1">
@@ -1080,7 +1080,7 @@
   <parameter name="icache_tagramBlockType" value="Automatic" />
   <parameter name="impl" value="Tiny" />
   <parameter name="instAddrWidth" value="27" />
-  <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='sdram_controller_0.s1' start='0x0' end='0x4000000' /><slave name='onchip_memory2_0.s1' start='0x4004000' end='0x4008000' /><slave name='nios2_qsys_0.jtag_debug_module' start='0x4008800' end='0x4009000' /></address-map>]]></parameter>
+  <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='onchip_memory2_0.s1' start='0x4004000' end='0x4008000' /><slave name='nios2_qsys_0.jtag_debug_module' start='0x4008800' end='0x4009000' /></address-map>]]></parameter>
   <parameter name="internalIrqMaskSystemInfo" value="1" />
   <parameter name="manuallyAssignCpuID" value="true" />
   <parameter name="mmu_TLBMissExcOffset" value="0" />
@@ -1446,7 +1446,16 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="10" />
  </module>
- <module name="vga_component_0" kind="vga_component" version="1.2" enabled="1" />
+ <module name="vga_module_0" kind="vga_module" version="2.0" enabled="1" />
+ <connection
+   kind="avalon"
+   version="14.1"
+   start="vga_module_0.avalon_master"
+   end="sdram_controller_0.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
  <connection
    kind="avalon"
    version="14.1"
@@ -1577,15 +1586,6 @@
    kind="avalon"
    version="14.1"
    start="nios2_qsys_0.instruction_master"
-   end="sdram_controller_0.s1">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="14.1"
-   start="nios2_qsys_0.instruction_master"
    end="onchip_memory2_0.s1">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x04004000" />
@@ -1633,8 +1633,13 @@
  <connection
    kind="clock"
    version="14.1"
+   start="pll_0.outclk1"
+   end="vga_module_0.main_clk" />
+ <connection
+   kind="clock"
+   version="14.1"
    start="pll_0.outclk3"
-   end="vga_component_0.pixel_clk" />
+   end="vga_module_0.pixel_clk" />
  <connection
    kind="interrupt"
    version="14.1"
@@ -1677,7 +1682,7 @@
    kind="reset"
    version="14.1"
    start="clk_0.clk_reset"
-   end="vga_component_0.reset_sink" />
+   end="vga_module_0.reset_n" />
  <connection
    kind="reset"
    version="14.1"
@@ -1728,7 +1733,7 @@
    kind="reset"
    version="14.1"
    start="nios2_qsys_0.jtag_debug_module_reset"
-   end="vga_component_0.reset_sink" />
+   end="vga_module_0.reset_n" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />

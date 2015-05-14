@@ -70,18 +70,18 @@ entity DE1_SoC_top_level is
         HPS_DDR3_RZQ     : in    std_logic;
         HPS_DDR3_WE_N    : out   std_logic;
         HPS_KEY          : inout std_logic;
-        HPS_LED          : inout std_logic;
+        HPS_LED          : inout std_logic
 		  
 		  
-		  -- VGA
-			VGA_B : out std_logic_vector(7 downto 0);
-			VGA_BLANK_N : out std_logic;
-			VGA_CLK : out std_logic;
-			VGA_G : out std_logic_vector(7 downto 0);
-			VGA_HS : out std_logic;
-			VGA_R : out std_logic_vector(7 downto 0);
-			VGA_SYNC_N : out std_logic;
-			VGA_VS : out std_logic
+--		  -- VGA
+--			VGA_B : out std_logic_vector(7 downto 0);
+--			VGA_BLANK_N : out std_logic;
+--			VGA_CLK : out std_logic;
+--			VGA_G : out std_logic_vector(7 downto 0);
+--			VGA_HS : out std_logic;
+--			VGA_R : out std_logic_vector(7 downto 0);
+--			VGA_SYNC_N : out std_logic;
+--			VGA_VS : out std_logic
 		  
     );
 end entity DE1_SoC_top_level;
@@ -127,15 +127,7 @@ architecture rtl of DE1_SoC_top_level is
             sdram_controller_0_wire_dqm           : out   std_logic_vector(1 downto 0);
             sdram_controller_0_wire_ras_n         : out   std_logic;
             sdram_controller_0_wire_we_n          : out   std_logic;
-            switches_0_external_connection_export : in    std_logic_vector(9 downto 0)  := (others => 'X');
-			vga_controller_0_vga_b_name           : out   std_logic_vector(7 downto 0);                     -- name
-			vga_controller_0_vga_blank_n_name     : out   std_logic;                                        -- name
-			vga_controller_0_vga_clk_name         : out   std_logic;                                        -- name
-			vga_controller_0_vga_g_name           : out   std_logic_vector(7 downto 0);                     -- name
-			vga_controller_0_vga_hs_name          : out   std_logic;                                        -- name
-			vga_controller_0_vga_r_name           : out   std_logic_vector(7 downto 0);                     -- name
-			vga_controller_0_vga_sync_n_name      : out   std_logic;                                        -- name
-			vga_controller_0_vga_vs_name          : out   std_logic                                         -- name
+            switches_0_external_connection_export : in    std_logic_vector(9 downto 0)  := (others => 'X')
 		);
     end component soc_system;
 
@@ -180,18 +172,6 @@ begin
                  sdram_controller_0_wire_dqm(0)        => DRAM_LDQM,
                  sdram_controller_0_wire_ras_n         => DRAM_RAS_N,
                  sdram_controller_0_wire_we_n          => DRAM_WE_N,
-                 switches_0_external_connection_export => SW,
-						vga_controller_0_vga_b_name           => VGA_B,                    
-						vga_controller_0_vga_blank_n_name     => VGA_BLANK_N,                                       
-						vga_controller_0_vga_clk_name         => VGA_CLK,                                       
-						vga_controller_0_vga_g_name          	 => VGA_G,                  
-						vga_controller_0_vga_hs_name          => VGA_HS,                                   
-						vga_controller_0_vga_r_name           => VGA_R,                
-						vga_controller_0_vga_sync_n_name       => VGA_SYNC_N,                                    
-						vga_controller_0_vga_vs_name           => VGA_VS   
-					  
-					  
-					  
-					  
+                 switches_0_external_connection_export => SW
 					  );
 end;

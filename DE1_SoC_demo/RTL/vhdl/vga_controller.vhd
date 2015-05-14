@@ -6,8 +6,8 @@ entity vga_controller is
     port(
 
         -- 25 MHz pixel clock
-        pixel_clk   : in  std_logic;
-        rst_n       : in  std_logic;
+        pixel_clk          : in  std_logic;
+        rst_n              : in  std_logic;
 
         -- Start drawing frames
         --		start              : in  std_logic;
@@ -16,27 +16,27 @@ entity vga_controller is
         --		stop               : in  std_logic;
 
         -- Tell DMA to start prefetching
-        --		dma_start_fetching : out std_logic;
+        dma_start_fetching : out std_logic;
 
         -- Tell system of vsync
-        --		vsync              : out std_logic;
+        vsync              : out std_logic;
 
         -- FIFO Signals
-        --		fifo_empty         : in  std_logic;
-        --		fifo_read          : out std_logic;
-        --		fifo_data          : in  std_logic_vector(31 downto 0);
+        fifo_empty         : in  std_logic;
+        fifo_read          : out std_logic;
+        fifo_data          : in  std_logic_vector(31 downto 0);
 
         -- Output to VGA DAC
-        vga_r       : out std_logic_vector(7 downto 0);
-        vga_g       : out std_logic_vector(7 downto 0);
-        vga_b       : out std_logic_vector(7 downto 0);
-        vga_clk     : out std_logic;
-        vga_sync_n  : out std_logic;
-        vga_blank_n : out std_logic;
+        vga_r              : out std_logic_vector(7 downto 0);
+        vga_g              : out std_logic_vector(7 downto 0);
+        vga_b              : out std_logic_vector(7 downto 0);
+        vga_clk            : out std_logic;
+        vga_sync_n         : out std_logic;
+        vga_blank_n        : out std_logic;
 
         -- Direct Output to VGA Connector
-        vga_vs      : out std_logic;
-        vga_hs      : out std_logic
+        vga_vs             : out std_logic;
+        vga_hs             : out std_logic
     );
 end entity vga_controller;
 
@@ -44,31 +44,38 @@ architecture rtl of vga_controller IS
     signal h_pos : integer;
     signal v_pos : integer;
 
-    signal enable : std_logic_vector(7 downto 0);
+    signal enable : std_logic;
     signal videoh : std_logic;
     signal videov : std_logic;
 
 begin
-    process(pixel_clk, rst_n)
+    process(pixel_clk, rst_n) is
     begin
-        if (rst_n = '0') then
-            vga_r <= (others => '0');
-            vga_g <= (others => '0');
-            vga_b <= (others => '0');
-        else
-            if (rising_edge(pixel_clk)) then
-                if (v_pos < 160) then
-                    vga_r <= X"00" and enable;
-                    vga_g <= X"00" and enable;
-                    vga_b <= X"00" and enable;
-                elsif (160 <= v_pos and v_pos < 320) then
-                    vga_r <= X"FF" and enable;
-                    vga_g <= X"00" and enable;
-                    vga_b <= X"00" and enable;
-                else
-                    vga_r <= X"FF" and enable;
-                    vga_g <= X"FF" and enable;
-                    vga_b <= X"00" and enable;
+        if rst_n = '0' then
+            vga_r <= X"00";
+            vga_g <= X"00";
+            vga_b <= X"FF";
+        elsif rising_edge(pixel_clk) then
+            if (enable = '1' and fifo_empty = '0') then
+                vga_r <= fifo_data(14 downto 10);
+                vga_g <= fifo_data(9 downto 5);
+                vga_b <= fifo_data(4 downto 0);
+            else
+                vga_r <= X"00";
+                vga_g <= X"00";
+                vga_b <= X"FF";
+            end if;
+        end if;
+    end process;
+
+    process(pixel_clk, rst_n) is
+    begin
+        if rst_n = '0' then
+            fifo_read <= '0';
+        elsif rising_edge(pixel_clk) then
+            if (h_pos < 639 or h_pos = 799) then
+                if (v_pos < 479 or v_pos = 524) then
+                    fifo_read <= '1';
                 end if;
             end if;
         end if;
@@ -94,6 +101,7 @@ begin
             h_pos  <= 0;
             vga_hs <= '0';
             vga_vs <= '0';
+            vsync  <= '0';
 
         elsif (rising_edge(pixel_clk)) then
 
@@ -120,15 +128,18 @@ begin
 
             ------ Generate VSYNC
             if (493 <= v_pos AND v_pos <= 494) then
-                vga_vs <= '0';
+                vga_vs             <= '0';
+                vsync              <= '1';
+                dma_start_fetching <= '1';
             else
-                vga_vs <= '1';
+                vga_vs             <= '1';
+                vsync              <= '0';
+                dma_start_fetching <= '0';
             end if;
 
         end if;
     end process;
-
-    enable      <= X"FF" WHEN (videoh = '1' AND videov = '1') ELSE X"00";
+    enable      <= '1' when (videoh = '1' AND videov = '1') else '0';
     vga_clk     <= pixel_clk;
     vga_blank_n <= '1';
     vga_sync_n  <= '1';

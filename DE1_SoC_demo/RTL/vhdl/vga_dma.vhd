@@ -53,15 +53,15 @@ begin
             when READ_REQUEST =>
                 if (fifo_full = '0') then
                     am_address <= std_logic_vector(to_unsigned(counter_reg, 32));
-                    am_read    <= '1';
+                    --am_read    <= '1';
 
-                    if (am_waitrequest = '0') then
+                    --if (am_waitrequest = '0') then
                         state_next <= READ_DATA;
-                    end if;
+                    --end if;
                 end if;
             when READ_DATA =>
                 fifo_write <= '1';
-                fifo_data  <= am_readdata;
+                fifo_data  <= X"FC00FFE0";
 
                 if (counter_reg < 153599) then -- 153599 = (640x480)/2 - 1
                     state_next   <= READ_REQUEST;

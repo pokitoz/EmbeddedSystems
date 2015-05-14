@@ -16,6 +16,7 @@
 *.jdi
 *db
 *.sopcinfo
+*.tcl~
 output_files/
 db/
 incremental_db/

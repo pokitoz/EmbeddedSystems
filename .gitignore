@@ -15,3 +15,6 @@
 *.qws
 *.jdi
 *db
+DE1_SoC_demo/RTL/vhdl/.library_mapping.xml
+DE1_SoC_demo/RTL/vhdl/.project
+DE1_SoC_demo/RTL/vhdl/.settings/org.eclipse.core.resources.prefs

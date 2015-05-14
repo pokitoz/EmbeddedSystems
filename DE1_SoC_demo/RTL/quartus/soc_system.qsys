@@ -254,6 +254,14 @@
          type = "String";
       }
    }
+   element vga_component_0
+   {
+      datum _sortIndex
+      {
+         value = "16";
+         type = "int";
+      }
+   }
 }
 ]]></parameter>
  <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
@@ -327,6 +335,46 @@
  <interface
    name="switches_0_external_connection"
    internal="switches_0.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="vga_component_0_vga_b"
+   internal="vga_component_0.vga_b"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="vga_component_0_vga_blank_n"
+   internal="vga_component_0.vga_blank_n"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="vga_component_0_vga_clk"
+   internal="vga_component_0.vga_clk"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="vga_component_0_vga_g"
+   internal="vga_component_0.vga_g"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="vga_component_0_vga_hs"
+   internal="vga_component_0.vga_hs"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="vga_component_0_vga_r"
+   internal="vga_component_0.vga_r"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="vga_component_0_vga_sync_n"
+   internal="vga_component_0.vga_sync_n"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="vga_component_0_vga_vs"
+   internal="vga_component_0.vga_vs"
    type="conduit"
    dir="end" />
  <module name="buttons_0" kind="altera_avalon_pio" version="14.1" enabled="1">
@@ -1269,7 +1317,7 @@
   <parameter name="gui_fractional_cout" value="32" />
   <parameter name="gui_mif_generate" value="false" />
   <parameter name="gui_multiply_factor" value="1" />
-  <parameter name="gui_number_of_clocks" value="3" />
+  <parameter name="gui_number_of_clocks" value="4" />
   <parameter name="gui_operation_mode" value="normal" />
   <parameter name="gui_output_clock_frequency0" value="50.0" />
   <parameter name="gui_output_clock_frequency1" value="100.0" />
@@ -1282,7 +1330,7 @@
   <parameter name="gui_output_clock_frequency16" value="100.0" />
   <parameter name="gui_output_clock_frequency17" value="100.0" />
   <parameter name="gui_output_clock_frequency2" value="100.0" />
-  <parameter name="gui_output_clock_frequency3" value="100.0" />
+  <parameter name="gui_output_clock_frequency3" value="25.0" />
   <parameter name="gui_output_clock_frequency4" value="100.0" />
   <parameter name="gui_output_clock_frequency5" value="100.0" />
   <parameter name="gui_output_clock_frequency6" value="100.0" />
@@ -1398,6 +1446,7 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="10" />
  </module>
+ <module name="vga_component_0" kind="vga_component" version="1.2" enabled="1" />
  <connection
    kind="avalon"
    version="14.1"
@@ -1582,6 +1631,11 @@
    start="pll_0.outclk1"
    end="sdram_controller_0.clk" />
  <connection
+   kind="clock"
+   version="14.1"
+   start="pll_0.outclk3"
+   end="vga_component_0.pixel_clk" />
+ <connection
    kind="interrupt"
    version="14.1"
    start="nios2_qsys_0.d_irq"
@@ -1619,6 +1673,11 @@
    version="14.1"
    start="clk_0.clk_reset"
    end="nios2_qsys_0.reset_n" />
+ <connection
+   kind="reset"
+   version="14.1"
+   start="clk_0.clk_reset"
+   end="vga_component_0.reset_sink" />
  <connection
    kind="reset"
    version="14.1"
@@ -1665,6 +1724,11 @@
    version="14.1"
    start="nios2_qsys_0.jtag_debug_module_reset"
    end="nios2_qsys_0.reset_n" />
+ <connection
+   kind="reset"
+   version="14.1"
+   start="nios2_qsys_0.jtag_debug_module_reset"
+   end="vga_component_0.reset_sink" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />

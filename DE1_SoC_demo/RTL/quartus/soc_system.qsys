@@ -1446,7 +1446,7 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="10" />
  </module>
- <module name="vga_module_0" kind="vga_module" version="2.0" enabled="1" />
+ <module name="vga_module_0" kind="vga_module" version="2.8" enabled="1" />
  <connection
    kind="avalon"
    version="14.1"

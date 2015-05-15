@@ -29,6 +29,7 @@ architecture rtl of vga_dma is
     type state_type is (IDLE, READ_REQUEST, READ_DATA);
     signal state_reg, state_next     : state_type;
     signal counter_reg, counter_next : integer;
+	 signal fifo_data_reg, fifo_data_next: std_logic_vector(31 downto 0);
 
 begin
     pr_fsm : process(am_readdata, am_waitrequest, counter_reg, dma_start_fetching, state_reg, fifo_full) is
@@ -52,18 +53,19 @@ begin
                 end if;
             when READ_REQUEST =>
                 if (fifo_full = '0') then
-                    am_address <= std_logic_vector(to_unsigned(counter_reg, 32));
-                    --am_read    <= '1';
+                    am_address <= std_logic_vector(to_unsigned(counter_reg, 32))(29 downto 0) & "00";
+                    am_read    <= '1';
+						  fifo_data_next <= am_readdata;
 
-                    --if (am_waitrequest = '0') then
+                    if (am_waitrequest = '0') then
                         state_next <= READ_DATA;
-                    --end if;
+                    end if;
                 end if;
             when READ_DATA =>
                 fifo_write <= '1';
-                fifo_data  <= X"FC00FFE0";
+					 fifo_data <= fifo_data_reg;
 
-                if (counter_reg < 153599) then -- 153599 = (640x480)/2 - 1
+                if (counter_reg < 76799) then -- 76799 = (640x480)/4 - 1
                     state_next   <= READ_REQUEST;
                     counter_next <= counter_reg + 1;
                 else
@@ -78,9 +80,11 @@ begin
         if rst_n = '0' then
             state_reg   <= IDLE;
             counter_reg <= 0;
+				fifo_data_reg <= (others => '0');
         elsif rising_edge(clk) then
             state_reg   <= state_next;
             counter_reg <= counter_next;
+				fifo_data_reg <= fifo_data_next;
         end if;
     end process pr_reg;
 

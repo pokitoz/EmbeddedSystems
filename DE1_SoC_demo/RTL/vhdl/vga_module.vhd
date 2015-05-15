@@ -55,7 +55,7 @@ architecture structural of vga_module is
              rdreq   : IN  STD_LOGIC;
              wrclk   : IN  STD_LOGIC;
              wrreq   : IN  STD_LOGIC;
-             q       : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
+             q       : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
              rdempty : OUT STD_LOGIC;
              wrfull  : OUT STD_LOGIC);
     end component vga_fifo;
@@ -67,7 +67,7 @@ architecture structural of vga_module is
              vsync              : out std_logic;
              fifo_empty         : in  std_logic;
              fifo_read          : out std_logic;
-             fifo_data          : in  std_logic_vector(15 downto 0);
+             fifo_data          : in  std_logic_vector(7 downto 0);
              vga_r              : out std_logic_vector(7 downto 0);
              vga_g              : out std_logic_vector(7 downto 0);
              vga_b              : out std_logic_vector(7 downto 0);
@@ -83,7 +83,7 @@ architecture structural of vga_module is
     signal fifo_full          : std_logic;
     signal dma_start_fetching : std_logic;
     signal fifo_read          : STD_LOGIC;
-    signal fifo_readdata      : STD_LOGIC_VECTOR(15 DOWNTO 0);
+    signal fifo_readdata      : STD_LOGIC_VECTOR(7 DOWNTO 0);
     signal fifo_empty         : STD_LOGIC;
 
 begin

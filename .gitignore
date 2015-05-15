@@ -7,7 +7,6 @@
 *.htm
 *.eqn
 *.pin
-*.sof
 *.pof
 *.summary
 *.done
@@ -18,3 +17,4 @@
 DE1_SoC_demo/RTL/vhdl/.library_mapping.xml
 DE1_SoC_demo/RTL/vhdl/.project
 DE1_SoC_demo/RTL/vhdl/.settings/org.eclipse.core.resources.prefs
+DE1_SoC_demo/RTL/quartus/greybox_tmp/cbx_args.txt

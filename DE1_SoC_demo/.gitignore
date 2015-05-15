@@ -7,7 +7,6 @@
 *.htm
 *.eqn
 *.pin
-*.sof
 *.pof
 *.summary
 *.done
@@ -23,6 +22,7 @@ incremental_db/
 .qsys_edit/
 C/nios2eds/DE1_SoC_demo_bsp
 C/nios2eds/DE1_SoC_demo_nios
+C/nios2eds/DE1_SoC_demo
 
 RTL/quartus/c5_pin_model_dump.txt
 RTL/quartus/hps_sdram_p0_summary.csv

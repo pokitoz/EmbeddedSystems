@@ -24,7 +24,7 @@ entity vga_controller is
         -- FIFO Signals
         fifo_empty         : in  std_logic;
         fifo_read          : out std_logic;
-        fifo_data          : in  std_logic_vector(15 downto 0);
+        fifo_data          : in  std_logic_vector(7 downto 0);
 
         -- Output to VGA DAC
         vga_r              : out std_logic_vector(7 downto 0);
@@ -57,9 +57,9 @@ begin
             vga_b <= X"00";
         elsif rising_edge(pixel_clk) then
             if (enable = '1' and fifo_empty = '0') then
-                vga_r <= fifo_data(14 downto 10) & "000";
-                vga_g <= fifo_data(9 downto 5) & "000";
-                vga_b <= fifo_data(4 downto 0) & "000";
+                vga_r <= fifo_data(7 downto 5) & "00000";
+                vga_g <= fifo_data(4 downto 2) & "00000";
+                vga_b <= fifo_data(1 downto 0) & "000000";
             else
                 vga_r <= X"00";
                 vga_g <= X"00";

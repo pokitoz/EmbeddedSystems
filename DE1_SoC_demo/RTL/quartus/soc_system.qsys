@@ -17,6 +17,22 @@
          type = "String";
       }
    }
+   element Controller_nes_pio
+   {
+      datum _sortIndex
+      {
+         value = "17";
+         type = "int";
+      }
+   }
+   element Controller_nes_pio.s1
+   {
+      datum baseAddress
+      {
+         value = "67145728";
+         type = "String";
+      }
+   }
    element buttons_0
    {
       datum _sortIndex
@@ -157,7 +173,7 @@
    {
       datum baseAddress
       {
-         value = "67145760";
+         value = "67145792";
          type = "String";
       }
    }
@@ -173,7 +189,7 @@
    {
       datum baseAddress
       {
-         value = "67145744";
+         value = "67145776";
          type = "String";
       }
    }
@@ -250,7 +266,7 @@
    {
       datum baseAddress
       {
-         value = "67145728";
+         value = "67145760";
          type = "String";
       }
    }
@@ -288,6 +304,11 @@
    type="conduit"
    dir="end" />
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
+ <interface
+   name="controller_nes_pio_external_connection"
+   internal="Controller_nes_pio.external_connection"
+   type="conduit"
+   dir="end" />
  <interface
    name="hex_0_external_connection"
    internal="hex_0.external_connection"
@@ -377,6 +398,24 @@
    internal="vga_module_0.vga_vs"
    type="conduit"
    dir="end" />
+ <module
+   name="Controller_nes_pio"
+   kind="altera_avalon_pio"
+   version="14.1"
+   enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="true" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="50000000" />
+  <parameter name="direction" value="InOut" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="8" />
+ </module>
  <module name="buttons_0" kind="altera_avalon_pio" version="14.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
@@ -1053,7 +1092,7 @@
   <parameter name="cpuReset" value="false" />
   <parameter name="customInstSlavesSystemInfo" value="&lt;info/&gt;" />
   <parameter name="dataAddrWidth" value="27" />
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sdram_controller_0.s1' start='0x0' end='0x4000000' /><slave name='onchip_memory2_0.s1' start='0x4004000' end='0x4008000' /><slave name='nios2_qsys_0.jtag_debug_module' start='0x4008800' end='0x4009000' /><slave name='switches_0.s1' start='0x4009000' end='0x4009010' /><slave name='leds_0.s1' start='0x4009010' end='0x4009020' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x4009020' end='0x4009028' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sdram_controller_0.s1' start='0x0' end='0x4000000' /><slave name='onchip_memory2_0.s1' start='0x4004000' end='0x4008000' /><slave name='nios2_qsys_0.jtag_debug_module' start='0x4008800' end='0x4009000' /><slave name='Controller_nes_pio.s1' start='0x4009000' end='0x4009020' /><slave name='switches_0.s1' start='0x4009020' end='0x4009030' /><slave name='leds_0.s1' start='0x4009030' end='0x4009040' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x4009040' end='0x4009048' /></address-map>]]></parameter>
   <parameter name="dcache_bursts" value="false" />
   <parameter name="dcache_lineSize" value="32" />
   <parameter name="dcache_numTCDM" value="0" />
@@ -1462,7 +1501,7 @@
    start="nios2_qsys_0.data_master"
    end="jtag_uart_0.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x04009020" />
+  <parameter name="baseAddress" value="0x04009040" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1489,7 +1528,7 @@
    start="nios2_qsys_0.data_master"
    end="leds_0.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x04009010" />
+  <parameter name="baseAddress" value="0x04009030" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1498,7 +1537,7 @@
    start="nios2_qsys_0.data_master"
    end="switches_0.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x04009000" />
+  <parameter name="baseAddress" value="0x04009020" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1508,6 +1547,15 @@
    end="onchip_memory2_0.s1">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x04004000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="14.1"
+   start="nios2_qsys_0.data_master"
+   end="Controller_nes_pio.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x04009000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1591,6 +1639,11 @@
   <parameter name="baseAddress" value="0x04004000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
+ <connection
+   kind="clock"
+   version="14.1"
+   start="clk_0.clk"
+   end="Controller_nes_pio.clk" />
  <connection kind="clock" version="14.1" start="clk_0.clk" end="pll_0.refclk" />
  <connection
    kind="clock"
@@ -1668,6 +1721,11 @@
    version="14.1"
    start="clk_0.clk_reset"
    end="switches_0.reset" />
+ <connection
+   kind="reset"
+   version="14.1"
+   start="clk_0.clk_reset"
+   end="Controller_nes_pio.reset" />
  <connection
    kind="reset"
    version="14.1"

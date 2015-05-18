@@ -23,7 +23,6 @@ entity vga_module is
         vga_hs         : out std_logic;
 
         -- Avalon 32-bit Master Interface (Read DMA)
-        -- Maximum read burst length is 2^(11-1) = 1024
         am_address     : out std_logic_vector(31 downto 0);
         am_byteenable  : out std_logic_vector(3 downto 0);
         am_read        : out std_logic;

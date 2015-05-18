@@ -84,7 +84,7 @@
 #include "io.h"
 #include "unistd.h"
 
-#define SCREEN_SIZE ((640 * 480) / 4)
+#define SCREEN_SIZE ((640 * 480))
 
 #define LATCH_US (12)
 #define PULSE_US (6)
@@ -128,15 +128,20 @@ void getControllerData(void) {
 	buttons_state = tmp_data;
 }
 
-
 int main(void) {
 	alt_putstr("Hello from Nios II!\n");
 
 	volatile int* ptr = SDRAM_CONTROLLER_0_BASE;
 	int i = 0;
-	for (i = 0; i < SCREEN_SIZE; ++i) {
+	for (i = 0; i < SCREEN_SIZE / 4; ++i) {
 		*ptr++ = 0xFCFCFCFC;
 	}
+
+	char color = 0xE0;
+	char bg_color = 0xEC;
+
+	volatile char* cursor = SDRAM_CONTROLLER_0_BASE;
+	*cursor = color;
 
 	// Direction Offset for the PIO
 	// https://www.altera.com/content/dam/altera-www/global/en_US/pdfs/literature/hb/nios2/n2cpu_nii51007.pdf
@@ -148,10 +153,51 @@ int main(void) {
 
 	/* Event loop never exits. */
 	while (1) {
-		uint8_t buttons_state_prev = buttons_state;
+		usleep(600);
 		getControllerData();
-		if(buttons_state != buttons_state_prev)
-			alt_printf("buttons: %x\n", buttons_state);
+		if (~buttons_state & 0x80 && (long) cursor % 640 != 639) {
+
+			*cursor = bg_color;
+
+			cursor++;
+			*cursor = color;
+		} else if (~buttons_state & 0x40 && (long) cursor % 640 != 0) {
+
+			*cursor = bg_color;
+
+			cursor--;
+			*cursor = color;
+		} else if (~buttons_state & 0x20 && cursor < SCREEN_SIZE - 640) {
+
+			*cursor = bg_color;
+
+			cursor += 640;
+			*cursor = color;
+		} else if (~buttons_state & 0x10 && cursor >= 640) {
+
+			*cursor = bg_color;
+
+			cursor -= 640;
+			*cursor = color;
+		}
+
+		if (~buttons_state & 0x01) {
+			*cursor = bg_color;
+			bg_color += 0x1;
+		}
+
+		if (~buttons_state & 0x04) {
+			usleep(3000);
+		}
+
+		if (~buttons_state & 0x08) {
+			ptr = SDRAM_CONTROLLER_0_BASE;
+			int i = 0;
+			for (i = 0; i < SCREEN_SIZE / 4; ++i) {
+				*ptr++ = 0xFCFCFCFC;
+			}
+		}
+
 	}
 
 	return 0;

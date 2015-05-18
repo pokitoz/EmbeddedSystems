@@ -80,7 +80,10 @@ entity DE1_SoC_top_level is
         VGA_HS           : out   std_logic;
         VGA_R            : out   std_logic_vector(7 downto 0);
         VGA_SYNC_N       : out   std_logic;
-        VGA_VS           : out   std_logic
+        VGA_VS           : out   std_logic;
+		  
+		  -- NES GPIOs
+		  GPIO_0				: inout std_logic_vector(35 downto 0)
     );
 end entity DE1_SoC_top_level;
 
@@ -133,7 +136,9 @@ architecture rtl of DE1_SoC_top_level is
 				vga_module_0_vga_hs_export            : out   std_logic;                                        -- export
 				vga_module_0_vga_r_export             : out   std_logic_vector(7 downto 0);                     -- export
 				vga_module_0_vga_sync_n_export        : out   std_logic;                                        -- export
-				vga_module_0_vga_vs_export            : out   std_logic                                         -- export
+				vga_module_0_vga_vs_export            : out   std_logic;                                        -- export
+				controller_nes_pio_external_connection_in_port  : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- in_port
+				controller_nes_pio_external_connection_out_port : out   std_logic_vector(7 downto 0)                      -- out_port
         );
     end component soc_system;
 
@@ -186,6 +191,11 @@ begin
 					  vga_module_0_vga_vs_export				 => VGA_VS,
 					  vga_module_0_vga_clk_export				 => VGA_CLK,
 					  vga_module_0_vga_blank_n_export		 => VGA_BLANK_N,
-					  vga_module_0_vga_sync_n_export			 => VGA_SYNC_N
+					  vga_module_0_vga_sync_n_export			 => VGA_SYNC_N,
+					  controller_nes_pio_external_connection_in_port(0) => GPIO_0(33),
+					  controller_nes_pio_external_connection_out_port(0) => GPIO_0(34),
+					  controller_nes_pio_external_connection_out_port(1) => GPIO_0(35),
+					  controller_nes_pio_external_connection_in_port(7 downto 1) => (7 downto 1 => '0'),
+					  controller_nes_pio_external_connection_out_port(7 downto 2) => open
         );
 end;

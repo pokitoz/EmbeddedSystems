@@ -412,7 +412,7 @@
   <parameter name="generateIRQ" value="false" />
   <parameter name="irqType" value="LEVEL" />
   <parameter name="resetValue" value="0" />
-  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDoTestBenchWiring" value="true" />
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="8" />
  </module>
@@ -1639,11 +1639,6 @@
   <parameter name="baseAddress" value="0x04004000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
- <connection
-   kind="clock"
-   version="14.1"
-   start="clk_0.clk"
-   end="Controller_nes_pio.clk" />
  <connection kind="clock" version="14.1" start="clk_0.clk" end="pll_0.refclk" />
  <connection
    kind="clock"
@@ -1668,6 +1663,11 @@
  <connection kind="clock" version="14.1" start="pll_0.outclk0" end="hex_3.clk" />
  <connection kind="clock" version="14.1" start="pll_0.outclk0" end="hex_4.clk" />
  <connection kind="clock" version="14.1" start="pll_0.outclk0" end="hex_5.clk" />
+ <connection
+   kind="clock"
+   version="14.1"
+   start="pll_0.outclk0"
+   end="Controller_nes_pio.clk" />
  <connection
    kind="clock"
    version="14.1"
@@ -1777,6 +1777,11 @@
    version="14.1"
    start="nios2_qsys_0.jtag_debug_module_reset"
    end="leds_0.reset" />
+ <connection
+   kind="reset"
+   version="14.1"
+   start="nios2_qsys_0.jtag_debug_module_reset"
+   end="Controller_nes_pio.reset" />
  <connection
    kind="reset"
    version="14.1"

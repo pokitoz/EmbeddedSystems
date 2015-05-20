@@ -28,7 +28,14 @@ entity vga_module is
         am_byteenable  : out std_logic_vector(3 downto 0);
         am_read        : out std_logic;
         am_readdata    : in  std_logic_vector(31 downto 0);
-        am_waitrequest : in  std_logic
+        am_waitrequest : in  std_logic;
+        
+        -- Avalon 32-bit Slave Interface
+		as_address       : in  std_logic_vector(1 downto 0);
+		as_read          : in  std_logic;
+		
+		-- Vsync Interrupt
+		vsync_irq        : out std_logic
     );
 end entity vga_module;
 
@@ -36,6 +43,7 @@ architecture structural of vga_module is
     component vga_dma
         port(clk                : in  std_logic;
              rst_n              : in  std_logic;
+             dma_flip_buffers   : in std_logic;
              dma_start_fetching : in  std_logic;
              fifo_clr           : out std_logic;
              fifo_data          : out std_logic_vector(31 downto 0);
@@ -85,11 +93,25 @@ architecture structural of vga_module is
     signal fifo_read          : STD_LOGIC;
     signal fifo_readdata      : STD_LOGIC_VECTOR(7 DOWNTO 0);
     signal fifo_empty         : STD_LOGIC;
+    
+    component vga_slave
+    	port(clk              : in  std_logic;
+    		 rst_n            : in  std_logic;
+    		 vsync_irq        : out std_logic;
+    		 vga_vsync        : in  std_logic;
+    		 dma_flip_buffers : out std_logic;
+    		 as_address       : in  std_logic_vector(1 downto 0);
+    		 as_read          : in  std_logic);
+    end component vga_slave;
+    
+    signal dma_flip_buffers : std_logic;
+    signal vga_vsync : std_logic;
 
 begin
     vga_dma_inst : component vga_dma
         port map(clk                => clk,
                  rst_n              => rst_n,
+                 dma_flip_buffers   => dma_flip_buffers,
                  dma_start_fetching => dma_start_fetching,
                  fifo_clr           => fifo_clr,
                  fifo_data          => fifo_writedata,
@@ -116,7 +138,7 @@ begin
         port map(pixel_clk          => pixel_clk,
                  rst_n              => rst_n,
                  dma_start_fetching => dma_start_fetching,
-                 vsync              => open,
+                 vsync              => vga_vsync,
                  fifo_empty         => fifo_empty,
                  fifo_read          => fifo_read,
                  fifo_data          => fifo_readdata,
@@ -128,6 +150,17 @@ begin
                  vga_blank_n        => vga_blank_n,
                  vga_vs             => vga_vs,
                  vga_hs             => vga_hs);
+                 
+    vga_slave_inst : component vga_slave
+    	port map(
+    		clk              => clk,
+    		rst_n            => rst_n,
+    		vsync_irq        => vsync_irq,
+    		vga_vsync        => vga_vsync,
+    		dma_flip_buffers => dma_flip_buffers,
+    		as_address       => as_address,
+    		as_read          => as_read
+    	);
 
 end architecture structural;
 

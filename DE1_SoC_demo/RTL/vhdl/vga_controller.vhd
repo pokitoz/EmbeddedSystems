@@ -9,12 +9,6 @@ entity vga_controller is
         pixel_clk          : in  std_logic;
         rst_n              : in  std_logic;
 
-        -- Start drawing frames
-        --		start              : in  std_logic;
-
-        -- Stop and reset the controller to the default state
-        --		stop               : in  std_logic;
-
         -- Tell DMA to start prefetching
         dma_start_fetching : out std_logic;
 
@@ -137,10 +131,15 @@ begin
             if (493 <= v_pos and v_pos <= 494) then
                 vga_vs             <= '0';
                 vsync              <= '1';
-                dma_start_fetching <= '1';
             else
                 vga_vs             <= '1';
                 vsync              <= '0';
+            end if;
+            
+            -- Start DMA Fetching
+            if (500 <= v_pos and v_pos <= 501) then
+                dma_start_fetching <= '1';
+            else
                 dma_start_fetching <= '0';
             end if;
 

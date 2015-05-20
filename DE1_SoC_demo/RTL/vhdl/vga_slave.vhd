@@ -22,6 +22,7 @@ entity vga_slave is
 
 		-- Avalon 32-bit Slave Interface
 		as_address       : in  std_logic_vector(1 downto 0);
+		as_readdata		  : out std_logic_vector(31 downto 0);
 		as_read          : in  std_logic
 	);
 end entity vga_slave;

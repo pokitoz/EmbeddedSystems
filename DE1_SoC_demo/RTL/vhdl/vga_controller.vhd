@@ -130,17 +130,17 @@ begin
             ------ Generate VSYNC
             if (493 <= v_pos and v_pos <= 494) then
                 vga_vs             <= '0';
-                vsync              <= '1';
+					 dma_start_fetching <= '1';
             else
                 vga_vs             <= '1';
-                vsync              <= '0';
+					 dma_start_fetching <= '0';
             end if;
             
             -- Start DMA Fetching
-            if (500 <= v_pos and v_pos <= 501) then
-                dma_start_fetching <= '1';
+            if (481 <= v_pos and v_pos <= 482) then
+                vsync              <= '1';
             else
-                dma_start_fetching <= '0';
+                vsync              <= '0';
             end if;
 
         end if;

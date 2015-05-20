@@ -92,7 +92,7 @@ begin
 			fifo_data_reg <= fifo_data_next;
 
 			if (dma_flip_buffers = '1') then
-				if (buffer_base_reg = X"00000000") then
+				if (buffer_base_reg = 0) then
 					buffer_base_reg <= 307200; -- 640x480
 				else
 					buffer_base_reg <= 0;

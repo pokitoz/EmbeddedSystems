@@ -57,7 +57,7 @@ begin
 				end if;
 			when READ_REQUEST =>
 				if (fifo_full = '0') then
-					am_address     <= std_logic_vector(to_unsigned(buffer_base_reg + counter_reg, 32))(29 downto 0) & "00";
+					am_address     <= std_logic_vector(to_unsigned(buffer_base_reg + 4*counter_reg, 32));
 					am_read        <= '1';
 					fifo_data_next <= am_readdata;
 
@@ -85,7 +85,7 @@ begin
 			state_reg       <= IDLE;
 			counter_reg     <= 0;
 			fifo_data_reg   <= (others => '0');
-			buffer_base_reg <= 0;
+			buffer_base_reg <= 307200;
 		elsif rising_edge(clk) then
 			state_reg     <= state_next;
 			counter_reg   <= counter_next;

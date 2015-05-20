@@ -120,7 +120,7 @@ begin
                 end if;
             end if;
 
-            ---- Generate HSYNC
+            ------ Generate HSYNC
             IF (659 <= h_pos and h_pos <= 755) then
                 vga_hs <= '0';
             else
@@ -136,7 +136,7 @@ begin
 					 dma_start_fetching <= '0';
             end if;
             
-            -- Start DMA Fetching
+            ------ VSYNC irq
             if (481 <= v_pos and v_pos <= 482) then
                 vsync              <= '1';
             else

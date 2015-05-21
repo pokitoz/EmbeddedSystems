@@ -50,7 +50,7 @@ begin
             vga_g <= X"00";
             vga_b <= X"00";
         elsif rising_edge(pixel_clk) then
-            if (enable = '1' and fifo_empty = '0') then
+            if (enable = '1') then
                 vga_r <= fifo_data(7 downto 5) & "00000";
                 vga_g <= fifo_data(4 downto 2) & "00000";
                 vga_b <= fifo_data(1 downto 0) & "000000";

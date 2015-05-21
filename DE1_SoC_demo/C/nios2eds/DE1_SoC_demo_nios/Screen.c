@@ -9,7 +9,7 @@ void Screen_Clear(Color bg_color) {
 	volatile uint32_t* ptr = screen;
 	int i = 0;
 	for (i = 0; i < SCREEN_SIZE/4; ++i) {
-		*ptr++ = (BLACK << 24) | (BLACK << 16) | (BLACK << 8) | BLACK;
+		*ptr++ = (BLUE << 24) | (RED << 16) | (YELLOW << 8) | 0xFF;
 	}
 }
 

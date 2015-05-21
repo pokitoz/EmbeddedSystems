@@ -22,8 +22,8 @@ entity vga_slave is
 
 		-- Avalon 32-bit Slave Interface
 		as_address       : in  std_logic_vector(1 downto 0);
-		as_readdata		  : out std_logic_vector(31 downto 0);
-		as_read          : in  std_logic
+		as_writedata	  : in std_logic_vector(31 downto 0);
+		as_write         : in  std_logic
 	);
 end entity vga_slave;
 
@@ -39,7 +39,7 @@ begin
 		elsif rising_edge(clk) then
 			clear_vsync_irq <= '0';
 			dma_flip_buffers <= '0';
-			if (as_read = '1') then
+			if (as_write = '1') then
 				case as_address is
 					-- Reading framebuffer address
 					when "00" =>

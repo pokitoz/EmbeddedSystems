@@ -16,5 +16,6 @@ typedef uint8_t Color;
 void Screen_Clear(Color bg_color);
 void Screen_DrawSquare(int x, int y, int w, Color color);
 void Setup_irq_vsync(void (*irq_function)(void*));
+void Screen_FlipBuffer(void);
 
 #endif

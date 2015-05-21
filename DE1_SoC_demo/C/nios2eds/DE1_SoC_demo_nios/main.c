@@ -5,10 +5,11 @@
 #include "unistd.h"
 #include "NES_Controller.h"
 #include "Screen.h"
+#include "stdbool.h"
 
 static NES_Controller controller;
-static char color = BLACK;
-static char bg_color = RED;
+static char color = YELLOW;
+static char bg_color = BLACK;
 
 typedef struct {
 	int x;
@@ -51,10 +52,29 @@ void render(void) {
 	Screen_DrawSquare(player.x, player.y, player.w, player.color);
 }
 
+static volatile bool vsync_done = false;
+static volatile bool update_done = false;
+
+static volatile uint32_t frame_count = 0;
 
 void handle_vga_vsync(void* context) {
-	IORD_32DIRECT(VGA_MODULE_0_BASE, 4);
-	alt_printf("irq\n");
+
+	if(frame_count % 4 == 3) {
+		// Flip buffers
+		IOWR_32DIRECT(VGA_MODULE_0_BASE, 0, 1);
+		Screen_FlipBuffer();
+
+		if(!update_done) {
+			alt_putchar('n');
+		}
+
+		vsync_done = true;
+	}
+
+	frame_count++;
+
+	// Clear irq
+	IOWR_32DIRECT(VGA_MODULE_0_BASE, 4, 1);
 }
 
 int main(void) {
@@ -62,25 +82,26 @@ int main(void) {
 
 	controller.pio_base = CONTROLLER_NES_PIO_BASE;
 
-	player.x = 100;
-	player.y = 100;
-	player.w = 20;
-	player.color = RED;
+	player.x = 0;
+	player.y = 10;
+	player.w = 2;
+	player.color = 0x3;
 
 	Screen_Clear(bg_color);
-
-	IORD_32DIRECT(VGA_MODULE_0_BASE, 0);
-
-	alt_printf("START\n");
+	Screen_FlipBuffer();
+	Screen_Clear(bg_color);
+	Screen_FlipBuffer();
 
 	Setup_irq_vsync(handle_vga_vsync);
 
 	/* Event loop never exits. */
 	while (1) {
-		usleep(1000);
-		tick();
-		//render();
-		printf("main\n");
+		//tick();
+		render();
+		update_done = true;
+		while(!vsync_done);
+		update_done = false;
+		vsync_done = false;
 	}
 
 	return 0;

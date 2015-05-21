@@ -9,41 +9,41 @@ void Screen_Clear(Color bg_color) {
 	volatile uint32_t* ptr = screen;
 	int i = 0;
 	for (i = 0; i < SCREEN_SIZE/4; ++i) {
-		*ptr++ = (bg_color << 24) | (bg_color << 16) | (bg_color << 8) | bg_color;
+		*ptr++ = (BLACK << 24) | (BLACK << 16) | (BLACK << 8) | BLACK;
 	}
 }
 
 void Screen_DrawSquare(int x, int y, int w, Color color) {
-	volatile char* ptr = (char*) screen;
-	int i = 0, j = 0;
+//	volatile char* ptr = (char*) screen;
+//	int i = 0, j = 0;
+//
+//	for (i = 0; i < 640; ++i) {
+//		*ptr++ = color;
+//	}
+//
+//	ptr++;
+//
+//	for(i = 0; i < 479; i++) {
+//		*ptr = color;
+//		ptr += 639;
+//		*ptr = color;
+//		ptr++;
+//	}
+//
+//	for (i = 0; i < 640; ++i) {
+//			*ptr++ = color;
+//	}
 
-	for (i = 0; i < 640; ++i) {
-		*ptr++ = color;
-	}
-
-	ptr++;
-
-	for(i = 0; i < 479; i++) {
-		*ptr = color;
-		ptr += 639;
-		*ptr = color;
-		ptr++;
-	}
-
-	for (i = 0; i < 640; ++i) {
-			*ptr++ = color;
-	}
-
-	/*volatile char* ptr = (char*)screen + x + y * (640);
+	volatile char* ptr = (char*)screen + x + y * (640);
 	int i = 0;
 	int j = 0;
 	for (j = 0; j < w; ++j) {
-		ptr += 640 - w;
 		for (i = 0; i < w; ++i) {
 			*ptr = color;
 			ptr++;
 		}
-	}*/
+		ptr += 640 - w;
+	}
 }
 
 void Setup_irq_vsync(void (*irq_function)(void*) ) {

@@ -76,7 +76,7 @@ begin
 					end if;
 				end if;
 				
-				if(v_pos = 524 and h_pos = 799) then
+				if(v_pos = 524 and h_pos >= 798) then
 					fifo_read <= '1';
 				end if;
         end if;
@@ -145,7 +145,7 @@ begin
 
         end if;
     end process;
-    enable      <= '1' when (videoh = '1' and videov = '1') else '0';
+    enable      <= '1' when ((videoh = '1' and videov = '1') or (h_pos=799 and v_pos=524)) else '0';
     vga_clk     <= pixel_clk;
     vga_blank_n <= '1';
     vga_sync_n  <= '1';

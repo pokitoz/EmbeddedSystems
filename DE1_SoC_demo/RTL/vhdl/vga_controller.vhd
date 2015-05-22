@@ -50,7 +50,7 @@ begin
             vga_g <= X"00";
             vga_b <= X"00";
         elsif rising_edge(pixel_clk) then
-            if (enable = '1' and fifo_empty = '0') then
+            if (enable = '1') then
                 vga_r <= fifo_data(7 downto 5) & "00000";
                 vga_g <= fifo_data(4 downto 2) & "00000";
                 vga_b <= fifo_data(1 downto 0) & "000000";
@@ -76,7 +76,7 @@ begin
 					end if;
 				end if;
 				
-				if(v_pos = 524 and h_pos = 799) then
+				if(v_pos = 524 and h_pos >= 798) then
 					fifo_read <= '1';
 				end if;
         end if;
@@ -120,7 +120,7 @@ begin
                 end if;
             end if;
 
-            ---- Generate HSYNC
+            ------ Generate HSYNC
             IF (659 <= h_pos and h_pos <= 755) then
                 vga_hs <= '0';
             else
@@ -130,22 +130,22 @@ begin
             ------ Generate VSYNC
             if (493 <= v_pos and v_pos <= 494) then
                 vga_vs             <= '0';
-                vsync              <= '1';
+					 dma_start_fetching <= '1';
             else
                 vga_vs             <= '1';
-                vsync              <= '0';
+					 dma_start_fetching <= '0';
             end if;
             
-            -- Start DMA Fetching
-            if (500 <= v_pos and v_pos <= 501) then
-                dma_start_fetching <= '1';
+            ------ VSYNC irq
+            if (481 <= v_pos and v_pos <= 482) then
+                vsync              <= '1';
             else
-                dma_start_fetching <= '0';
+                vsync              <= '0';
             end if;
 
         end if;
     end process;
-    enable      <= '1' when (videoh = '1' and videov = '1') else '0';
+    enable      <= '1' when ((videoh = '1' and videov = '1') or (h_pos=799 and v_pos=524)) else '0';
     vga_clk     <= pixel_clk;
     vga_blank_n <= '1';
     vga_sync_n  <= '1';

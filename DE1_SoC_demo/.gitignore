@@ -14,13 +14,12 @@
 *.qws
 *.jdi
 *db
-*.sopcinfo
 *.tcl~
 output_files/
 db/
 incremental_db/
 .qsys_edit/
-C/nios2eds/DE1_SoC_demo_bsp
+C/nios2eds/DE1_SoC_demo_nios_bsp
 C/nios2eds/DE1_SoC_demo_nios
 C/nios2eds/DE1_SoC_demo
 

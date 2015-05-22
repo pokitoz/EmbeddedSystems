@@ -21,7 +21,7 @@
    {
       datum _sortIndex
       {
-         value = "17";
+         value = "16";
          type = "int";
       }
    }
@@ -173,7 +173,7 @@
    {
       datum baseAddress
       {
-         value = "67145792";
+         value = "67145808";
          type = "String";
       }
    }
@@ -189,7 +189,7 @@
    {
       datum baseAddress
       {
-         value = "67145776";
+         value = "67145792";
          type = "String";
       }
    }
@@ -266,7 +266,7 @@
    {
       datum baseAddress
       {
-         value = "67145760";
+         value = "67145776";
          type = "String";
       }
    }
@@ -274,8 +274,16 @@
    {
       datum _sortIndex
       {
-         value = "16";
+         value = "17";
          type = "int";
+      }
+   }
+   element vga_module_0.avalon_slave
+   {
+      datum baseAddress
+      {
+         value = "67145760";
+         type = "String";
       }
    }
 }
@@ -406,7 +414,7 @@
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="true" />
   <parameter name="captureEdge" value="false" />
-  <parameter name="clockRate" value="50000000" />
+  <parameter name="clockRate" value="100000000" />
   <parameter name="direction" value="InOut" />
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
@@ -420,7 +428,7 @@
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
-  <parameter name="clockRate" value="50000000" />
+  <parameter name="clockRate" value="100000000" />
   <parameter name="direction" value="Input" />
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
@@ -440,7 +448,7 @@
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
-  <parameter name="clockRate" value="50000000" />
+  <parameter name="clockRate" value="100000000" />
   <parameter name="direction" value="Output" />
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
@@ -454,7 +462,7 @@
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
-  <parameter name="clockRate" value="50000000" />
+  <parameter name="clockRate" value="100000000" />
   <parameter name="direction" value="Output" />
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
@@ -468,7 +476,7 @@
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
-  <parameter name="clockRate" value="50000000" />
+  <parameter name="clockRate" value="100000000" />
   <parameter name="direction" value="Output" />
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
@@ -482,7 +490,7 @@
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
-  <parameter name="clockRate" value="50000000" />
+  <parameter name="clockRate" value="100000000" />
   <parameter name="direction" value="Output" />
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
@@ -496,7 +504,7 @@
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
-  <parameter name="clockRate" value="50000000" />
+  <parameter name="clockRate" value="100000000" />
   <parameter name="direction" value="Output" />
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
@@ -510,7 +518,7 @@
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
-  <parameter name="clockRate" value="50000000" />
+  <parameter name="clockRate" value="100000000" />
   <parameter name="direction" value="Output" />
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
@@ -672,7 +680,7 @@
   <parameter name="H2F_AXI_CLOCK_FREQ" value="100" />
   <parameter name="H2F_CTI_CLOCK_FREQ" value="100" />
   <parameter name="H2F_DEBUG_APB_CLOCK_FREQ" value="100" />
-  <parameter name="H2F_LW_AXI_CLOCK_FREQ" value="50000000" />
+  <parameter name="H2F_LW_AXI_CLOCK_FREQ" value="100000000" />
   <parameter name="H2F_TPIU_CLOCK_IN_FREQ" value="100" />
   <parameter name="HARD_EMIF" value="true" />
   <parameter name="HCX_COMPAT_MODE" value="false" />
@@ -1052,7 +1060,7 @@
    enabled="1">
   <parameter name="allowMultipleConnections" value="false" />
   <parameter name="avalonSpec" value="2.0" />
-  <parameter name="clkFreq" value="50000000" />
+  <parameter name="clkFreq" value="100000000" />
   <parameter name="hubInstanceID" value="0" />
   <parameter name="readBufferDepth" value="64" />
   <parameter name="readIRQThreshold" value="8" />
@@ -1068,7 +1076,7 @@
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
-  <parameter name="clockRate" value="50000000" />
+  <parameter name="clockRate" value="100000000" />
   <parameter name="direction" value="Output" />
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
@@ -1086,13 +1094,13 @@
   <parameter name="bht_ramBlockType" value="Automatic" />
   <parameter name="breakOffset" value="32" />
   <parameter name="breakSlave">nios2_qsys_0.jtag_debug_module</parameter>
-  <parameter name="clockFrequency" value="50000000" />
+  <parameter name="clockFrequency" value="100000000" />
   <parameter name="cpuID" value="0" />
   <parameter name="cpuID_stored" value="0" />
   <parameter name="cpuReset" value="false" />
   <parameter name="customInstSlavesSystemInfo" value="&lt;info/&gt;" />
   <parameter name="dataAddrWidth" value="27" />
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sdram_controller_0.s1' start='0x0' end='0x4000000' /><slave name='onchip_memory2_0.s1' start='0x4004000' end='0x4008000' /><slave name='nios2_qsys_0.jtag_debug_module' start='0x4008800' end='0x4009000' /><slave name='Controller_nes_pio.s1' start='0x4009000' end='0x4009020' /><slave name='switches_0.s1' start='0x4009020' end='0x4009030' /><slave name='leds_0.s1' start='0x4009030' end='0x4009040' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x4009040' end='0x4009048' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sdram_controller_0.s1' start='0x0' end='0x4000000' /><slave name='onchip_memory2_0.s1' start='0x4004000' end='0x4008000' /><slave name='nios2_qsys_0.jtag_debug_module' start='0x4008800' end='0x4009000' /><slave name='Controller_nes_pio.s1' start='0x4009000' end='0x4009020' /><slave name='vga_module_0.avalon_slave' start='0x4009020' end='0x4009030' /><slave name='switches_0.s1' start='0x4009030' end='0x4009040' /><slave name='leds_0.s1' start='0x4009040' end='0x4009050' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x4009050' end='0x4009058' /></address-map>]]></parameter>
   <parameter name="dcache_bursts" value="false" />
   <parameter name="dcache_lineSize" value="32" />
   <parameter name="dcache_numTCDM" value="0" />
@@ -1120,7 +1128,7 @@
   <parameter name="impl" value="Tiny" />
   <parameter name="instAddrWidth" value="27" />
   <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='onchip_memory2_0.s1' start='0x4004000' end='0x4008000' /><slave name='nios2_qsys_0.jtag_debug_module' start='0x4008800' end='0x4009000' /></address-map>]]></parameter>
-  <parameter name="internalIrqMaskSystemInfo" value="1" />
+  <parameter name="internalIrqMaskSystemInfo" value="3" />
   <parameter name="manuallyAssignCpuID" value="true" />
   <parameter name="mmu_TLBMissExcOffset" value="0" />
   <parameter name="mmu_TLBMissExcSlave" value="None" />
@@ -1358,7 +1366,7 @@
   <parameter name="gui_multiply_factor" value="1" />
   <parameter name="gui_number_of_clocks" value="4" />
   <parameter name="gui_operation_mode" value="normal" />
-  <parameter name="gui_output_clock_frequency0" value="50.0" />
+  <parameter name="gui_output_clock_frequency0" value="100.0" />
   <parameter name="gui_output_clock_frequency1" value="100.0" />
   <parameter name="gui_output_clock_frequency10" value="100.0" />
   <parameter name="gui_output_clock_frequency11" value="100.0" />
@@ -1475,7 +1483,7 @@
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
-  <parameter name="clockRate" value="50000000" />
+  <parameter name="clockRate" value="100000000" />
   <parameter name="direction" value="Input" />
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
@@ -1485,7 +1493,7 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="10" />
  </module>
- <module name="vga_module_0" kind="vga_module" version="2.8" enabled="1" />
+ <module name="vga_module_0" kind="vga_module" version="3.97" enabled="1" />
  <connection
    kind="avalon"
    version="14.1"
@@ -1501,7 +1509,16 @@
    start="nios2_qsys_0.data_master"
    end="jtag_uart_0.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x04009040" />
+  <parameter name="baseAddress" value="0x04009050" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="14.1"
+   start="nios2_qsys_0.data_master"
+   end="vga_module_0.avalon_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x04009020" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1528,7 +1545,7 @@
    start="nios2_qsys_0.data_master"
    end="leds_0.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x04009030" />
+  <parameter name="baseAddress" value="0x04009040" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1537,7 +1554,7 @@
    start="nios2_qsys_0.data_master"
    end="switches_0.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x04009020" />
+  <parameter name="baseAddress" value="0x04009030" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1697,8 +1714,15 @@
    kind="interrupt"
    version="14.1"
    start="nios2_qsys_0.d_irq"
-   end="jtag_uart_0.irq">
+   end="vga_module_0.interrupt_sender">
   <parameter name="irqNumber" value="0" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="14.1"
+   start="nios2_qsys_0.d_irq"
+   end="jtag_uart_0.irq">
+  <parameter name="irqNumber" value="1" />
  </connection>
  <connection kind="reset" version="14.1" start="clk_0.clk_reset" end="pll_0.reset" />
  <connection

@@ -31,7 +31,8 @@ entity vga_module is
         
         -- Avalon 32-bit Slave Interface
 		as_address       : in  std_logic_vector(1 downto 0);
-		as_read          : in  std_logic;
+		as_writedata	  : in std_logic_vector(31 downto 0);
+		as_write         : in  std_logic;
 		
 		-- Vsync Interrupt
 		vsync_irq        : out std_logic
@@ -94,13 +95,14 @@ architecture structural of vga_module is
     signal fifo_empty         : STD_LOGIC;
     
     component vga_slave
-    	port(clk              : in  std_logic;
+    	port(clk             : in  std_logic;
     		 rst_n            : in  std_logic;
     		 vsync_irq        : out std_logic;
     		 vga_vsync        : in  std_logic;
     		 dma_flip_buffers : out std_logic;
     		 as_address       : in  std_logic_vector(1 downto 0);
-    		 as_read          : in  std_logic);
+			 as_writedata		: in std_logic_vector(31 downto 0);
+    		 as_write         : in  std_logic);
     end component vga_slave;
     
     signal dma_flip_buffers : std_logic;
@@ -158,7 +160,8 @@ begin
     		vga_vsync        => vga_vsync,
     		dma_flip_buffers => dma_flip_buffers,
     		as_address       => as_address,
-    		as_read          => as_read
+			as_writedata	  => as_writedata,
+    		as_write         => as_write
     	);
 
 end architecture structural;

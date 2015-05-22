@@ -8,7 +8,7 @@
 #include "stdbool.h"
 
 static NES_Controller controller;
-static char bg_color = BLACK;
+static char bg_color = RED;
 
 typedef struct {
 	int x;
@@ -47,10 +47,10 @@ void tick(void) {
 }
 
 void render(void) {
-	Screen_Clear(bg_color);
-	Screen_DrawBorders(0xFF);
+	//Screen_Clear(bg_color);
+	//Screen_DrawBorders(0xFF);
 
-	Screen_DrawSquare(player.x, player.y, 20, 0xFF);
+	//Screen_DrawSquare(player.x, player.y, 20, 0xFF);
 }
 
 static volatile bool vsync_done = false;

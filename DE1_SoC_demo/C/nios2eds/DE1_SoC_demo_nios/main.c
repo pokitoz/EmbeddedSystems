@@ -8,8 +8,7 @@
 #include "stdbool.h"
 
 static NES_Controller controller;
-static char color = YELLOW;
-static char bg_color = YELLOW;
+static char bg_color = BLACK;
 
 typedef struct {
 	int x;
@@ -49,10 +48,7 @@ void tick(void) {
 
 void render(void) {
 	Screen_Clear(bg_color);
-	Screen_DrawSquare(0, 0, player.w, player.color);
-	Screen_DrawSquare(0, 479, player.w, player.color);
-	Screen_DrawSquare(639, 0, player.w, player.color);
-	Screen_DrawSquare(639, 479, player.w, player.color);
+	Screen_DrawBorders(0xFF);
 
 	Screen_DrawSquare(player.x, player.y, 20, 0xFF);
 }

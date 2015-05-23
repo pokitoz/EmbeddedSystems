@@ -30,3 +30,5 @@ RTL/quartus/PLLJ_PLLSPE_INFO.txt
 RTL/quartus/soc_system
 RTL/quartus/simulation
 RTL/quartus/hps_isw_handoff
+
+C/ds5/preloader

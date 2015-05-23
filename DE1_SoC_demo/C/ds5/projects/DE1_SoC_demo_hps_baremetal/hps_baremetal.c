@@ -13,6 +13,9 @@
 #include "socal/socal.h"
 #include "../hps_soc_system.h"
 
+#include "alt_interrupt.h"
+#include "alt_interrupt_common.h"
+
 #define ALT_HWFPGASLVS_OFST (0xC0000000)
 
 // State variables
@@ -131,10 +134,34 @@ void handle_hex_displays(uint32_t *hex_counter) {
 	set_hex_displays(*hex_counter);
 }
 
+void vsync_irq_handler(uint32_t icciar, void * context) {
+	static volatile uint32_t* vga_module = ALT_LWFPGASLVS_ADDR + VGA_MODULE_0_BASE;
+
+	vga_module[0] = 0;
+
+	// assert irq
+	vga_module[1] = 0;
+}
+
+void setup_vsync_irq_handler(void) {
+	alt_int_global_init();
+	alt_int_cpu_init();
+	alt_int_cpu_enable();
+	alt_int_global_enable();
+
+	alt_int_dist_target_set(ALT_INT_INTERRUPT_F2S_FPGA_IRQ0, alt_int_util_cpu_current());
+	alt_int_dist_trigger_set(ALT_INT_INTERRUPT_F2S_FPGA_IRQ0, ALT_INT_TRIGGER_LEVEL);
+	alt_int_dist_priority_set(ALT_INT_INTERRUPT_F2S_FPGA_IRQ0, 0);
+	alt_int_isr_register(ALT_INT_INTERRUPT_F2S_FPGA_IRQ0, vsync_irq_handler, NULL);
+	alt_int_dist_enable(ALT_INT_INTERRUPT_F2S_FPGA_IRQ0);
+}
+
 int main() {
 	printf("DE1-SoC bare-metal demo\n");
 
 	setup_peripherals();
+
+	setup_vsync_irq_handler();
 
 	volatile uint32_t* screen2 = ALT_HWFPGASLVS_OFST + SDRAM_CONTROLLER_0_BASE
 			+ 640 * 480;
@@ -144,13 +171,6 @@ int main() {
 
 		for (i = 0; i < (640 * 480) / 4; ++i) {
 			*screen2++ = 0xFFFFFFFF;
-		}
-
-		screen2 = ALT_HWFPGASLVS_OFST + SDRAM_CONTROLLER_0_BASE
-					+ 640 * 480;
-
-		for (i = 0; i < (640 * 480) / 4; ++i) {
-			*screen2++ = 0x03030303;
 		}
 
 		screen2 = ALT_HWFPGASLVS_OFST + SDRAM_CONTROLLER_0_BASE

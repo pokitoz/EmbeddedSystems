@@ -10,7 +10,8 @@
 
 /*
  * This file contains macros for module 'hps_0' and devices
- * connected to the following master:
+ * connected to the following masters:
+ *   h2f_axi_master
  *   h2f_lw_axi_master
  * 
  * Do not include this header file and another header file created for a
@@ -20,15 +21,98 @@
  */
 
 /*
+ * Macros for device 'sdram_controller_0', class 'altera_avalon_new_sdram_controller'
+ * The macros are prefixed with 'SDRAM_CONTROLLER_0_'.
+ * The prefix is the slave descriptor.
+ */
+#define SDRAM_CONTROLLER_0_COMPONENT_TYPE altera_avalon_new_sdram_controller
+#define SDRAM_CONTROLLER_0_COMPONENT_NAME sdram_controller_0
+#define SDRAM_CONTROLLER_0_BASE 0x0
+#define SDRAM_CONTROLLER_0_SPAN 67108864
+#define SDRAM_CONTROLLER_0_END 0x3ffffff
+#define SDRAM_CONTROLLER_0_CAS_LATENCY 3
+#define SDRAM_CONTROLLER_0_CONTENTS_INFO 
+#define SDRAM_CONTROLLER_0_INIT_NOP_DELAY 0.0
+#define SDRAM_CONTROLLER_0_INIT_REFRESH_COMMANDS 2
+#define SDRAM_CONTROLLER_0_IS_INITIALIZED 1
+#define SDRAM_CONTROLLER_0_POWERUP_DELAY 100.0
+#define SDRAM_CONTROLLER_0_REFRESH_PERIOD 7.8125
+#define SDRAM_CONTROLLER_0_REGISTER_DATA_IN 1
+#define SDRAM_CONTROLLER_0_SDRAM_ADDR_WIDTH 25
+#define SDRAM_CONTROLLER_0_SDRAM_BANK_WIDTH 2
+#define SDRAM_CONTROLLER_0_SDRAM_COL_WIDTH 10
+#define SDRAM_CONTROLLER_0_SDRAM_DATA_WIDTH 16
+#define SDRAM_CONTROLLER_0_SDRAM_NUM_BANKS 4
+#define SDRAM_CONTROLLER_0_SDRAM_NUM_CHIPSELECTS 1
+#define SDRAM_CONTROLLER_0_SDRAM_ROW_WIDTH 13
+#define SDRAM_CONTROLLER_0_SHARED_DATA 0
+#define SDRAM_CONTROLLER_0_SIM_MODEL_BASE 0
+#define SDRAM_CONTROLLER_0_STARVATION_INDICATOR 0
+#define SDRAM_CONTROLLER_0_TRISTATE_BRIDGE_SLAVE ""
+#define SDRAM_CONTROLLER_0_T_AC 5.4
+#define SDRAM_CONTROLLER_0_T_MRD 3
+#define SDRAM_CONTROLLER_0_T_RCD 15.0
+#define SDRAM_CONTROLLER_0_T_RFC 70.0
+#define SDRAM_CONTROLLER_0_T_RP 15.0
+#define SDRAM_CONTROLLER_0_T_WR 14.0
+#define SDRAM_CONTROLLER_0_MEMORY_INFO_DAT_SYM_INSTALL_DIR SIM_DIR
+#define SDRAM_CONTROLLER_0_MEMORY_INFO_GENERATE_DAT_SYM 1
+#define SDRAM_CONTROLLER_0_MEMORY_INFO_MEM_INIT_DATA_WIDTH 16
+
+/*
+ * Macros for device 'buttons_memory', class 'altera_avalon_onchip_memory2'
+ * The macros are prefixed with 'BUTTONS_MEMORY_'.
+ * The prefix is the slave descriptor.
+ */
+#define BUTTONS_MEMORY_COMPONENT_TYPE altera_avalon_onchip_memory2
+#define BUTTONS_MEMORY_COMPONENT_NAME buttons_memory
+#define BUTTONS_MEMORY_BASE 0x0
+#define BUTTONS_MEMORY_SPAN 4096
+#define BUTTONS_MEMORY_END 0xfff
+#define BUTTONS_MEMORY_ALLOW_IN_SYSTEM_MEMORY_CONTENT_EDITOR 0
+#define BUTTONS_MEMORY_ALLOW_MRAM_SIM_CONTENTS_ONLY_FILE 0
+#define BUTTONS_MEMORY_CONTENTS_INFO ""
+#define BUTTONS_MEMORY_DUAL_PORT 0
+#define BUTTONS_MEMORY_GUI_RAM_BLOCK_TYPE AUTO
+#define BUTTONS_MEMORY_INIT_CONTENTS_FILE soc_system_buttons_memory
+#define BUTTONS_MEMORY_INIT_MEM_CONTENT 1
+#define BUTTONS_MEMORY_INSTANCE_ID NONE
+#define BUTTONS_MEMORY_NON_DEFAULT_INIT_FILE_ENABLED 0
+#define BUTTONS_MEMORY_RAM_BLOCK_TYPE AUTO
+#define BUTTONS_MEMORY_READ_DURING_WRITE_MODE DONT_CARE
+#define BUTTONS_MEMORY_SINGLE_CLOCK_OP 0
+#define BUTTONS_MEMORY_SIZE_MULTIPLE 1
+#define BUTTONS_MEMORY_SIZE_VALUE 4096
+#define BUTTONS_MEMORY_WRITABLE 1
+#define BUTTONS_MEMORY_MEMORY_INFO_DAT_SYM_INSTALL_DIR SIM_DIR
+#define BUTTONS_MEMORY_MEMORY_INFO_GENERATE_DAT_SYM 1
+#define BUTTONS_MEMORY_MEMORY_INFO_GENERATE_HEX 1
+#define BUTTONS_MEMORY_MEMORY_INFO_HAS_BYTE_LANE 0
+#define BUTTONS_MEMORY_MEMORY_INFO_HEX_INSTALL_DIR QPF_DIR
+#define BUTTONS_MEMORY_MEMORY_INFO_MEM_INIT_DATA_WIDTH 32
+#define BUTTONS_MEMORY_MEMORY_INFO_MEM_INIT_FILENAME soc_system_buttons_memory
+
+/*
+ * Macros for device 'vga_module_0', class 'vga_module'
+ * The macros are prefixed with 'VGA_MODULE_0_'.
+ * The prefix is the slave descriptor.
+ */
+#define VGA_MODULE_0_COMPONENT_TYPE vga_module
+#define VGA_MODULE_0_COMPONENT_NAME vga_module_0
+#define VGA_MODULE_0_BASE 0x1000
+#define VGA_MODULE_0_SPAN 16
+#define VGA_MODULE_0_END 0x100f
+
+/*
  * Macros for device 'hex_5', class 'altera_avalon_pio'
  * The macros are prefixed with 'HEX_5_'.
  * The prefix is the slave descriptor.
  */
 #define HEX_5_COMPONENT_TYPE altera_avalon_pio
 #define HEX_5_COMPONENT_NAME hex_5
-#define HEX_5_BASE 0x0
+#define HEX_5_BASE 0x1010
 #define HEX_5_SPAN 16
-#define HEX_5_END 0xf
+#define HEX_5_END 0x101f
 #define HEX_5_BIT_CLEARING_EDGE_REGISTER 0
 #define HEX_5_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define HEX_5_CAPTURE 0
@@ -36,7 +120,7 @@
 #define HEX_5_DO_TEST_BENCH_WIRING 0
 #define HEX_5_DRIVEN_SIM_VALUE 0
 #define HEX_5_EDGE_TYPE NONE
-#define HEX_5_FREQ 50000000
+#define HEX_5_FREQ 100000000
 #define HEX_5_HAS_IN 0
 #define HEX_5_HAS_OUT 1
 #define HEX_5_HAS_TRI 0
@@ -50,9 +134,9 @@
  */
 #define HEX_4_COMPONENT_TYPE altera_avalon_pio
 #define HEX_4_COMPONENT_NAME hex_4
-#define HEX_4_BASE 0x10
+#define HEX_4_BASE 0x1020
 #define HEX_4_SPAN 16
-#define HEX_4_END 0x1f
+#define HEX_4_END 0x102f
 #define HEX_4_BIT_CLEARING_EDGE_REGISTER 0
 #define HEX_4_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define HEX_4_CAPTURE 0
@@ -60,7 +144,7 @@
 #define HEX_4_DO_TEST_BENCH_WIRING 0
 #define HEX_4_DRIVEN_SIM_VALUE 0
 #define HEX_4_EDGE_TYPE NONE
-#define HEX_4_FREQ 50000000
+#define HEX_4_FREQ 100000000
 #define HEX_4_HAS_IN 0
 #define HEX_4_HAS_OUT 1
 #define HEX_4_HAS_TRI 0
@@ -74,9 +158,9 @@
  */
 #define HEX_3_COMPONENT_TYPE altera_avalon_pio
 #define HEX_3_COMPONENT_NAME hex_3
-#define HEX_3_BASE 0x20
+#define HEX_3_BASE 0x1030
 #define HEX_3_SPAN 16
-#define HEX_3_END 0x2f
+#define HEX_3_END 0x103f
 #define HEX_3_BIT_CLEARING_EDGE_REGISTER 0
 #define HEX_3_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define HEX_3_CAPTURE 0
@@ -84,7 +168,7 @@
 #define HEX_3_DO_TEST_BENCH_WIRING 0
 #define HEX_3_DRIVEN_SIM_VALUE 0
 #define HEX_3_EDGE_TYPE NONE
-#define HEX_3_FREQ 50000000
+#define HEX_3_FREQ 100000000
 #define HEX_3_HAS_IN 0
 #define HEX_3_HAS_OUT 1
 #define HEX_3_HAS_TRI 0
@@ -98,9 +182,9 @@
  */
 #define HEX_2_COMPONENT_TYPE altera_avalon_pio
 #define HEX_2_COMPONENT_NAME hex_2
-#define HEX_2_BASE 0x30
+#define HEX_2_BASE 0x1040
 #define HEX_2_SPAN 16
-#define HEX_2_END 0x3f
+#define HEX_2_END 0x104f
 #define HEX_2_BIT_CLEARING_EDGE_REGISTER 0
 #define HEX_2_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define HEX_2_CAPTURE 0
@@ -108,7 +192,7 @@
 #define HEX_2_DO_TEST_BENCH_WIRING 0
 #define HEX_2_DRIVEN_SIM_VALUE 0
 #define HEX_2_EDGE_TYPE NONE
-#define HEX_2_FREQ 50000000
+#define HEX_2_FREQ 100000000
 #define HEX_2_HAS_IN 0
 #define HEX_2_HAS_OUT 1
 #define HEX_2_HAS_TRI 0
@@ -122,9 +206,9 @@
  */
 #define HEX_1_COMPONENT_TYPE altera_avalon_pio
 #define HEX_1_COMPONENT_NAME hex_1
-#define HEX_1_BASE 0x40
+#define HEX_1_BASE 0x1050
 #define HEX_1_SPAN 16
-#define HEX_1_END 0x4f
+#define HEX_1_END 0x105f
 #define HEX_1_BIT_CLEARING_EDGE_REGISTER 0
 #define HEX_1_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define HEX_1_CAPTURE 0
@@ -132,7 +216,7 @@
 #define HEX_1_DO_TEST_BENCH_WIRING 0
 #define HEX_1_DRIVEN_SIM_VALUE 0
 #define HEX_1_EDGE_TYPE NONE
-#define HEX_1_FREQ 50000000
+#define HEX_1_FREQ 100000000
 #define HEX_1_HAS_IN 0
 #define HEX_1_HAS_OUT 1
 #define HEX_1_HAS_TRI 0
@@ -146,9 +230,9 @@
  */
 #define HEX_0_COMPONENT_TYPE altera_avalon_pio
 #define HEX_0_COMPONENT_NAME hex_0
-#define HEX_0_BASE 0x50
+#define HEX_0_BASE 0x1060
 #define HEX_0_SPAN 16
-#define HEX_0_END 0x5f
+#define HEX_0_END 0x106f
 #define HEX_0_BIT_CLEARING_EDGE_REGISTER 0
 #define HEX_0_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define HEX_0_CAPTURE 0
@@ -156,7 +240,7 @@
 #define HEX_0_DO_TEST_BENCH_WIRING 0
 #define HEX_0_DRIVEN_SIM_VALUE 0
 #define HEX_0_EDGE_TYPE NONE
-#define HEX_0_FREQ 50000000
+#define HEX_0_FREQ 100000000
 #define HEX_0_HAS_IN 0
 #define HEX_0_HAS_OUT 1
 #define HEX_0_HAS_TRI 0
@@ -170,9 +254,9 @@
  */
 #define BUTTONS_0_COMPONENT_TYPE altera_avalon_pio
 #define BUTTONS_0_COMPONENT_NAME buttons_0
-#define BUTTONS_0_BASE 0x60
+#define BUTTONS_0_BASE 0x1070
 #define BUTTONS_0_SPAN 16
-#define BUTTONS_0_END 0x6f
+#define BUTTONS_0_END 0x107f
 #define BUTTONS_0_BIT_CLEARING_EDGE_REGISTER 0
 #define BUTTONS_0_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define BUTTONS_0_CAPTURE 0
@@ -180,7 +264,7 @@
 #define BUTTONS_0_DO_TEST_BENCH_WIRING 0
 #define BUTTONS_0_DRIVEN_SIM_VALUE 0
 #define BUTTONS_0_EDGE_TYPE NONE
-#define BUTTONS_0_FREQ 50000000
+#define BUTTONS_0_FREQ 100000000
 #define BUTTONS_0_HAS_IN 1
 #define BUTTONS_0_HAS_OUT 0
 #define BUTTONS_0_HAS_TRI 0

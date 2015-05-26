@@ -16,7 +16,8 @@
 #include "alt_interrupt.h"
 #include "alt_interrupt_common.h"
 
-#define ALT_HWFPGASLVS_OFST (0xC0000000)
+#include "Screen.h"
+#include "NES_Controller.h"
 
 // State variables
 bool hex_increment = true;
@@ -71,7 +72,7 @@ void set_hex_displays(uint32_t value) {
 
 	// get hex string representation of input value on HEX_DISPLAY_COUNT 7-segment displays
 	snprintf(hex_counter_hex_string, HEX_DISPLAY_COUNT + 1, "%0*x",
-			HEX_DISPLAY_COUNT, (unsigned int) value);
+	HEX_DISPLAY_COUNT, (unsigned int) value);
 
 	uint32_t hex_display_index = 0;
 	for (hex_display_index = 0; hex_display_index < HEX_DISPLAY_COUNT;
@@ -92,7 +93,7 @@ void set_hex_displays(uint32_t value) {
 
 void handle_hps_led() {
 	uint32_t hps_gpio_input = alt_gpio_port_data_read(HPS_KEY_PORT,
-			HPS_KEY_MASK);
+	HPS_KEY_MASK);
 
 	// HPS_KEY is active-low
 	bool toggle_hps_led = (~hps_gpio_input & HPS_KEY_MASK);
@@ -112,32 +113,25 @@ bool is_fpga_button_pressed(uint32_t button_number) {
 	return ((~alt_read_word(fpga_buttons)) & (1 << button_number));
 }
 
-void handle_hex_displays(uint32_t *hex_counter) {
-	// FPGA button 0 will invert the counting direction
-	if (is_fpga_button_pressed(0)) {
-		hex_increment = !hex_increment;
-	}
+static volatile bool vsync_done = false;
+static volatile bool update_done = false;
 
-	if (hex_increment) {
-		*hex_counter += 1;
-	} else {
-		*hex_counter -= 1;
-	}
-
-	// FPGA button 1 will reset the counter to 0
-	if (is_fpga_button_pressed(1)) {
-		*hex_counter = 0;
-	}
-
-	// restrict hex_counter to HEX_DISPLAY_COUNT digits
-	*hex_counter &= HEX_COUNTER_MASK;
-	set_hex_displays(*hex_counter);
-}
+static volatile uint32_t frame_count = 0;
+static volatile uint32_t frame_skipped = 0;
 
 void vsync_irq_handler(uint32_t icciar, void * context) {
-	static volatile uint32_t* vga_module = ALT_LWFPGASLVS_ADDR + VGA_MODULE_0_BASE;
 
-	vga_module[0] = 0;
+	if (frame_count % 2 == 1) {
+		// Flip buffers
+		Screen_FlipBuffer();
+
+		if (!update_done) {
+			frame_skipped++;
+		}
+
+		vsync_done = true;
+	}
+	frame_count++;
 
 	// assert irq
 	vga_module[1] = 0;
@@ -149,39 +143,90 @@ void setup_vsync_irq_handler(void) {
 	alt_int_cpu_enable();
 	alt_int_global_enable();
 
-	alt_int_dist_target_set(ALT_INT_INTERRUPT_F2S_FPGA_IRQ0, alt_int_util_cpu_current());
-	alt_int_dist_trigger_set(ALT_INT_INTERRUPT_F2S_FPGA_IRQ0, ALT_INT_TRIGGER_LEVEL);
+	alt_int_dist_target_set(ALT_INT_INTERRUPT_F2S_FPGA_IRQ0,
+			alt_int_util_cpu_current());
+	alt_int_dist_trigger_set(ALT_INT_INTERRUPT_F2S_FPGA_IRQ0,
+			ALT_INT_TRIGGER_LEVEL);
 	alt_int_dist_priority_set(ALT_INT_INTERRUPT_F2S_FPGA_IRQ0, 0);
-	alt_int_isr_register(ALT_INT_INTERRUPT_F2S_FPGA_IRQ0, vsync_irq_handler, NULL);
+	alt_int_isr_register(ALT_INT_INTERRUPT_F2S_FPGA_IRQ0, vsync_irq_handler,
+	NULL);
 	alt_int_dist_enable(ALT_INT_INTERRUPT_F2S_FPGA_IRQ0);
+}
+
+static char bg_color = RED;
+
+typedef struct {
+	int x;
+	int y;
+	int w;
+	Color color;
+} Player;
+
+static Player player;
+
+static NES_Controller controller;
+
+void tick(void) {
+	set_hex_displays(frame_skipped);
+
+	NES_Controller_Update(&controller);
+
+	if (controller.RIGHT_PRESSED && (player.x + player.w) % 640 != 639) {
+		player.x += 20;
+	} else if (controller.LEFT_PRESSED && player.x % 640 != 0) {
+		player.x -= 20;
+	} else if (controller.DOWN_PRESSED
+			&& (uintptr_t) (player.y + player.w) < 480) {
+		player.y += 20;
+	} else if (controller.UP_PRESSED && player.y >= 1) {
+		player.y -= 20;
+	}
+
+	if (controller.A_PRESSED) {
+		player.color++;
+	}
+
+	if (controller.SELECT_PRESSED) {
+		delay_us(3000);
+	}
+
+	if (controller.START_PRESSED) {
+		Screen_Clear(bg_color);
+	}
+
+}
+
+void render(void) {
+	Screen_Clear(bg_color);
+	//Screen_DrawBorders(0xFF);
+	Screen_DrawSquare(player.x, player.y, player.w, player.color);
 }
 
 int main() {
 	printf("DE1-SoC bare-metal demo\n");
 
 	setup_peripherals();
-
 	setup_vsync_irq_handler();
 
-	volatile uint32_t* screen2 = ALT_HWFPGASLVS_OFST + SDRAM_CONTROLLER_0_BASE
-			+ 640 * 480;
-	int i = 0;
+	player.x = 0;
+	player.y = 0;
+	player.w = 20;
+	player.color = 0x03;
 
+	Screen_Clear(BLUE);
+	Screen_FlipBuffer();
+	Screen_Clear(BLUE);
+	Screen_FlipBuffer();
+
+	/* Event loop never exits. */
 	while (1) {
-
-		for (i = 0; i < (640 * 480) / 4; ++i) {
-			*screen2++ = 0xFFFFFFFF;
-		}
-
-		screen2 = ALT_HWFPGASLVS_OFST + SDRAM_CONTROLLER_0_BASE
-					+ 640 * 480;
-	}
-
-	uint32_t hex_counter = 0;
-	while (true) {
-		handle_hex_displays(&hex_counter);
-		handle_hps_led();
-		delay_us(ALT_MICROSECS_IN_A_SEC / 10);
+		tick();
+		render();
+		update_done = true;
+		while (!vsync_done)
+			;
+		update_done = false;
+		vsync_done = false;
 	}
 
 	return 0;

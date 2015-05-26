@@ -19,19 +19,6 @@
  *	0: Data 	-> IN
  */
 
-typedef struct NES_Controller {
-	bool A_PRESSED;
-	bool B_PRESSED;
-	bool SELECT_PRESSED;
-	bool START_PRESSED;
-	bool UP_PRESSED;
-	bool DOWN_PRESSED;
-	bool LEFT_PRESSED;
-	bool RIGHT_PRESSED;
-
-	uint32_t pio_base;
-} NES_Controller;
-
-void NES_Controller_Update(NES_Controller* controller);
+uint8_t NES_Controller_Update();
 
 #endif

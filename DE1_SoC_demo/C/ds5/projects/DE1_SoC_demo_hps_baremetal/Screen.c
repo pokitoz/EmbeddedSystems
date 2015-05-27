@@ -1,18 +1,18 @@
 #include "Screen.h"
 
-static volatile uint32_t* screen = (uint32_t*) (VGA_BASE);
+static volatile uint32_t* volatile screen = (uint32_t*) (VGA_BASE);
 
-void Screen_Clear(Color bg_color) {
-	volatile uint32_t* ptr = screen;
-	int i = 0;
+void Screen_Clear(const Color bg_color) {
+	volatile uint32_t* volatile ptr = screen;
+	register int i = 0;
+	const register uint32_t int_color = (bg_color << 24) | (bg_color << 16) | (bg_color << 8) | bg_color;
 	for (i = 0; i < SCREEN_SIZE / 4; ++i) {
-		*ptr++ = (bg_color << 24) | (bg_color << 16) | (bg_color << 8)
-				| bg_color;
+		ptr[i] = int_color;
 	}
 }
 
 void Screen_DrawSquare(int x, int y, int w, Color color) {
-	volatile uint32_t* ptr = screen + (x + y * (640))/4;
+	volatile uint32_t* volatile ptr = screen + (x + y * (640))/4;
 	int i = 0;
 	int j = 0;
 	for (j = 0; j < w; ++j) {
@@ -36,7 +36,7 @@ void Screen_FlipBuffer(void) {
 }
 
 void Screen_DrawBorders(Color color) {
-	volatile uint32_t* ptr = screen;
+	volatile uint32_t* volatile ptr = screen;
 	int i = 0;
 
 	for (i = 0; i < 640 / 4; ++i) {

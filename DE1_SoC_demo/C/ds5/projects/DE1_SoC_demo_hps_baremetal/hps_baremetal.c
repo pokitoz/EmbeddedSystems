@@ -121,7 +121,7 @@ static volatile uint32_t frame_skipped = 0;
 
 void vsync_irq_handler(uint32_t icciar, void * context) {
 
-	if (frame_count % 2 == 1) {
+	if (frame_count % 4 == 3) {
 		// Flip buffers
 		Screen_FlipBuffer();
 
@@ -169,7 +169,7 @@ static NES_Controller controller;
 void tick(void) {
 	set_hex_displays(frame_skipped);
 
-	NES_Controller_Update(&controller);
+	/*NES_Controller_Update(&controller);
 
 	if (controller.RIGHT_PRESSED && (player.x + player.w) % 640 != 639) {
 		player.x += 20;
@@ -192,7 +192,7 @@ void tick(void) {
 
 	if (controller.START_PRESSED) {
 		Screen_Clear(bg_color);
-	}
+	}*/
 
 }
 
@@ -208,8 +208,8 @@ int main() {
 	setup_peripherals();
 	setup_vsync_irq_handler();
 
-	player.x = 0;
-	player.y = 0;
+	player.x = 200;
+	player.y = 200;
 	player.w = 20;
 	player.color = 0x03;
 

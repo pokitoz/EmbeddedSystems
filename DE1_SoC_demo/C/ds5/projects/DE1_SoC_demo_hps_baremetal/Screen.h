@@ -19,5 +19,6 @@ void Screen_FlipBuffer(void);
 void Screen_DrawBorders(Color color);
 void Screen_drawSprite(uint32_t x, uint32_t y, Sprite s);
 void Screen_drawSpritePrecise(uint32_t x, uint32_t y, Sprite s);
+void Screen_RenderToVGA(void);
 
 #endif

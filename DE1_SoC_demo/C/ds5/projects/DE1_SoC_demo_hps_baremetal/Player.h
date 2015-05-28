@@ -5,10 +5,12 @@
 #include "Color.h"
 #include "Bullet.h"
 
+
+#define FIXED_PLAYER_SPRITE_WIDTH (32)
+#define FIXED_PLAYER_SPRITE_HEIGHT (32)
+
 #define INIT_PLAYER_POS_X (240)
-#define FIXED_PLAYER_POS_Y (456)
-#define FIXED_PLAYER_SPRITE_WIDTH (24)
-#define FIXED_PLAYER_SPRITE_HEIGHT (16)
+#define FIXED_PLAYER_POS_Y (480 - FIXED_PLAYER_SPRITE_HEIGHT - 1)
 
 typedef struct Player {
 	int x;

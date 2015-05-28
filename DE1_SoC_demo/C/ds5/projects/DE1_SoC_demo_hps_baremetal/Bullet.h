@@ -11,7 +11,7 @@
 typedef struct Bullet {
 
 	uint32_t x;
-	uint32_t y;
+	int32_t y;
 	bool running;
 	Sprite sprite;
 

@@ -60,7 +60,7 @@ static volatile uint32_t frame_skipped = 0;
 
 void vsync_irq_handler(uint32_t icciar, void * context) {
 
-	if (frame_count % 2 == 1) {
+	if (frame_count % 4 == 3) {
 		// Flip buffers
 		Screen_FlipBuffer();
 
@@ -93,9 +93,9 @@ void tick(void) {
 	NES_Controller_Update(&controller);
 
 	if (controller.RIGHT_PRESSED && (player.x < 640-player.sprite.w)) {
-		player.x+= 8;
+		player.x+= 16;
 	} else if (controller.LEFT_PRESSED && (player.x % 640 > 0)) {
-		player.x-= 8;
+		player.x-= 16;
 	}
 
 	if (controller.START_PRESSED){
@@ -110,6 +110,12 @@ void tick(void) {
 	for(i = 0; i < NUMBER_INVADER_Y; ++i){
 			for(j = 0; j < NUMBER_INVADER_X; ++j){
 
+					//if(frame_count % 8 == 7) {
+						if(invaders[i][j].sprite.pixels == invader_pixels)
+							invaders[i][j].sprite.pixels = invader_pixels2;
+						else
+							invaders[i][j].sprite.pixels = invader_pixels;
+					//}
 					invaders[i][j].x += direction;
 
 					if(!changed && invaders[i][j].alive && (invaders[i][j].x >= (640 - invaders[i][j].sprite.w)) && direction==1){
@@ -164,14 +170,14 @@ void tick(void) {
 
 end_collision_detection:
 	if(player.bullet.running){
-		player.bullet.y -= 8;
+		player.bullet.y -= 16;
 	}
 
 
 
 
 
-	if(player.bullet.y == 0){
+	if(player.bullet.y <= 0){
 		player.bullet.running = false;
 	}
 

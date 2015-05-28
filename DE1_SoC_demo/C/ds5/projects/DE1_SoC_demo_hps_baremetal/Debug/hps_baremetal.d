@@ -8,14 +8,15 @@ hps_baremetal.d: ../hps_baremetal.c \
  C:\altera\14.1\embedded\ip\altera\hps\altera_hps\hwlib\include/alt_globaltmr.h \
  ../hps_baremetal.h \
  C:\altera\14.1\embedded\ip\altera\hps\altera_hps\hwlib\include/socal/hps.h \
- ../../hps_soc_system.h \
+ ../../hps_soc_system.h ../LEDs.h \
  C:\altera\14.1\embedded\ip\altera\hps\altera_hps\hwlib\include/hwlib.h \
  C:\altera\14.1\embedded\ip\altera\hps\altera_hps\hwlib\include/socal/alt_gpio.h \
  C:\altera\14.1\embedded\ip\altera\hps\altera_hps\hwlib\include/socal/socal.h \
  C:\altera\14.1\embedded\ip\altera\hps\altera_hps\hwlib\include/alt_interrupt.h \
  C:\altera\14.1\embedded\ip\altera\hps\altera_hps\hwlib\include/alt_interrupt_common.h \
  C:\altera\14.1\embedded\ip\altera\hps\altera_hps\hwlib\include/alt_interrupt_common.h \
- ../Screen.h ../NES_Controller.h
+ ../Screen.h ../Color.h ../Sprite.h ../NES_Controller.h ../Player.h \
+ ../Bullet.h ../Invader.h
 
 C:\altera\14.1\embedded\ip\altera\hps\altera_hps\hwlib\include/alt_clock_manager.h:
 
@@ -37,6 +38,8 @@ C:\altera\14.1\embedded\ip\altera\hps\altera_hps\hwlib\include/socal/hps.h:
 
 ../../hps_soc_system.h:
 
+../LEDs.h:
+
 C:\altera\14.1\embedded\ip\altera\hps\altera_hps\hwlib\include/hwlib.h:
 
 C:\altera\14.1\embedded\ip\altera\hps\altera_hps\hwlib\include/socal/alt_gpio.h:
@@ -51,4 +54,14 @@ C:\altera\14.1\embedded\ip\altera\hps\altera_hps\hwlib\include/alt_interrupt_com
 
 ../Screen.h:
 
+../Color.h:
+
+../Sprite.h:
+
 ../NES_Controller.h:
+
+../Player.h:
+
+../Bullet.h:
+
+../Invader.h:

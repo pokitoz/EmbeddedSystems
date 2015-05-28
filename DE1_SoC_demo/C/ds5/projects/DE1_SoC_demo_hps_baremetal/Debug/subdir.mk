@@ -4,7 +4,10 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Invader.c \
+../LEDs.c \
 ../NES_Controller.c \
+../Player.c \
 ../Screen.c \
 ../alt_clock_manager.c \
 ../alt_generalpurpose_io.c \
@@ -13,7 +16,10 @@ C_SRCS += \
 ../hps_baremetal.c 
 
 OBJS += \
+./Invader.o \
+./LEDs.o \
 ./NES_Controller.o \
+./Player.o \
 ./Screen.o \
 ./alt_clock_manager.o \
 ./alt_generalpurpose_io.o \
@@ -22,7 +28,10 @@ OBJS += \
 ./hps_baremetal.o 
 
 C_DEPS += \
+./Invader.d \
+./LEDs.d \
 ./NES_Controller.d \
+./Player.d \
 ./Screen.d \
 ./alt_clock_manager.d \
 ./alt_generalpurpose_io.d \

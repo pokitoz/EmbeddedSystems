@@ -55,3 +55,32 @@ void Screen_DrawBorders(Color color) {
 	}
 }
 
+void Screen_drawSpritePrecise(uint32_t x, uint32_t y, Sprite s){
+
+	volatile uint8_t* volatile ptr = (uint8_t*)screen + (x + y * (640));
+		int i = 0;
+		int j = 0;
+		for (j = 0; j < s.h; ++j) {
+			for (i = 0; i < s.w; ++i) {
+				*ptr = ((uint8_t*)s.pixels)[i + j * s.w];
+				ptr++;
+			}
+			ptr += 640 - s.w;
+		}
+
+}
+
+void Screen_drawSprite(uint32_t x, uint32_t y, Sprite s){
+
+	volatile uint32_t* volatile ptr = screen + (x + y * (640))/4;
+		int i = 0;
+		int j = 0;
+		for (j = 0; j < s.h; ++j) {
+			for (i = 0; i < s.w/4; ++i) {
+				*ptr = s.pixels[i + j*(s.w/4)];
+				ptr++;
+			}
+			ptr += (640 - s.w)/4;
+		}
+
+}

@@ -169,17 +169,16 @@ static NES_Controller controller;
 void tick(void) {
 	set_hex_displays(frame_skipped);
 
-	/*NES_Controller_Update(&controller);
+	NES_Controller_Update(&controller);
 
-	if (controller.RIGHT_PRESSED && (player.x + player.w) % 640 != 639) {
-		player.x += 20;
+	if (controller.RIGHT_PRESSED && (player.x + player.w) != 640) {
+		player.x += player.w;
 	} else if (controller.LEFT_PRESSED && player.x % 640 != 0) {
-		player.x -= 20;
-	} else if (controller.DOWN_PRESSED
-			&& (uintptr_t) (player.y + player.w) < 480) {
-		player.y += 20;
-	} else if (controller.UP_PRESSED && player.y >= 1) {
-		player.y -= 20;
+		player.x -= player.w;
+	} else if (controller.DOWN_PRESSED	&& player.y < 480-player.w) {
+		player.y += player.w;
+	} else if (controller.UP_PRESSED && player.y >= player.w) {
+		player.y -= player.w;
 	}
 
 	if (controller.A_PRESSED) {
@@ -192,7 +191,7 @@ void tick(void) {
 
 	if (controller.START_PRESSED) {
 		Screen_Clear(bg_color);
-	}*/
+	}
 
 }
 

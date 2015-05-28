@@ -103,12 +103,12 @@ BEGIN
 	dcfifo_mixed_widths_component : dcfifo_mixed_widths
 	GENERIC MAP (
 		intended_device_family => "Cyclone V",
-		lpm_numwords => 2048,
+		lpm_numwords => 16384,
 		lpm_showahead => "OFF",
 		lpm_type => "dcfifo_mixed_widths",
 		lpm_width => 32,
-		lpm_widthu => 11,
-		lpm_widthu_r => 13,
+		lpm_widthu => 14,
+		lpm_widthu_r => 16,
 		lpm_width_r => 8,
 		overflow_checking => "ON",
 		rdsync_delaypipe => 4,
@@ -143,7 +143,7 @@ END SYN;
 -- Retrieval info: PRIVATE: AlmostFullThr NUMERIC "-1"
 -- Retrieval info: PRIVATE: CLOCKS_ARE_SYNCHRONIZED NUMERIC "0"
 -- Retrieval info: PRIVATE: Clock NUMERIC "4"
--- Retrieval info: PRIVATE: Depth NUMERIC "2048"
+-- Retrieval info: PRIVATE: Depth NUMERIC "16384"
 -- Retrieval info: PRIVATE: Empty NUMERIC "1"
 -- Retrieval info: PRIVATE: Full NUMERIC "1"
 -- Retrieval info: PRIVATE: INTENDED_DEVICE_FAMILY STRING "Cyclone V"
@@ -171,12 +171,12 @@ END SYN;
 -- Retrieval info: PRIVATE: wsUsedW NUMERIC "0"
 -- Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
 -- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Cyclone V"
--- Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "2048"
+-- Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "16384"
 -- Retrieval info: CONSTANT: LPM_SHOWAHEAD STRING "OFF"
 -- Retrieval info: CONSTANT: LPM_TYPE STRING "dcfifo_mixed_widths"
 -- Retrieval info: CONSTANT: LPM_WIDTH NUMERIC "32"
--- Retrieval info: CONSTANT: LPM_WIDTHU NUMERIC "11"
--- Retrieval info: CONSTANT: LPM_WIDTHU_R NUMERIC "13"
+-- Retrieval info: CONSTANT: LPM_WIDTHU NUMERIC "14"
+-- Retrieval info: CONSTANT: LPM_WIDTHU_R NUMERIC "16"
 -- Retrieval info: CONSTANT: LPM_WIDTH_R NUMERIC "8"
 -- Retrieval info: CONSTANT: OVERFLOW_CHECKING STRING "ON"
 -- Retrieval info: CONSTANT: RDSYNC_DELAYPIPE NUMERIC "4"

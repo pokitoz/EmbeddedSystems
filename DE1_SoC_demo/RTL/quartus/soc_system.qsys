@@ -53,7 +53,7 @@
    {
       datum _sortIndex
       {
-         value = "18";
+         value = "17";
          type = "int";
       }
    }
@@ -290,7 +290,7 @@
    {
       datum _sortIndex
       {
-         value = "17";
+         value = "18";
          type = "int";
       }
    }
@@ -1145,7 +1145,7 @@
   <parameter name="cpuReset" value="false" />
   <parameter name="customInstSlavesSystemInfo" value="&lt;info/&gt;" />
   <parameter name="dataAddrWidth" value="16" />
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='buttons_memory.s1' start='0x0' end='0x1000' /><slave name='vga_module_0.avalon_slave' start='0x1000' end='0x1010' /><slave name='switches_0.s1' start='0x1010' end='0x1020' /><slave name='Controller_nes_pio.s1' start='0x1020' end='0x1040' /><slave name='leds_0.s1' start='0x1040' end='0x1050' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x1050' end='0x1058' /><slave name='nios2_qsys_0.jtag_debug_module' start='0x2000' end='0x2800' /><slave name='onchip_memory2_0.s1' start='0x8000' end='0xC000' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='buttons_memory.s1' start='0x0' end='0x1000' /><slave name='switches_0.s1' start='0x1010' end='0x1020' /><slave name='Controller_nes_pio.s1' start='0x1020' end='0x1040' /><slave name='leds_0.s1' start='0x1040' end='0x1050' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x1050' end='0x1058' /><slave name='nios2_qsys_0.jtag_debug_module' start='0x2000' end='0x2800' /><slave name='onchip_memory2_0.s1' start='0x8000' end='0xC000' /></address-map>]]></parameter>
   <parameter name="dcache_bursts" value="false" />
   <parameter name="dcache_lineSize" value="32" />
   <parameter name="dcache_numTCDM" value="0" />
@@ -1538,7 +1538,7 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="10" />
  </module>
- <module name="vga_module_0" kind="vga_module" version="3.97" enabled="1" />
+ <module name="vga_module_0" kind="vga_module" version="4.1" enabled="1" />
  <connection
    kind="avalon"
    version="14.1"
@@ -1555,15 +1555,6 @@
    end="jtag_uart_0.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x1050" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="14.1"
-   start="nios2_qsys_0.data_master"
-   end="vga_module_0.avalon_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x1000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection

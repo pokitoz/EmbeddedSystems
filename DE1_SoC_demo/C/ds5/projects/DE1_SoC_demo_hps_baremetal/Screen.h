@@ -15,6 +15,7 @@ typedef uint8_t Color;
 #define RED 	0xE0
 #define BLUE	0x0E
 #define WHITE	0xFF
+#define GREEN 	0x1C
 
 static volatile uint32_t* vga_module = ALT_LWFPGASLVS_ADDR + VGA_MODULE_0_BASE;
 

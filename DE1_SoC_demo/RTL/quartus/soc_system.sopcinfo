@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="soc_system" kind="soc_system" version="1.0" fabric="QSYS">
  <!-- Format version 14.1 186 (Future versions may contain additional information.) -->
- <!-- 2015.05.28.10:19:27 -->
+ <!-- 2015.05.28.15:09:41 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1432801166</value>
+  <value>1432818579</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -81011,7 +81011,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="dataSlaveMapParam">
    <type>java.lang.String</type>
-   <value><![CDATA[<address-map><slave name='buttons_memory.s1' start='0x0' end='0x1000' /><slave name='vga_module_0.avalon_slave' start='0x1000' end='0x1010' /><slave name='switches_0.s1' start='0x1010' end='0x1020' /><slave name='Controller_nes_pio.s1' start='0x1020' end='0x1040' /><slave name='leds_0.s1' start='0x1040' end='0x1050' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x1050' end='0x1058' /><slave name='nios2_qsys_0.jtag_debug_module' start='0x2000' end='0x2800' /><slave name='onchip_memory2_0.s1' start='0x8000' end='0xC000' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='buttons_memory.s1' start='0x0' end='0x1000' /><slave name='switches_0.s1' start='0x1010' end='0x1020' /><slave name='Controller_nes_pio.s1' start='0x1020' end='0x1040' /><slave name='leds_0.s1' start='0x1040' end='0x1050' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x1050' end='0x1058' /><slave name='nios2_qsys_0.jtag_debug_module' start='0x2000' end='0x2800' /><slave name='onchip_memory2_0.s1' start='0x8000' end='0xC000' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -81596,14 +81596,6 @@ parameters are a RESULT of the module parameters. -->
     <name>jtag_uart_0.avalon_jtag_slave</name>
     <baseAddress>4176</baseAddress>
     <span>8</span>
-   </memoryBlock>
-   <memoryBlock>
-    <isBridge>false</isBridge>
-    <moduleName>vga_module_0</moduleName>
-    <slaveName>avalon_slave</slaveName>
-    <name>vga_module_0.avalon_slave</name>
-    <baseAddress>4096</baseAddress>
-    <span>16</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -89370,7 +89362,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="vga_module_0"
    kind="vga_module"
-   version="3.97"
+   version="4.1"
    path="vga_module_0">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -98682,57 +98674,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>avalon_jtag_slave</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_qsys_0.data_master/vga_module_0.avalon_slave"
-   kind="avalon"
-   version="14.1"
-   start="nios2_qsys_0.data_master"
-   end="vga_module_0.avalon_slave">
-  <parameter name="arbitrationPriority">
-   <type>int</type>
-   <value>1</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="baseAddress">
-   <type>java.math.BigInteger</type>
-   <value>0x1000</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="defaultConnection">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>nios2_qsys_0</startModule>
-  <startConnectionPoint>data_master</startConnectionPoint>
-  <endModule>vga_module_0</endModule>
-  <endConnectionPoint>avalon_slave</endConnectionPoint>
- </connection>
- <connection
    name="nios2_qsys_0.data_master/nios2_qsys_0.jtag_debug_module"
    kind="avalon"
    version="14.1"
@@ -101435,7 +101376,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>vga_module</displayName>
-  <version>3.97</version>
+  <version>4.1</version>
  </plugin>
  <plugin>
   <instanceCount>68</instanceCount>
@@ -101454,7 +101395,7 @@ parameters are a RESULT of the module parameters. -->
   <version>14.1</version>
  </plugin>
  <plugin>
-  <instanceCount>109</instanceCount>
+  <instanceCount>108</instanceCount>
   <name>avalon</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IConnection</subtype>

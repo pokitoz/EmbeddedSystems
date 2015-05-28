@@ -121,7 +121,7 @@ static volatile uint32_t frame_skipped = 0;
 
 void vsync_irq_handler(uint32_t icciar, void * context) {
 
-	if (frame_count % 4 == 3) {
+	if (frame_count % 2 == 1) {
 		// Flip buffers
 		Screen_FlipBuffer();
 
@@ -153,7 +153,7 @@ void setup_vsync_irq_handler(void) {
 	alt_int_dist_enable(ALT_INT_INTERRUPT_F2S_FPGA_IRQ0);
 }
 
-static char bg_color = RED;
+static char bg_color = 0x00;
 
 typedef struct {
 	int x;
@@ -197,7 +197,7 @@ void tick(void) {
 
 void render(void) {
 	Screen_Clear(bg_color);
-	//Screen_DrawBorders(0xFF);
+	Screen_DrawBorders(0xFF);
 	Screen_DrawSquare(player.x, player.y, player.w, player.color);
 }
 
@@ -210,7 +210,7 @@ int main() {
 	player.x = 200;
 	player.y = 200;
 	player.w = 20;
-	player.color = 0x03;
+	player.color = GREEN;
 
 	Screen_Clear(BLUE);
 	Screen_FlipBuffer();

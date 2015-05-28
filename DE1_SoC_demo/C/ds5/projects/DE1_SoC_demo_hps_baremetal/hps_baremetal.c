@@ -78,8 +78,14 @@ void vsync_irq_handler(uint32_t icciar, void * context) {
 
 
 static char bg_color = 0x00;
-
 static NES_Controller controller;
+static int direction = 1;
+static bool changed = false;
+
+
+bool collides(uint32_t x, uint32_t y, Sprite s, Bullet b){
+	return x < (b.x + b.sprite.w) && (x+s.w) > b.x && y < (b.y + b.sprite.h) && (y + s.h) > b.y;
+}
 
 void tick(void) {
 	set_hex_displays(frame_skipped);
@@ -92,6 +98,46 @@ void tick(void) {
 		player.x-= 8;
 	}
 
+	if (controller.START_PRESSED){
+		Invaders_init();
+		direction = 1;
+		changed = false;
+	}
+
+	int i = 0;
+	int j = 0;
+	int nextDirection = direction;
+	for(i = 0; i < NUMBER_INVADER_Y; ++i){
+			for(j = 0; j < NUMBER_INVADER_X; ++j){
+
+					invaders[i][j].x += direction;
+
+					if(!changed && invaders[i][j].alive && (invaders[i][j].x >= (640 - invaders[i][j].sprite.w)) && direction==1){
+							changed = true;
+							nextDirection = -direction;
+
+					}else if (!changed && invaders[i][j].alive && (invaders[i][j].x <= 0) && direction==-1){
+							changed = true;
+							nextDirection = -direction;
+
+					}
+			}
+	}
+
+
+	for(i = 0; changed && i < NUMBER_INVADER_Y; ++i){
+			for(j = 0; j < NUMBER_INVADER_X; ++j){
+					invaders[i][j].y += FIXED_INVADER_SPRITE_HEIGHT;
+			}
+	}
+
+
+
+	changed = false;
+	direction = nextDirection;
+
+
+
 	if (controller.A_PRESSED && !player.bullet.running){
 		player.bullet.running = true;
 		player.bullet.x = player.x + (player.sprite.w / 2) - (player.bullet.sprite.w / 2);
@@ -100,8 +146,29 @@ void tick(void) {
 
 
 	if(player.bullet.running){
+
+		for(i = 0; i < NUMBER_INVADER_Y; ++i){
+					for(j = 0; j < NUMBER_INVADER_X; ++j){
+						Invader* invader = &invaders[i][j];
+						if(invader->alive && collides(invader->x, invader->y, invader->sprite, player.bullet)){
+							player.bullet.running = false;
+							invader->alive = false;
+							goto end_collision_detection;
+					}
+				}
+		}
+
+
+
+	}
+
+end_collision_detection:
+	if(player.bullet.running){
 		player.bullet.y -= 8;
 	}
+
+
+
 
 
 	if(player.bullet.y == 0){
@@ -134,8 +201,9 @@ void render(void) {
 	int j = 0;
 	for(i = 0; i < NUMBER_INVADER_Y; ++i){
 		for(j = 0; j < NUMBER_INVADER_X; ++j){
-			if(invaders[i][j].alive)
-			Screen_drawSprite(invaders[i][j].x, invaders[i][j].y, invaders[i][j].sprite);
+			if(invaders[i][j].alive){
+				Screen_drawSprite(invaders[i][j].x, invaders[i][j].y, invaders[i][j].sprite);
+			}
 		}
 	}
 

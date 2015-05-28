@@ -29,8 +29,8 @@ void Invaders_init(void){
 	int j = 0;
 	for(i = 0; i < NUMBER_INVADER_Y; ++i){
 		for (j = 0; j < NUMBER_INVADER_X; ++j) {
-			invaders[i][j].x =  j * (FIXED_INVADER_SPRITE_WIDTH + FIXED_INVADER_SPRITE_WIDTH);
-			invaders[i][j].y = i * (FIXED_INVADER_SPRITE_HEIGHT + FIXED_INVADER_SPRITE_HEIGHT);
+			invaders[i][j].x =  j * (FIXED_INVADER_GAP_X);
+			invaders[i][j].y = i * (FIXED_INVADER_GAP_Y);
 			invaders[i][j].alive = true;
 			invaders[i][j].sprite.w = FIXED_INVADER_SPRITE_WIDTH;
 			invaders[i][j].sprite.h = FIXED_INVADER_SPRITE_HEIGHT;

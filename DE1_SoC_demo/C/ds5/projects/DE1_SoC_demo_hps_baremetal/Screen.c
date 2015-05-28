@@ -2,6 +2,7 @@
 
 static volatile uint32_t* volatile screen = (uint32_t*) (VGA_BASE);
 
+
 void Screen_Clear(const Color bg_color) {
 	volatile uint32_t* volatile ptr = screen;
 		int i = 0;

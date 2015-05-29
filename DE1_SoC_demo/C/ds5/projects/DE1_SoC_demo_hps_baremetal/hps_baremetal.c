@@ -45,6 +45,10 @@ void delay_us(uint32_t us) {
 	while (alt_globaltmr_get64() < end_time) {
 		// polling wait
 	}
+
+	end_time = alt_globaltmr_get64();
+	printf("Duration: %llu\n", end_time - start_time);
+	printf("Duration (us): %lf\n", (end_time - start_time) * (ALT_MICROSECS_IN_A_SEC / ((double)timer_clock/timer_prescaler)));
 }
 
 bool is_fpga_button_pressed(uint32_t button_number) {
@@ -60,7 +64,7 @@ static volatile uint32_t frame_skipped = 0;
 
 void vsync_irq_handler(uint32_t icciar, void * context) {
 
-	if (frame_count % 4 == 3) {
+	if (frame_count % 2 == 1) {
 		// Flip buffers
 		Screen_FlipBuffer();
 
@@ -214,7 +218,7 @@ void render(void) {
 	}
 
 
-	Screen_DrawBorders(0xFF);
+	//Screen_DrawBorders(0xFF);
 
 	if(player.bullet.running){
 		Screen_drawSpritePrecise(player.bullet.x, player.bullet.y, player.bullet.sprite);
@@ -223,10 +227,41 @@ void render(void) {
 
 }
 
+
+typedef struct Timer_s{
+	uint64_t start_time;
+	uint32_t timer_prescaler;
+	alt_freq_t timer_clock;
+	uint64_t end_time;
+} Timer_t;
+
+static void Timer_start(Timer_t* timer){
+	timer->start_time = alt_globaltmr_get64();
+	timer->timer_prescaler = alt_globaltmr_prescaler_get() + 1;
+
+	assert(ALT_E_SUCCESS == alt_clk_freq_get(ALT_CLK_MPU_PERIPH, &timer->timer_clock));
+}
+
+static Timer_stop(Timer_t* timer) {
+	timer->end_time = alt_globaltmr_get64();
+	//printf("Duration: %llu\n", timer->end_time - timer->start_time);
+	/*printf("Duration (us): %lf\n",
+			(timer->end_time - timer->start_time)
+					* (ALT_MICROSECS_IN_A_SEC
+							/ ((double) timer->timer_clock / timer->timer_prescaler)));
+
+							 */
+}
+
 int main(void) {
 	printf("DE1-SoC bare-metal demo\n");
 
 	setup_peripherals();
+
+	DMA_init();
+
+
+	Timer_t t;
 	setup_vsync_irq_handler();
 
 	Screen_Clear(BLUE);
@@ -238,8 +273,15 @@ int main(void) {
 
 	/* Event loop never exits. */
 	while (1) {
+		Timer_start(&t);
 		tick();
 		render();
+		DMA_start();
+		Timer_stop(&t);
+
+		volatile double time = (t.end_time - t.start_time)
+		* (ALT_MICROSECS_IN_A_SEC
+				/ ((double) t.timer_clock));
 		update_done = true;
 		while (!vsync_done)
 			;

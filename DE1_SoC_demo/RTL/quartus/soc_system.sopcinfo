@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="soc_system" kind="soc_system" version="1.0" fabric="QSYS">
  <!-- Format version 14.1 186 (Future versions may contain additional information.) -->
- <!-- 2015.05.28.15:09:41 -->
+ <!-- 2015.05.29.16:48:02 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1432818579</value>
+  <value>1432910881</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -98579,7 +98579,7 @@ parameters are a RESULT of the module parameters. -->
    end="sdram_controller_0.s1">
   <parameter name="arbitrationPriority">
    <type>int</type>
-   <value>1</value>
+   <value>10</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>

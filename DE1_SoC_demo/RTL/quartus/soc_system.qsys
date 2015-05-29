@@ -1544,7 +1544,7 @@
    version="14.1"
    start="vga_module_0.avalon_master"
    end="sdram_controller_0.s1">
-  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="arbitrationPriority" value="10" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
  </connection>

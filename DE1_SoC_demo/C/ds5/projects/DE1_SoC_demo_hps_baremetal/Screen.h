@@ -6,6 +6,7 @@
 #include "socal/hps.h"
 #include "Color.h"
 #include "Sprite.h"
+#include <stddef.h>
 
 #define ALT_HWFPGASLVS_OFST (0xC0000000)
 #define VGA_BASE (ALT_HWFPGASLVS_OFST + SDRAM_CONTROLLER_0_BASE)
@@ -20,5 +21,8 @@ void Screen_DrawBorders(Color color);
 void Screen_drawSprite(uint32_t x, uint32_t y, Sprite s);
 void Screen_drawSpritePrecise(uint32_t x, uint32_t y, Sprite s);
 void Screen_RenderToVGA(void);
+
+void DMA_init(void);
+void DMA_start(void);
 
 #endif

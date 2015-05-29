@@ -29,6 +29,7 @@
 									<listOptionValue builtIn="false" value="&quot;C:\altera\14.1\embedded\ip\altera\hps\altera_hps\hwlib\include&quot;"/>
 								</option>
 								<option id="com.arm.eclipse.cdt.managedbuild.ds5.gcc.baremetal.tool.c.compiler.option.cpu.2099309376" name="CPU (-mcpu)" superClass="com.arm.eclipse.cdt.managedbuild.ds5.gcc.baremetal.tool.c.compiler.option.cpu" value="cortex-a9" valueType="string"/>
+								<option id="com.arm.eclipse.cdt.managedbuild.ds5.gcc.baremetal.tool.c.compiler.option.other.1283928217" superClass="com.arm.eclipse.cdt.managedbuild.ds5.gcc.baremetal.tool.c.compiler.option.other" value="-std=c99" valueType="string"/>
 								<inputType id="com.arm.eclipse.cdt.managedbuild.ds5.gcc.baremetal.tool.c.compiler.input.1988686587" superClass="com.arm.eclipse.cdt.managedbuild.ds5.gcc.baremetal.tool.c.compiler.input"/>
 							</tool>
 							<tool id="com.arm.eclipse.cdt.managedbuild.ds5.gcc.baremetal.tool.assembler.var.com.altera.ds5ae.toolchain.gcc.baremetal.1064028251" name="GCC Assembler" superClass="com.arm.eclipse.cdt.managedbuild.ds5.gcc.baremetal.tool.assembler.var.com.altera.ds5ae.toolchain.gcc.baremetal">

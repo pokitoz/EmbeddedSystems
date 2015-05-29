@@ -10,6 +10,8 @@ C_SRCS += \
 ../Player.c \
 ../Screen.c \
 ../alt_clock_manager.c \
+../alt_dma.c \
+../alt_dma_program.c \
 ../alt_generalpurpose_io.c \
 ../alt_globaltmr.c \
 ../alt_interrupt.c \
@@ -22,6 +24,8 @@ OBJS += \
 ./Player.o \
 ./Screen.o \
 ./alt_clock_manager.o \
+./alt_dma.o \
+./alt_dma_program.o \
 ./alt_generalpurpose_io.o \
 ./alt_globaltmr.o \
 ./alt_interrupt.o \
@@ -34,6 +38,8 @@ C_DEPS += \
 ./Player.d \
 ./Screen.d \
 ./alt_clock_manager.d \
+./alt_dma.d \
+./alt_dma_program.d \
 ./alt_generalpurpose_io.d \
 ./alt_globaltmr.d \
 ./alt_interrupt.d \
@@ -44,7 +50,7 @@ C_DEPS += \
 %.o: ../%.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C Compiler'
-	arm-altera-eabi-gcc -mcpu=cortex-a9 -I"C:\altera\14.1\embedded\ip\altera\hps\altera_hps\hwlib\include" -O3 -g -Wall -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -c -o "$@" "$<"
+	arm-altera-eabi-gcc -mcpu=cortex-a9 -I"C:\altera\14.1\embedded\ip\altera\hps\altera_hps\hwlib\include" -O3 -g -Wall -std=c99 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -c -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
